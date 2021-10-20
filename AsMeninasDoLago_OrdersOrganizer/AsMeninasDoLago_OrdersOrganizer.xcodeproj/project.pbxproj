@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02B69F2C27207888006C1A2F /* ProductsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B69F2B27207888006C1A2F /* ProductsCollectionView.swift */; };
+		02B69F2E272079DF006C1A2F /* ProductJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B69F2D272079DF006C1A2F /* ProductJSON.swift */; };
 		BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD284914271B9DB600A8FD46 /* FoundationExtension.swift */; };
 		BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */; };
 		BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEAD270FAA850000CE8C /* ContentView.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02B69F2B27207888006C1A2F /* ProductsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCollectionView.swift; sourceTree = "<group>"; };
+		02B69F2D272079DF006C1A2F /* ProductJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductJSON.swift; sourceTree = "<group>"; };
 		BD284914271B9DB600A8FD46 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsMeninasDoLago_OrdersOrganizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsMeninasDoLago_OrdersOrganizerApp.swift; sourceTree = "<group>"; };
@@ -41,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02B69F2A27207851006C1A2F /* NewOrders */ = {
+			isa = PBXGroup;
+			children = (
+				02B69F2B27207888006C1A2F /* ProductsCollectionView.swift */,
+			);
+			path = NewOrders;
+			sourceTree = "<group>";
+		};
 		BDAFEE9F270FAA840000CE8C = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +104,7 @@
 				BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */,
 				BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */,
 				BD284914271B9DB600A8FD46 /* FoundationExtension.swift */,
+				02B69F2D272079DF006C1A2F /* ProductJSON.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -99,6 +112,7 @@
 		BDAFEEBC270FAD6E0000CE8C /* Views-Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				02B69F2A27207851006C1A2F /* NewOrders */,
 				BDAFEEC6271B958B0000CE8C /* Home */,
 			);
 			path = "Views-Coordinator";
@@ -183,11 +197,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */,
+				02B69F2C27207888006C1A2F /* ProductsCollectionView.swift in Sources */,
 				BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */,
 				BDAFEEBE270FAE140000CE8C /* HomeOrdersCollectionView.swift in Sources */,
 				BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */,
 				BDAFEEC5271B93E30000CE8C /* OrderJSON.swift in Sources */,
 				BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */,
+				02B69F2E272079DF006C1A2F /* ProductJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
