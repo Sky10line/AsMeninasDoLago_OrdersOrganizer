@@ -117,7 +117,8 @@ struct tableCell: View {
                 Image(systemName: item.img)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 75)
+                    .frame(minHeight: 50, idealHeight: 75, maxHeight: 75)
+                    //.frame(height: 75)
                 
                 VStack (alignment: .leading, spacing: 5) {
                     // Nome do item
