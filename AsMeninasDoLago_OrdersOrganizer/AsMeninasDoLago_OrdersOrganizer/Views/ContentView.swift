@@ -8,10 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var showModal = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+            ZStack {
+                
+                // Botão auxiliar pra abrir a modal
+                Button(action: {
+                        showModal = true
+                }, label: {
+                    Text("Button")
+                })
+                .padding(.vertical, 20)
+                .padding(.horizontal, 40)
+                    
+            }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .sheet(isPresented: $showModal, content: {
+            modalView()
+                .ignoresSafeArea()
+        })
+            
+        
     }
+    
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
