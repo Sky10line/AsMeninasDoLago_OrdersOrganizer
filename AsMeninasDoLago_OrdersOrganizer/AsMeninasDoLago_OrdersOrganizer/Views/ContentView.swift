@@ -26,7 +26,7 @@ struct ContentView: View {
             }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .sheet(isPresented: $showModal, content: {
-            modalView()
+            modalAddItemView()
                 .ignoresSafeArea()
         })
             

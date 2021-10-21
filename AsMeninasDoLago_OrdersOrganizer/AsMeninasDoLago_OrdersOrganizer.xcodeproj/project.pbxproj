@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100219A62720A42F00EE36D4 /* modalAddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100219A52720A42F00EE36D4 /* modalAddItemView.swift */; };
 		105969632719DED700510399 /* modalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105969622719DED700510399 /* modalView.swift */; };
 		BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */; };
 		BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEAD270FAA850000CE8C /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		100219A52720A42F00EE36D4 /* modalAddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modalAddItemView.swift; sourceTree = "<group>"; };
 		105969622719DED700510399 /* modalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modalView.swift; sourceTree = "<group>"; };
 		BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsMeninasDoLago_OrdersOrganizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsMeninasDoLago_OrdersOrganizerApp.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				BDAFEEB4270FAA850000CE8C /* Info.plist */,
 				BDAFEEB1270FAA850000CE8C /* Preview Content */,
 				105969622719DED700510399 /* modalView.swift */,
+				100219A52720A42F00EE36D4 /* modalAddItemView.swift */,
 			);
 			path = AsMeninasDoLago_OrdersOrganizer;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */,
+				100219A62720A42F00EE36D4 /* modalAddItemView.swift in Sources */,
 				BDAFEEBE270FAE140000CE8C /* OpenOrdersInCells.swift in Sources */,
 				105969632719DED700510399 /* modalView.swift in Sources */,
 				BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */,

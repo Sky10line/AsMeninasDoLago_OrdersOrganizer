@@ -29,7 +29,7 @@ struct modalView: View {
                         Button(action: { presentation.wrappedValue.dismiss() }){
                             Image(systemName: "xmark.circle.fill")
                                 .renderingMode(.template)
-                                .foregroundColor(.black)
+                                .foregroundColor(Color.primary)
                                 .font(.largeTitle)
                                 
                         }
