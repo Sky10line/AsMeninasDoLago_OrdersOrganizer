@@ -28,8 +28,11 @@ struct modalAddItemView: View {
                     .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
+                    .frame(maxWidth: .infinity)
                     .foregroundColor(.black)
                     .background(Color.blue)
+                    .ignoresSafeArea()
+                    
                 
                 VStack {
                     // Nome do produto
@@ -58,11 +61,17 @@ struct modalAddItemView: View {
                             TextField("\(qtdItem)", value: $qtdItem, formatter: NumberFormatter())
                                 .font(.title2)
                                 .onAppear {
+                                    
                                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
                                         let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                                         let height = value.height
+                                        if UIDevice.current.model == "iPad" {
+                                            self.value = height / 6
+                                        }
+                                        else {
+                                            self.value = height
+                                        }
                                         
-                                        self.value = height
                                         
                                     }
                                     
