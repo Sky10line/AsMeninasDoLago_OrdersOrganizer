@@ -9,32 +9,66 @@ import SwiftUI
 
 struct ContentView: View {
 	@State var searchText = ""
+	@State private var isShowingNewOrderView: Bool = false
+	let orders = [
+		OrderJSON(name: "Rodrigo", totalValue: 10.00),
+		OrderJSON(name: "Rafael", totalValue: 50.00),
+		OrderJSON(name: "Roger", totalValue: 50.00),
+		OrderJSON(name: "Aline", totalValue: 50.00)
+	]
+	
+	init() {
+		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+				  UINavigationBar.appearance().shadowImage = UIImage()
+				  UINavigationBar.appearance().isTranslucent = true
+				  UINavigationBar.appearance().backgroundColor = .clear
+	}
 	
     var body: some View {
-		VStack {
-			navBar(title: "Comandas")
-			searchBar(searchText: $searchText)
-			Spacer()
-			LinearGradient(gradient: Gradient(colors: [Color(.appGreen), .white]), startPoint: .topLeading, endPoint: .trailing)
-		}
+		NavigationView {
+			VStack {
+				NavBar(title: "Comandas")
+				
+				SearchBar(searchText: $searchText)
+				Divider()
+					.padding(.top, 8)
+					.padding(.horizontal)
+				
+				HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }))
+				Spacer()
+				
+				NavigationLink(
+					destination: NewOrderView(),
+					isActive: $isShowingNewOrderView,
+					label: { EmptyView() })
+				
+				BigButton(text: "Nova comanda") {
+					isShowingNewOrderView = true
+				}
+			}
+			.background(Color.white.ignoresSafeArea())
+			.navigationBarHidden(true)
+			.navigationTitle("Comandas")
+		}.accentColor(Color(UIColor.appGreen))
     }
 }
 
-private struct navBar: View {
+private struct NavBar: View {
 	var title: String
 	var body: some View {
 		HStack {
 			Text(title)
 				.bold()
-				.font(.title)
+				.font(.largeTitle)
 				.padding(.horizontal)
+				.foregroundColor(.black)
 			
 			Spacer()
 		}
 	}
 }
 
-private struct searchBar: View {
+private struct SearchBar: View {
 	@Binding var searchText: String
 	@State var isSearching = false
 	
@@ -44,7 +78,7 @@ private struct searchBar: View {
 				TextField("Pesquisar", text: $searchText)
 					.padding(.leading, 30)
 			}.padding()
-			.background(Color(.systemGray4))
+			.background(Color(UIColor.gray2))
 			.cornerRadius(20)
 			.padding(.horizontal)
 			.onTapGesture(perform: {
@@ -64,7 +98,7 @@ private struct searchBar: View {
 						})
 					}
 				}.padding(.horizontal, 32)
-				.foregroundColor(.gray)
+				.foregroundColor(Color(UIColor.defaultPlaceholder))
 			).transition(.move(edge: .trailing))
 			.animation(.spring())
 			
@@ -78,9 +112,7 @@ private struct searchBar: View {
 					Text("Cancelar")
 						.padding(.vertical)
 						.padding(.trailing)
-						.padding(.leading, 0)
-				})
-				.transition(.move(edge: .trailing))
+				}).transition(.move(edge: .trailing))
 				.animation(.spring())
 			}
 		}

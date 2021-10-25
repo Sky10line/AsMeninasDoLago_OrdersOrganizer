@@ -1,0 +1,67 @@
+//
+//  TabNewOrder.swift
+//  AsMeninasDoLago_OrdersOrganizer
+//
+//  Created by Rodrigo Ryo Aoki on 22/10/21.
+//
+
+import SwiftUI
+
+struct TabNewOrder: View {
+	let availableTabs: [Options]
+	@Binding var selectedTab: Options
+	@Namespace var animation
+	
+	enum Options: String {
+		case lanches = "Lanches"
+		case hotdog = "Hot Dog"
+		case bebidas = "Bebidas"
+		case none = ""
+	}
+	
+	init(tabs: [Options], selectedTab: Binding<Options>) {
+		self.availableTabs = tabs
+		self._selectedTab = selectedTab
+	}
+	
+    var body: some View {
+		ScrollView(.horizontal, showsIndicators: false, content: {
+			HStack(spacing: 15) {
+				ForEach(availableTabs, id: \.self) { tab in
+					TabButton(option: tab, selectedTab: $selectedTab, animation: animation)
+				}
+			}.padding(.horizontal)
+		}).onAppear(perform: {
+			self.selectedTab = availableTabs[0]
+		})
+    }
+}
+
+private struct TabButton: View {
+	var option: TabNewOrder.Options
+	@Binding var selectedTab: TabNewOrder.Options
+	var animation: Namespace.ID
+	
+	var body: some View {
+		Button(action: {
+			
+			withAnimation(.spring()) {
+				selectedTab = option
+			}
+			
+		}, label: {
+			VStack(alignment: .center, spacing: 6, content: {
+				Text(option.rawValue)
+					.fontWeight(.bold)
+					.foregroundColor(selectedTab == option ? Color(UIColor.appGreen) : Color(UIColor.gray1))
+				
+				if selectedTab == option {
+					Capsule()
+						.fill(Color(UIColor.appGreen))
+						.frame(width: 60, height: 2)
+						.matchedGeometryEffect(id: "TabNewOrder", in: animation)
+				}
+			}).frame(width: 100)
+		})
+ }
+}
