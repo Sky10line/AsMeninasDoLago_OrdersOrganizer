@@ -60,6 +60,8 @@ struct HomeOrdersCollectionViewCell: View {
 
 struct HomeOrdersCollectionView: View {
 	let data: Array<OrderJSON>
+    @Binding var isModalToBeShown: Bool
+    @Binding var dataToBeShown: OrderJSON
 	
 	let layout = [
 		GridItem(.flexible(), spacing: 16),
@@ -70,7 +72,11 @@ struct HomeOrdersCollectionView: View {
 		ScrollView {
 			LazyVGrid(columns: layout, spacing: 16) {
 				ForEach(data, id: \.self) { item in
-					HomeOrdersCollectionViewCell(item: item, action: nil)
+					HomeOrdersCollectionViewCell(item: item, action: {
+                        isModalToBeShown = true
+                        dataToBeShown = item
+                        print("Cliquei num item da collection")
+                    })
 				}
 			}.padding(.horizontal)
 			.padding(.vertical, 8)
@@ -84,6 +90,6 @@ struct HomeOrdersCollectionView_Previews: PreviewProvider {
 			OrderJSON(name: "Rodrigo", totalValue: 10.00),
 			OrderJSON(name: "Pilar de Souza Rocha da Silva", totalValue: 50.00)
 		]
-		HomeOrdersCollectionView(data: orders)
+        HomeOrdersCollectionView(data: orders, isModalToBeShown: .constant(true), dataToBeShown: .constant(OrderJSON(name: "Rodrigo", totalValue: 10.00)))
     }
 }

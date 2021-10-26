@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10105ECF272851D100B9B1F2 /* BigButtonVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */; };
+		10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ED0272859C300B9B1F2 /* TableCell.swift */; };
+		10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */; };
+		105969632719DED700510399 /* modalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105969622719DED700510399 /* modalDetailsView.swift */; };
 		BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD284914271B9DB600A8FD46 /* FoundationExtension.swift */; };
 		BD2FF1502720EFC400768CEE /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2FF14F2720EFC400768CEE /* BigButton.swift */; };
 		BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3050652722347500A0E0EA /* NewOrderView.swift */; };
 		BD30506A2723772500A0E0EA /* TabNewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3050692723772500A0E0EA /* TabNewOrder.swift */; };
 		BD30506C27264E4700A0E0EA /* NewOrderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD30506B27264E4700A0E0EA /* NewOrderCollectionView.swift */; };
 		BD30506E27264E7A00A0E0EA /* ItemJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD30506D27264E7A00A0E0EA /* ItemJSON.swift */; };
-		105969632719DED700510399 /* modalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105969622719DED700510399 /* modalView.swift */; };
 		BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */; };
 		BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEAD270FAA850000CE8C /* ContentView.swift */; };
 		BDAFEEB0270FAA850000CE8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDAFEEAF270FAA850000CE8C /* Assets.xcassets */; };
@@ -24,13 +27,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonVariant.swift; sourceTree = "<group>"; };
+		10105ED0272859C300B9B1F2 /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddItemView.swift; sourceTree = "<group>"; };
+		105969622719DED700510399 /* modalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modalDetailsView.swift; sourceTree = "<group>"; };
 		BD284914271B9DB600A8FD46 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		BD2FF14F2720EFC400768CEE /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		BD3050652722347500A0E0EA /* NewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderView.swift; sourceTree = "<group>"; };
 		BD3050692723772500A0E0EA /* TabNewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNewOrder.swift; sourceTree = "<group>"; };
 		BD30506B27264E4700A0E0EA /* NewOrderCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderCollectionView.swift; sourceTree = "<group>"; };
 		BD30506D27264E7A00A0E0EA /* ItemJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemJSON.swift; sourceTree = "<group>"; };
-		105969622719DED700510399 /* modalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modalView.swift; sourceTree = "<group>"; };
 		BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsMeninasDoLago_OrdersOrganizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsMeninasDoLago_OrdersOrganizerApp.swift; sourceTree = "<group>"; };
 		BDAFEEAD270FAA850000CE8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,7 +95,8 @@
 				BDAFEEAF270FAA850000CE8C /* Assets.xcassets */,
 				BDAFEEB4270FAA850000CE8C /* Info.plist */,
 				BDAFEEB1270FAA850000CE8C /* Preview Content */,
-				105969622719DED700510399 /* modalView.swift */,
+				105969622719DED700510399 /* modalDetailsView.swift */,
+				10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */,
 			);
 			path = AsMeninasDoLago_OrdersOrganizer;
 			sourceTree = "<group>";
@@ -106,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				BD2FF14F2720EFC400768CEE /* BigButton.swift */,
+				10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */,
+				10105ED0272859C300B9B1F2 /* TableCell.swift */,
 			);
 			path = "Views-Components";
 			sourceTree = "<group>";
@@ -208,11 +217,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */,
+				10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */,
 				BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */,
 				BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */,
 				BDAFEEBE270FAE140000CE8C /* HomeOrdersCollectionView.swift in Sources */,
-				BDAFEEBE270FAE140000CE8C /* OpenOrdersInCells.swift in Sources */,
-				105969632719DED700510399 /* modalView.swift in Sources */,
+				BDAFEEBE270FAE140000CE8C /* HomeOrdersCollectionView.swift in Sources */,
+				10105ECF272851D100B9B1F2 /* BigButtonVariant.swift in Sources */,
+				105969632719DED700510399 /* modalDetailsView.swift in Sources */,
 				BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */,
 				BD30506C27264E4700A0E0EA /* NewOrderCollectionView.swift in Sources */,
 				BDAFEEC5271B93E30000CE8C /* OrderJSON.swift in Sources */,
