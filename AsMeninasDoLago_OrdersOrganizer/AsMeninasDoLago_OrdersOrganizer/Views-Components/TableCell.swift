@@ -41,6 +41,7 @@ struct TableCell: View {
                 // Pra encostar os botões no canto
                 Spacer()
                 
+                // Botões de ação
                 HStack {
                     // Botão de editar
                     Button(action: {
@@ -65,18 +66,17 @@ struct TableCell: View {
                             
                     }
                     .padding(3)
-                }
+                } // Fecha HStack dos botões de ação
 
-            }
+            } // Fecha HStack de tudo
             .padding(.vertical, 10)
             
-            // Divisória entre células
-            Divider()
-        }
+            Divider() // Divisória entre células
+            
+        } // Fecha VStack de geral + divisória
         .padding(.horizontal, 20)
-    }
-        
-}
+    } // Fecha body
+} // Fecha struct
 
 struct TableCell_Previews: PreviewProvider {
     static var previews: some View {

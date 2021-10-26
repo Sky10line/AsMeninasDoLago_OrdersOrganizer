@@ -36,7 +36,7 @@ struct modalDetailsView: View {
                         }
                         .padding(10)
                             
-                    }
+                    } // Fecha ZStack do cabeçalho
                     
                     // Table View + Scroll com a Dummy Data
                     ScrollView {
@@ -45,12 +45,10 @@ struct modalDetailsView: View {
                                 TableCell(item: el)
                             }
                             
-                            // Botão de adicionar mais itens que sempre fica no final da table view
-                            BigButtonVariant(text: "Adicionar mais itens", action: {
-                            print(testData)})
-                                
-                        }
-                    }
+                            // Botão de adicionar mais itens
+                            BigButtonVariant(text: "Adicionar mais itens", action: { print(testData) })
+                        } // Fecha LazyVStack
+                    } // Fecha ScrollView
                     
                     // Bottom Menu
                     VStack {
@@ -67,22 +65,16 @@ struct modalDetailsView: View {
                         // Botão de Finalizar comanda
                         BigButton(text: "Finalizar comanda", action: nil)
                             .padding(.bottom, 25)
-                        
-                        
-                        
-                    }
+                    } // Fecha VStack bottom menu
                     .frame(minWidth: 0, maxWidth: .infinity)
 
-                }
+                } // Fecha VStack geral
                 
-                
-                
-                
-        }
+        } // Fecha ZStack
         
-    }
+    } // Fecha body
 
-}
+} // Fecha struct
 
 
 
@@ -92,6 +84,8 @@ struct modalView_Previews: PreviewProvider {
     }
 }
 
+
+// MARK: - Dados para teste
 
 // Struct da Dummy Data
 struct testData: Hashable, Identifiable {

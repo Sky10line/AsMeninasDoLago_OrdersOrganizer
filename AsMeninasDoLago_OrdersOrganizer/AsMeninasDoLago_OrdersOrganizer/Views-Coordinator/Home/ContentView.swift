@@ -9,26 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TabView {
+        TabView { // Isso é uma tab bar
+            
+            // Primeiro item da tab bar
             CollectionHome()
                 .tabItem {
                     Image(systemName: "list.number")
                     Text("Comandas")
                 }
             
+            // Segundo item da tab bar
             PlaceHolder1()
                 .tabItem {
                     Image(systemName: "cart.fill")
                     Text("Pedidos finalizados")
                 }
             
+            // Terceiro item da tab bar
             PlaceHolder2()
                 .tabItem {
                     Image(systemName: "square.grid.3x3.fill")
                     Text("Cardápio")
                 }
         }
-        .accentColor(Color(UIColor.appGreen))
+        .accentColor(Color(UIColor.appGreen)) // Cor da tab bar
     }
 }
 
