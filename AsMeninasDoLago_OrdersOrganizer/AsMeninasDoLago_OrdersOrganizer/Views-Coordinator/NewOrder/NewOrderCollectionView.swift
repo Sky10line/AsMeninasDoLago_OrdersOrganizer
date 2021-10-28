@@ -114,6 +114,6 @@ struct NewOrderCollectionView: View {
 struct NewOrderCollectionView_Previews: PreviewProvider {
     static var previews: some View {
 		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
-        //NewOrderCollectionView(data: subcategories)
+        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(ItemJSON(name: "Comida", price: 20, image: "LanchePlaceHolder")))
     }
 }

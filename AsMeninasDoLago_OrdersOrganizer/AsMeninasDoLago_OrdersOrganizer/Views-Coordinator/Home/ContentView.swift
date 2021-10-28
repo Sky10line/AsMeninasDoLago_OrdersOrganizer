@@ -33,7 +33,6 @@ struct ContentView: View {
                 }
         }
         .accentColor(Color(UIColor.appGreen)) // Cor da tab bar
-        
     }
 }
 
