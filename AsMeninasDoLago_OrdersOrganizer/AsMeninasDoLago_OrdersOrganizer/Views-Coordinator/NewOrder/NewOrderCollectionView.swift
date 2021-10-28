@@ -25,48 +25,51 @@ struct NewOrderCollectionViewCell: View {
 					Image(image)
 						.resizable()
 						.scaledToFill()
-						.frame(width: 1, height: 130)
+						.overlay(
+							VStack {
+								if let name = item.name {
+									HStack {
+										Text(name)
+											.fontWeight(.bold)
+											.font(.body)
+											.foregroundColor(.white)
+											.multilineTextAlignment(.leading)
+											.padding(.horizontal)
+											.frame(width: nil, height: 50, alignment: .center)
+										Spacer()
+									}.frame(width: nil, height: 50, alignment: .bottomLeading)
+									.background(LinearGradient(gradient: Gradient(colors: [Color(UIColor.appBrown), Color.clear]), startPoint: .center, endPoint: .top))
+								}
+								if let price = item.price {
+									HStack {
+										Text(price.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+											.fontWeight(.regular)
+											.font(.subheadline)
+											.foregroundColor(.white)
+											.multilineTextAlignment(.leading)
+											.padding()
+											
+										Spacer()
+									}
+								}
+							}.padding(.bottom)
+							.padding(.top, 160)
+							
+						)
 				}
-				EmptyView()
-				VStack {
-					if let name = item.name {
-						HStack {
-							Text(name)
-								.fontWeight(.bold)
-								.font(.body)
-								.foregroundColor(.white)
-								.multilineTextAlignment(.leading)
-								.padding(.horizontal)
-								.frame(width: nil, height: 50, alignment: .topLeading)
-							Spacer()
-						}
-					}
-					if let price = item.price {
-						HStack {
-							Text(price.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
-								.fontWeight(.regular)
-								.font(.subheadline)
-								.foregroundColor(.white)
-								.multilineTextAlignment(.leading)
-								.padding(.horizontal)
-								.padding(.bottom)
-							Spacer()
-						}
-					}
-				}
-			}.zIndex(1)
+				HStack{ Spacer() }
+			}.padding(.bottom, 70)
 			.background(Color(UIColor.appBrown))
+			.zIndex(1)
 			.cornerRadius(20)
 			.shadow(radius: 4)
-		}).transition(.opacity.combined(with: .slide).animation(.easeInOut))
-		.animation(.easeInOut(duration: 0.5))
-		.scaleEffect(tap ? 0.95 : 1)
-		.animation(.spring(response: 0.6, dampingFraction: 1))
+		}).scaleEffect(tap ? 0.95 : 1)
+//		.animation(.spring(response: 0.6, dampingFraction: 1))
 	}
 }
 
 struct NewOrderCollectionView: View {
-	let data: Array<ItemJSON>
+	let data: [SubcategoriesJSON]
 	
 	let layout = [
 		GridItem(.flexible(), spacing: 8),
@@ -74,22 +77,36 @@ struct NewOrderCollectionView: View {
 	]
 	
 	var body: some View {
-		ScrollView {
-			LazyVGrid(columns: layout, spacing: 16) {
-				ForEach(data, id: \.self) { item in
-					NewOrderCollectionViewCell(item: item, action: nil)
+		VStack {
+			ForEach(data, id: \.self) { subcategory in
+				if let name = subcategory.name {
+					HStack {
+						Text(name)
+							.font(.title2)
+							.fontWeight(.bold)
+							.foregroundColor(Color(UIColor.appGreen))
+						VStack{
+							Divider()
+								.background(Color(UIColor.appGreen))
+						}
+					}
 				}
-			}.padding(.horizontal)
-			.padding(.vertical, 8)
-		}.zIndex(0)
+				if let items = subcategory.items {
+					LazyVGrid(columns: layout, spacing: 16) {
+						ForEach(items, id: \.self) { item in
+							NewOrderCollectionViewCell(item: item, action: nil)
+						}
+					}.padding(.vertical)
+				}
+			}
+		}.padding(.horizontal)
+		.padding(.vertical, 8)
 	}
 }
 
 struct NewOrderCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-		let items = [ItemJSON(name: "Carne Louca", price: 13.00, image: "LanchePlaceHolder"),
-					 ItemJSON(name: "Calabresa com queijo e vinagrete", price: 24.00, image: "LanchePlaceHolder")
-		]
-		NewOrderCollectionView(data: items)
+		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
+		NewOrderCollectionView(data: subcategories)
     }
 }
