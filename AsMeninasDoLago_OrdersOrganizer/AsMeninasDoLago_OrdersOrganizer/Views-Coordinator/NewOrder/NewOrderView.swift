@@ -9,8 +9,9 @@ import SwiftUI
 
 struct NewOrderView: View {
 	@State private var name = ""
-	let tab: [TabNewOrder.Options] = [.lanches, .hotdog, .bebidas]
-	@State private var selectedTab: TabNewOrder.Options = .none
+	let categories = DebugHelper().createCategoryMock()
+	
+	@State private var selectedTab: String = ""
 
     var body: some View {
 		VStack {
@@ -21,10 +22,16 @@ struct NewOrderView: View {
 				.padding(.horizontal)
 				.padding(.top, 8)
 			
-			TabNewOrder(tabs: tab, selectedTab: $selectedTab)
+			TabNewOrder(tabs: categories, selectedTab: $selectedTab)
+			
+			Divider()
+				.padding(.horizontal)
+			
 			Spacer()
-			
-			
+			ScrollView {
+				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [])
+					.animation(.spring(response: 1, dampingFraction: 1))
+			}
 		}.background(Color.white.ignoresSafeArea())
 		.navigationBarTitle("Nova comanda", displayMode: .inline)
     }
