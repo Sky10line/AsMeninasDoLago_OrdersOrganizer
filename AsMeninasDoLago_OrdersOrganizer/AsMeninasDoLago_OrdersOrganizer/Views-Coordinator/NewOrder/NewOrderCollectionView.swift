@@ -75,6 +75,9 @@ struct NewOrderCollectionView: View {
 		GridItem(.flexible(), spacing: 8),
 		GridItem(.flexible(), spacing: 8)
 	]
+    
+    @Binding var isModalToBeShown: Bool
+    @Binding var dataToBeShown: ItemJSON
 	
 	var body: some View {
 		VStack {
@@ -94,7 +97,11 @@ struct NewOrderCollectionView: View {
 				if let items = subcategory.items {
 					LazyVGrid(columns: layout, spacing: 16) {
 						ForEach(items, id: \.self) { item in
-							NewOrderCollectionViewCell(item: item, action: nil)
+							NewOrderCollectionViewCell(item: item, action: {
+                                isModalToBeShown = true
+                                dataToBeShown = item
+                                print("cliquei na collection")
+                            })
 						}
 					}.padding(.vertical)
 				}
@@ -107,6 +114,6 @@ struct NewOrderCollectionView: View {
 struct NewOrderCollectionView_Previews: PreviewProvider {
     static var previews: some View {
 		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
-		NewOrderCollectionView(data: subcategories)
+        //NewOrderCollectionView(data: subcategories)
     }
 }

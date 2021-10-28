@@ -15,6 +15,8 @@ struct ModalAddItemView: View {
     
     @State var value: CGFloat = 0
     
+    @Binding var dataa: ItemJSON
+    
     // Array pra simular o recebimento de dados
     var data = ["crown","Nome do produto"]
     
@@ -23,21 +25,23 @@ struct ModalAddItemView: View {
             VStack (alignment: .leading, spacing: 0) {
                 
                 // Imagem do produto
-                Image(systemName: data[0])
-                    .renderingMode(.template)
+                //Image(systemName: data[0])
+                Image(dataa.image ?? "LanchePlaceHolder")
+                    .renderingMode(.original)
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(.black)
-                    .background(Color(UIColor.appGreen))
                     .ignoresSafeArea()
                 
                 // Pilha vertical de nome, observações e ações
                 VStack {
+                    
+                    Spacer()
                     // Nome do produto
-                    Text(data[1])
+                    Text(dataa.name ?? "")
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                    Spacer()
                     
                     // TextField para as observações
                     TextEditor(text: $obsText)
@@ -48,6 +52,7 @@ struct ModalAddItemView: View {
                                 obsText = ""
                             }
                         }
+                        .frame(maxHeight: 400)
                     
                     // Pilha horizontal com o Stepper e o botão
                     HStack {
@@ -65,7 +70,7 @@ struct ModalAddItemView: View {
                                             self.value = height / 6
                                         }
                                         else {
-                                            self.value = height
+                                            self.value = height / 1.1
                                         }
                                         
                                         
@@ -79,15 +84,13 @@ struct ModalAddItemView: View {
                                 } // Fecha onAppear
                         } // Fecha Stepper
                         
-                        Spacer(minLength: 10)
-                        
                         // Botão de adicionar item
                         BigButton(text: "Adicionar Item", action: nil)
                             .fixedSize()
                         
                     } // Fecha HStack com Stepper e botão
                 } // Fecha VStack com nome, observações e controles
-                .frame(maxWidth: .infinity, maxHeight: .infinity,alignment:.top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity,alignment:.bottom)
                 .padding()
             } // Fecha VStack geral
             
@@ -109,7 +112,7 @@ struct ModalAddItemView: View {
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
         Text("Background").sheet(isPresented: .constant(true)) {
-            ModalAddItemView()
+            ModalAddItemView(dataa: .constant(ItemJSON(name: "Carne louca", price: 20, image: "LanchePlaceHolder")))
         }
     }
 }
