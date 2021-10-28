@@ -8,18 +8,12 @@
 import SwiftUI
 
 struct TabNewOrder: View {
-	let availableTabs: [Options]
-	@Binding var selectedTab: Options
+	let availableTabs: [CategoryJSON]
+	@Binding var selectedTab: String
 	@Namespace var animation
 	
-	enum Options: String {
-		case lanches = "Lanches"
-		case hotdog = "Hot Dog"
-		case bebidas = "Bebidas"
-		case none = ""
-	}
 	
-	init(tabs: [Options], selectedTab: Binding<Options>) {
+	init(tabs: [CategoryJSON], selectedTab: Binding<String>) {
 		self.availableTabs = tabs
 		self._selectedTab = selectedTab
 	}
@@ -32,36 +26,36 @@ struct TabNewOrder: View {
 				}
 			}.padding(.horizontal)
 		}).onAppear(perform: {
-			self.selectedTab = availableTabs[0]
+			self.selectedTab = availableTabs[0].name ?? ""
 		})
     }
 }
 
 private struct TabButton: View {
-	var option: TabNewOrder.Options
-	@Binding var selectedTab: TabNewOrder.Options
+	var option: CategoryJSON
+	@Binding var selectedTab: String
 	var animation: Namespace.ID
 	
 	var body: some View {
 		Button(action: {
 			
 			withAnimation(.spring()) {
-				selectedTab = option
+				selectedTab = option.name ?? ""
 			}
 			
 		}, label: {
 			VStack(alignment: .center, spacing: 6, content: {
-				Text(option.rawValue)
+				Text(option.name ?? "")
 					.fontWeight(.bold)
-					.foregroundColor(selectedTab == option ? Color(UIColor.appGreen) : Color(UIColor.gray1))
+					.foregroundColor(selectedTab == (option.name ?? "") ? Color(UIColor.appGreen) : Color(UIColor.gray1))
 				
-				if selectedTab == option {
+				if selectedTab == option.name ?? "" {
 					Capsule()
 						.fill(Color(UIColor.appGreen))
 						.frame(width: 60, height: 2)
 						.matchedGeometryEffect(id: "TabNewOrder", in: animation)
 				}
-			}).frame(width: 100)
+			}).frame(minWidth: 100)
 		})
  }
 }
