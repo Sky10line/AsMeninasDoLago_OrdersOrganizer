@@ -12,6 +12,9 @@ struct NewOrderView: View {
 	let categories = DebugHelper().createCategoryMock()
 	
 	@State private var selectedTab: String = ""
+    
+    @State private var showModal = false
+    @State var dataa: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
 
     var body: some View {
 		VStack {
@@ -29,11 +32,16 @@ struct NewOrderView: View {
 			
 			Spacer()
 			ScrollView {
-				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [])
+				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
 					.animation(.spring(response: 1, dampingFraction: 1))
+                
 			}
 		}.background(Color.white.ignoresSafeArea())
 		.navigationBarTitle("Nova comanda", displayMode: .inline)
+        .sheet(isPresented: $showModal, content: {
+                    ModalAddItemView(dataa: $dataa)
+                        .ignoresSafeArea()
+                })
     }
 }
 
