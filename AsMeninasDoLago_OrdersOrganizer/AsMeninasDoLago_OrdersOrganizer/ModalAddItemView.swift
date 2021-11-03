@@ -99,6 +99,7 @@ struct ModalAddItemView: View {
                 Image(systemName: "xmark.circle.fill")
                     .renderingMode(.template)
                     .foregroundColor(Color.primary)
+					.opacity(0.5)
                     .font(.largeTitle)
             }
             .padding()

@@ -31,6 +31,7 @@ struct modalDetailsView: View {
                             Image(systemName: "xmark.circle.fill")
                                 .renderingMode(.template)
                                 .foregroundColor(.black)
+								.opacity(0.5)
                                 .font(.largeTitle)
                                 
                         }
