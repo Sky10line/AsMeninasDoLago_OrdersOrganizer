@@ -37,10 +37,10 @@ struct HomeView: View {
 					.padding(.top, 8)
 					.padding(.horizontal)
 				
-				HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }), isModalToBeShown: $showModal, dataToBeShown: $data)
-					
+				ScrollView {
+					HomeOrdersCollectionView(data: orders, isModalToBeShown: $showModal, dataToBeShown: $data, searchText: $searchText)
+				}
 				Spacer()
-			
 				
 				NavigationLink(
 					destination: NewOrderView(),
@@ -50,7 +50,7 @@ struct HomeView: View {
 				BigButton(text: "Nova comanda") {
 					isShowingNewOrderView = true
 				}
-				Spacer(minLength: 80)
+				Spacer(minLength: 160)
 			}
 			.background(Color.white.ignoresSafeArea())
 			.navigationBarHidden(true)
@@ -59,71 +59,5 @@ struct HomeView: View {
 					modalDetailsView(testData: $data)
 						.ignoresSafeArea()
 				})
-	}
-}
-
-private struct NavBar: View {
-	var title: String
-	var body: some View {
-		HStack {
-			Text(title)
-				.bold()
-				.font(.largeTitle)
-				.padding(.horizontal)
-				.foregroundColor(.black)
-			
-			Spacer()
-		}
-	}
-}
-
-private struct SearchBar: View {
-	@Binding var searchText: String
-	@State var isSearching = false
-	
-	var body: some View {
-		HStack {
-			HStack {
-				TextField("Pesquisar", text: $searchText)
-					.padding(.leading, 30)
-			}.padding()
-			.background(Color(UIColor.gray2))
-			.cornerRadius(20)
-			.padding(.horizontal)
-			.onTapGesture(perform: {
-				isSearching = true
-			})
-			.overlay(
-				HStack {
-					Image(systemName: "magnifyingglass")
-					Spacer()
-					
-					if isSearching {
-						Button(action: {
-							searchText.removeAll()
-						}, label: {
-							Image(systemName: "xmark.circle.fill")
-								.padding(.vertical)
-						})
-					}
-				}.padding(.horizontal, 32)
-				.foregroundColor(Color(UIColor.defaultPlaceholder))
-			).transition(.move(edge: .trailing))
-			.animation(.spring())
-			
-			if isSearching {
-				Button(action: {
-					isSearching = false
-					searchText.removeAll()
-					
-					UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-				}, label: {
-					Text("Cancelar")
-						.padding(.vertical)
-						.padding(.trailing)
-				}).transition(.move(edge: .trailing))
-				.animation(.spring())
-			}
-		}
 	}
 }

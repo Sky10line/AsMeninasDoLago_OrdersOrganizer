@@ -41,7 +41,7 @@ struct NewOrderView: View {
         .sheet(isPresented: $showModal, content: {
                     ModalAddItemView(dataa: $dataa)
                         .ignoresSafeArea()
-                })
+		})
     }
 }
 

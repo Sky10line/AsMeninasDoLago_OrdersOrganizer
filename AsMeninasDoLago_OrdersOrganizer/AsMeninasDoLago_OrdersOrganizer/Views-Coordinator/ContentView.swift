@@ -24,8 +24,7 @@ struct ContentView: View {
 							.gesture(DragGesture())
 
 						// Segundo item da tab bar
-						PlaceHolder1()
-							.ignoresSafeArea(.all, edges: .all)
+						FinishedOrders()
 							.tag(CustomTabBar.Tabs.finishedOrders)
 							.gesture(DragGesture())
 							
@@ -37,6 +36,7 @@ struct ContentView: View {
 							.gesture(DragGesture())
 						
 					}.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+					.ignoresSafeArea()
 				
 				CustomTabBar(selectedTab: $selectedTab)
 
@@ -51,17 +51,10 @@ struct ContentView_Previews: PreviewProvider {
 	}
 }
 
-struct PlaceHolder1: View {
-    var body: some View {
-        ZStack {
-            Text("View 1")
-		}
-    }
-}
-
 struct PlaceHolder2: View {
     var body: some View {
         ZStack {
+			Color.red
             Text("View 2")
         }
     }
