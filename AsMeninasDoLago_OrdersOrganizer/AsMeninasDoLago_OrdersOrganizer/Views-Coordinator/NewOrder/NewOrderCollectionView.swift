@@ -64,7 +64,7 @@ struct NewOrderCollectionViewCell: View {
 			.cornerRadius(20)
 			.shadow(radius: 4)
 		}).scaleEffect(tap ? 0.95 : 1)
-//		.animation(.spring(response: 0.6, dampingFraction: 1))
+		.animation(.spring(response: 0.6, dampingFraction: 1))
 	}
 }
 

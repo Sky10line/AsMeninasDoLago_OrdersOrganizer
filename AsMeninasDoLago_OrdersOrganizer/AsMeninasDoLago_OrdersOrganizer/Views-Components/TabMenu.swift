@@ -1,5 +1,5 @@
 //
-//  TabNewOrder.swift
+//  TabMenu.swift
 //  AsMeninasDoLago_OrdersOrganizer
 //
 //  Created by Rodrigo Ryo Aoki on 22/10/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabNewOrder: View {
+struct TabMenu: View {
 	let availableTabs: [CategoryJSON]
 	@Binding var selectedTab: String
 	@Namespace var animation

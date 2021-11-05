@@ -30,8 +30,7 @@ struct ContentView: View {
 							
 
 						// Terceiro item da tab bar
-						PlaceHolder2()
-							.ignoresSafeArea(.all, edges: .all)
+						MenuView()
 							.tag(CustomTabBar.Tabs.menu)
 							.gesture(DragGesture())
 						
@@ -49,13 +48,4 @@ struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
 		ContentView()
 	}
-}
-
-struct PlaceHolder2: View {
-    var body: some View {
-        ZStack {
-			Color.red
-            Text("View 2")
-        }
-    }
 }
