@@ -20,11 +20,11 @@ struct CustomTabBar: View {
     var body: some View {
 		ZStack {
 		HStack(spacing: 0) {
-			TabBarButton(image: Tabs.orders.rawValue, selectedTab: $selectedTab, tabPoints: $tabPoints)
+			TabBarButton(image: Tabs.orders.rawValue, text: "Comandas", selectedTab: $selectedTab, tabPoints: $tabPoints)
 			
-			TabBarButton(image: Tabs.finishedOrders.rawValue, selectedTab: $selectedTab, tabPoints: $tabPoints)
+			TabBarButton(image: Tabs.finishedOrders.rawValue, text: "Pedidos finalizados", selectedTab: $selectedTab, tabPoints: $tabPoints)
 			
-			TabBarButton(image: Tabs.menu.rawValue, selectedTab: $selectedTab, tabPoints: $tabPoints)
+			TabBarButton(image: Tabs.menu.rawValue, text: "Cardápio", selectedTab: $selectedTab, tabPoints: $tabPoints)
 		}.padding()
 		.background(
 			Color(UIColor.gray3)
@@ -64,6 +64,7 @@ struct CustomTabBar: View {
 struct TabBarButton: View {
 	
 	var image: String
+	var text: String
 	@Binding var selectedTab: CustomTabBar.Tabs
 	@Binding var tabPoints: [CGFloat]
 	
@@ -86,10 +87,15 @@ struct TabBarButton: View {
 						}
 					}
 				}, label: {
-					Image(image)
-						.font(.system(size: 25, weight: .semibold))
-						.foregroundColor(selectedTab.rawValue == image ? Color(UIColor.appGreen) : Color(UIColor.gray1))
-						.offset(y: selectedTab.rawValue == image ? -10 : 0)
+					VStack(alignment: .center) {
+						Image(image)
+							.font(.system(size: 25, weight: .semibold))
+						
+						Text(text)
+							.font(.system(size: 10))
+							.fontWeight(.medium)
+					}.foregroundColor(selectedTab.rawValue == image ? Color(UIColor.appGreen) : Color(UIColor.gray1))
+					.offset(y: selectedTab.rawValue == image ? -10 : 0)
 				})
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 			)
