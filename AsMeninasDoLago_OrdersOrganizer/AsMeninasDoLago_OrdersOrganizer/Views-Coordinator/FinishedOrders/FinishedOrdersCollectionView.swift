@@ -17,6 +17,8 @@ struct FinishedOrdersCollectionView: View {
 	
 	let layout = [GridItem(.flexible(), spacing: 4)]
 	
+	var isShow: Bool = false
+	
 	@Binding var isModalToBeShown: Bool
 	@Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
@@ -26,28 +28,27 @@ struct FinishedOrdersCollectionView: View {
 			ForEach(data, id: \.self) { date in
 				
 				if let name = date.dateTitle, let orders = date.finishedOrders {
+					
 					if !orders.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
-					VStack {
-						
-						VStack {
-							Divider()
-						}
-						
+						VStack(spacing: 0) {
 							
-						HStack {
-							Text(name)
-								.font(.title2)
-								.fontWeight(.bold)
-							Spacer()
-						}
-					}.transition(.opacity.combined(with: .slide).animation(.easeInOut))
-					.animation(.easeInOut(duration: 0.5))
+							VStack {
+								Divider()
+							}
+							
+							
+							HStack {
+								Text(name)
+									.font(.title2)
+									.fontWeight(.bold)
+									.padding(.vertical)
+								Spacer()
+							}
+						}.transition(.opacity.combined(with: .slide).animation(.easeInOut))
+						.animation(.easeInOut(duration: 0.5))
 					}
-				}
-				
-				
-				LazyVGrid(columns: ordersLayout, spacing: 16) {
-					if let orders = date.finishedOrders {
+					
+					LazyVGrid(columns: ordersLayout, spacing: 16) {
 						ForEach(orders, id: \.self) { order in
 							if order.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
 								HomeOrdersCollectionViewCell(item: order, action: {
@@ -58,11 +59,33 @@ struct FinishedOrdersCollectionView: View {
 								.animation(.easeInOut(duration: 0.5))
 							}
 						}
+						
 					}
-				}.padding(.vertical)
+					
+					if !orders.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
+						HStack {
+							Spacer()
+							
+							Text("Total: " + countTotal(orders: orders).asCurrencyBR()!)
+								.fontWeight(.bold)
+								.font(.system(size: 18))
+								.padding(.vertical)
+						}.transition(.opacity.combined(with: .slide).animation(.easeInOut))
+						.animation(.easeInOut(duration: 0.5))
+					}
+				}
 			}
 		}
 		.padding(.horizontal)
-		.padding(.vertical, 8)
+	}
+	
+	func countTotal(orders: [OrderJSON]) -> Double {
+		var total: Double = 0.00
+		
+		for order in orders {
+			total += order.totalValue ?? 0.00
+		}
+		
+		return total
 	}
 }
