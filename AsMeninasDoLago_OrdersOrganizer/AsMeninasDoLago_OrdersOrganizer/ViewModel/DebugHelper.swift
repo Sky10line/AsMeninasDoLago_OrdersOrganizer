@@ -13,8 +13,14 @@ class DebugHelper {
 					ItemJSON(name: "Calabresa com queijo e vinagrete", price: 24.00, image: "LanchePlaceHolder"),
 					ItemJSON(name: "Pernil", price: 27.00, image: "LanchePlaceHolder")
 		 ]
+		
+		let items2 = [ItemJSON(name: "Cachorro quente", price: 13.00, image: "LanchePlaceHolder"),
+					ItemJSON(name: "Queijo quente", price: 24.00, image: "LanchePlaceHolder"),
+					ItemJSON(name: "Pernil", price: 27.00, image: "LanchePlaceHolder")
+		 ]
+		
 		let sub = [SubcategoriesJSON(name: "Sanduiches", items: items),
-				   SubcategoriesJSON(name: "Mais Lanches", items: items)
+				   SubcategoriesJSON(name: "Mais Lanches", items: items2)
 		]
 		
 		let itemsDrinks = [ItemJSON(name: "Refrigerante", price: 5.00, image: "LanchePlaceHolder"),

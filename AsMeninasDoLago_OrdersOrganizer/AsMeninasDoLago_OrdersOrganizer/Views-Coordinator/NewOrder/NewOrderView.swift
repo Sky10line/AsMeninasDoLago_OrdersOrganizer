@@ -25,7 +25,7 @@ struct NewOrderView: View {
 				.padding(.horizontal)
 				.padding(.top, 8)
 			
-			TabNewOrder(tabs: categories, selectedTab: $selectedTab)
+			TabMenu(tabs: categories, selectedTab: $selectedTab)
 			
 			Divider()
 				.padding(.horizontal)
