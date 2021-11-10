@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ModalAddItemView: View {
-    @Environment(\.presentationMode) var presentation
-    
     @State private var obsText = "Observações"
     @State private var qtdItem = 0
     

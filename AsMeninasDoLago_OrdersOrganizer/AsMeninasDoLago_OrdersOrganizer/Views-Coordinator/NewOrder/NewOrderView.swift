@@ -13,8 +13,8 @@ struct NewOrderView: View {
 	
 	@State private var selectedTab: String = ""
     
-    @State private var showModal = false
-    @State var dataa: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
+    @State var showItemNewOrder: Bool = false
+    @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
 
     var body: some View {
         
@@ -34,7 +34,7 @@ struct NewOrderView: View {
                 
                 Spacer()
                 ScrollView {
-                    NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
+                    NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
                         .animation(.spring(response: 1, dampingFraction: 1))
                     
                 }
@@ -44,19 +44,19 @@ struct NewOrderView: View {
             .navigationBarTitle("Nova comanda", displayMode: .inline)
             
             ZStack {
-                if showModal {
+                if showItemNewOrder {
                     Rectangle()
                         .foregroundColor(Color.black)
-                        .opacity(showModal ? 0.6 : 0)
+                        .opacity(showItemNewOrder ? 0.6 : 0)
                         .ignoresSafeArea()
                         .animation(.easeIn)
-                    
-                    ModalAddItemView(data: $dataa, isShowing: $showModal)
+
+                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
                         .padding(.top,UIScreen.main.bounds.height / 5)
                         .transition(.scale)
                         .animation(.spring())
                         .edgesIgnoringSafeArea(.all)
-                    
+
                 }
             }.animation(.easeInOut)
             
@@ -82,6 +82,6 @@ struct NameTextField: View {
 
 struct NewOrderView_Previews: PreviewProvider {
     static var previews: some View {
-		NewOrderView()
+        NewOrderView()
     }
 }

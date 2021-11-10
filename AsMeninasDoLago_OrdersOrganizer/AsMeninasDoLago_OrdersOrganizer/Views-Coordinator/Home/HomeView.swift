@@ -11,10 +11,8 @@ struct HomeView: View {
 	@State var searchText = ""
 	@State private var isShowingNewOrderView: Bool = false
 	
-	@State private var showModal = false
-	@Binding var data: OrderJSON
-    
-    @Binding var showDetailsView: Bool
+    @Binding var showOrderDetails: Bool
+    @Binding var orderData: OrderJSON
 	
 	let orders = [
 		OrderJSON(name: "Rodrigo", totalValue: 10.00),
@@ -23,13 +21,13 @@ struct HomeView: View {
 		OrderJSON(name: "Aline", totalValue: 50.00)
 	]
 	
-    init(showDetailsView: Binding<Bool>, data: Binding<OrderJSON>) {
+    init(showOrderDetails: Binding<Bool>, orderData: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
 				  UINavigationBar.appearance().isTranslucent = true
 				  UINavigationBar.appearance().backgroundColor = .clear
-        self._showDetailsView = showDetailsView
-        self._data = data
+        self._showOrderDetails = showOrderDetails
+        self._orderData = orderData
 	}
 	
 	var body: some View {
@@ -42,7 +40,7 @@ struct HomeView: View {
                         .padding(.top, 8)
                         .padding(.horizontal)
                     
-                    HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }), isModalToBeShown: $showDetailsView, dataToBeShown: $data)
+                    HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }), showOrderDetails: $showOrderDetails, dataToBeShown: $orderData)
                         
                     Spacer()
                 
@@ -64,11 +62,6 @@ struct HomeView: View {
 			.navigationBarHidden(true)
 			.navigationTitle("Comandas")
             .edgesIgnoringSafeArea(.all)
-            //.overlay(showModal ? teste() : nil)
-//			.sheet(isPresented: $showModal, content: {
-//					modalDetailsView(testData: $data)
-//						.ignoresSafeArea()
-//				})
 	}
 }
 

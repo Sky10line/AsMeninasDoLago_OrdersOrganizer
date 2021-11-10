@@ -13,8 +13,8 @@ struct ContentView: View {
 		UITabBar.appearance().isHidden = true
 	}
     
-    @State var showDetailsModel = false
-    @State var modalData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+    @State var showOrderDetails = false
+    @State var detaislData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
 	
     var body: some View {
 		NavigationView {
@@ -22,7 +22,7 @@ struct ContentView: View {
 					TabView(selection: $selectedTab) { // Isso é uma tab bar
 
 						// Primeiro item da tab bar
-                        HomeView(showDetailsView: $showDetailsModel, data: $modalData)
+                        HomeView(showOrderDetails: $showOrderDetails, orderData: $detaislData)
 							.tag(CustomTabBar.Tabs.orders)
 							.gesture(DragGesture())
 
@@ -44,21 +44,22 @@ struct ContentView: View {
 				CustomTabBar(selectedTab: $selectedTab)
                 
                 ZStack {
-                    if showDetailsModel {
+                    if showOrderDetails {
                         
                         Rectangle()
                             .foregroundColor(Color.black)
-                            .opacity(showDetailsModel ? 0.6 : 0)
+                            .opacity(showOrderDetails ? 0.6 : 0)
                             .ignoresSafeArea()
                             .animation(.easeIn)
                         
-                        modalDetailsView(testData: $modalData, isShowing: $showDetailsModel)
+                        modalDetailsView(testData: $detaislData, isShowing: $showOrderDetails)
                             .padding(.top,UIScreen.main.bounds.height / 8)
                             .transition(.scale)
                             .animation(.spring())
                             .edgesIgnoringSafeArea(.all)
                         
                     }
+                    
                 }.animation(.easeInOut)
 
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
