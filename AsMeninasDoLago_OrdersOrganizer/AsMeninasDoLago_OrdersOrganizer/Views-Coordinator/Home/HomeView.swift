@@ -12,7 +12,9 @@ struct HomeView: View {
 	@State private var isShowingNewOrderView: Bool = false
 	
 	@State private var showModal = false
-	@State var data: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+	@Binding var data: OrderJSON
+    
+    @Binding var showDetailsView: Bool
 	
 	let orders = [
 		OrderJSON(name: "Rodrigo", totalValue: 10.00),
@@ -21,45 +23,63 @@ struct HomeView: View {
 		OrderJSON(name: "Aline", totalValue: 50.00)
 	]
 	
-	init() {
+    init(showDetailsView: Binding<Bool>, data: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
 				  UINavigationBar.appearance().isTranslucent = true
 				  UINavigationBar.appearance().backgroundColor = .clear
+        self._showDetailsView = showDetailsView
+        self._data = data
 	}
 	
 	var body: some View {
-			VStack {
-				NavBar(title: "Comandas")
-				
-				SearchBar(searchText: $searchText)
-				Divider()
-					.padding(.top, 8)
-					.padding(.horizontal)
-				
-				HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }), isModalToBeShown: $showModal, dataToBeShown: $data)
-					
-				Spacer()
-			
-				
-				NavigationLink(
-					destination: NewOrderView(),
-					isActive: $isShowingNewOrderView,
-					label: { EmptyView() })
-				
-				BigButton(text: "Nova comanda") {
-					isShowingNewOrderView = true
-				}
-				Spacer(minLength: 80)
+			ZStack {
+                VStack {
+                    NavBar(title: "Comandas")
+                    
+                    SearchBar(searchText: $searchText)
+                    Divider()
+                        .padding(.top, 8)
+                        .padding(.horizontal)
+                    
+                    HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }), isModalToBeShown: $showDetailsView, dataToBeShown: $data)
+                        
+                    Spacer()
+                
+                    
+                    NavigationLink(
+                        destination: NewOrderView(),
+                        isActive: $isShowingNewOrderView,
+                        label: { EmptyView() })
+                    
+                    BigButton(text: "Nova comanda") {
+                        isShowingNewOrderView = true
+                    }
+                    Spacer(minLength: 80)
+                }
+                
+                
 			}
 			.background(Color.white.ignoresSafeArea())
 			.navigationBarHidden(true)
 			.navigationTitle("Comandas")
-			.sheet(isPresented: $showModal, content: {
-					modalDetailsView(testData: $data)
-						.ignoresSafeArea()
-				})
+            .edgesIgnoringSafeArea(.all)
+            //.overlay(showModal ? teste() : nil)
+//			.sheet(isPresented: $showModal, content: {
+//					modalDetailsView(testData: $data)
+//						.ignoresSafeArea()
+//				})
 	}
+}
+
+struct teste: View {
+    var body: some View {
+        ZStack {
+            Color.red.ignoresSafeArea()
+        }
+        .background(Color.blue.ignoresSafeArea())
+        .edgesIgnoringSafeArea(.all)
+    }
 }
 
 private struct NavBar: View {
@@ -126,4 +146,10 @@ private struct SearchBar: View {
 			}
 		}
 	}
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

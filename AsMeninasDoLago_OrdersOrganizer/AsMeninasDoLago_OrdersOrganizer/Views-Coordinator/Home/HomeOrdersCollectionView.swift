@@ -72,7 +72,7 @@ struct HomeOrdersCollectionView: View {
 		ScrollView {
 			LazyVGrid(columns: layout, spacing: 16) {
 				ForEach(data, id: \.self) { item in
-					HomeOrdersCollectionViewCell(item: item, action: {
+                    HomeOrdersCollectionViewCell(item: item, action: {
                         isModalToBeShown = true
                         dataToBeShown = item
                         print("Cliquei num item da collection")

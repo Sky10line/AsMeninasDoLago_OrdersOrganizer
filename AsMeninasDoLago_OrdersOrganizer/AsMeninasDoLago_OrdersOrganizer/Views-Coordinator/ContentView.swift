@@ -12,6 +12,9 @@ struct ContentView: View {
 	init() {
 		UITabBar.appearance().isHidden = true
 	}
+    
+    @State var showDetailsModel = false
+    @State var modalData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
 	
     var body: some View {
 		NavigationView {
@@ -19,7 +22,7 @@ struct ContentView: View {
 					TabView(selection: $selectedTab) { // Isso é uma tab bar
 
 						// Primeiro item da tab bar
-						HomeView()
+                        HomeView(showDetailsView: $showDetailsModel, data: $modalData)
 							.tag(CustomTabBar.Tabs.orders)
 							.gesture(DragGesture())
 
@@ -39,6 +42,24 @@ struct ContentView: View {
 					}.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 				
 				CustomTabBar(selectedTab: $selectedTab)
+                
+                ZStack {
+                    if showDetailsModel {
+                        
+                        Rectangle()
+                            .foregroundColor(Color.black)
+                            .opacity(showDetailsModel ? 0.6 : 0)
+                            .ignoresSafeArea()
+                            .animation(.easeIn)
+                        
+                        modalDetailsView(testData: $modalData, isShowing: $showDetailsModel)
+                            .padding(.top,UIScreen.main.bounds.height / 8)
+                            .transition(.scale)
+                            .animation(.spring())
+                            .edgesIgnoringSafeArea(.all)
+                        
+                    }
+                }.animation(.easeInOut)
 
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
 		}.accentColor(Color(UIColor.appGreen))

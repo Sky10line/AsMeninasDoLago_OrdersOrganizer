@@ -14,9 +14,19 @@ struct modalDetailsView: View {
     // Dummy data
     var data: [testData] = dataa
     @Binding var testData: OrderJSON
+    @Binding var isShowing: Bool
+    
+    @State var op: CGFloat = -100
     
     var body: some View {
-            ZStack (alignment: .bottom) {
+            ZStack (alignment: .topLeading) {
+                
+//                Rectangle()
+//                    .foregroundColor(Color.black)
+//                    .opacity(isShowing ? 0.6 : 0)
+//                    .offset(y: -100)
+                   
+                
                 VStack (alignment: .leading) {
                     
                     // Cabeçalho com nome e botão de fechar
@@ -27,7 +37,10 @@ struct modalDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                         
                         // Botão de fechar
-                        Button(action: { presentation.wrappedValue.dismiss() }){
+                        Button(action: { //presentation.wrappedValue.dismiss()
+                            isShowing = false
+                            
+                        }){
                             Image(systemName: "xmark.circle.fill")
                                 .renderingMode(.template)
                                 .foregroundColor(.black)
@@ -70,6 +83,7 @@ struct modalDetailsView: View {
                     .frame(minWidth: 0, maxWidth: .infinity)
 
                 } // Fecha VStack geral
+                .background(Color.white)
                 
         } // Fecha ZStack
         

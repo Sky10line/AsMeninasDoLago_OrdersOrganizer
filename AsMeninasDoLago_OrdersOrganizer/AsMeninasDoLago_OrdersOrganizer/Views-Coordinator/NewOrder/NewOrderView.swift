@@ -17,31 +17,51 @@ struct NewOrderView: View {
     @State var dataa: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
 
     var body: some View {
-		VStack {
-			NameTextField(name: $name)
-				.padding(.top)
-			
-			Divider()
-				.padding(.horizontal)
-				.padding(.top, 8)
-			
-			TabNewOrder(tabs: categories, selectedTab: $selectedTab)
-			
-			Divider()
-				.padding(.horizontal)
-			
-			Spacer()
-			ScrollView {
-				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
-					.animation(.spring(response: 1, dampingFraction: 1))
+        
+        ZStack {
+            VStack {
+                NameTextField(name: $name)
+                    .padding(.top)
                 
-			}
-		}.background(Color.white.ignoresSafeArea())
-		.navigationBarTitle("Nova comanda", displayMode: .inline)
-        .sheet(isPresented: $showModal, content: {
-                    ModalAddItemView(dataa: $dataa)
+                Divider()
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                
+                TabNewOrder(tabs: categories, selectedTab: $selectedTab)
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Spacer()
+                ScrollView {
+                    NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
+                        .animation(.spring(response: 1, dampingFraction: 1))
+                    
+                }
+                
+                
+            }.background(Color.white.ignoresSafeArea())
+            .navigationBarTitle("Nova comanda", displayMode: .inline)
+            
+            ZStack {
+                if showModal {
+                    Rectangle()
+                        .foregroundColor(Color.black)
+                        .opacity(showModal ? 0.6 : 0)
                         .ignoresSafeArea()
-                })
+                        .animation(.easeIn)
+                    
+                    ModalAddItemView(data: $dataa, isShowing: $showModal)
+                        .padding(.top,UIScreen.main.bounds.height / 5)
+                        .transition(.scale)
+                        .animation(.spring())
+                        .edgesIgnoringSafeArea(.all)
+                    
+                }
+            }.animation(.easeInOut)
+            
+            
+        }
     }
 }
 
