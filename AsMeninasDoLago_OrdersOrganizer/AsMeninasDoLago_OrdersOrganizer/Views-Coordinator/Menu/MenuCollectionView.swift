@@ -17,6 +17,16 @@ struct MenuCollectionView: View {
 	
 	let layout = [GridItem(.flexible(), spacing: 0)]
 	
+	let itemsGridLayoutRegular = [
+		GridItem(.flexible(), spacing: 8),
+		GridItem(.flexible(), spacing: 8),
+		GridItem(.flexible(), spacing: 8)
+	]
+
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	@Binding var isModalToBeShown: Bool
 	@Binding var dataToBeShown: ItemJSON
 	
@@ -43,7 +53,7 @@ struct MenuCollectionView: View {
 					}
 				}
 				
-				LazyVGrid(columns: itemsGridLayout, spacing: 16) {
+				LazyVGrid(columns: horizontalSizeClass == .regular ? itemsGridLayoutRegular : itemsGridLayout, spacing: 16) {
 					if let items = subcategory.items {
 						ForEach(items, id: \.self) { item in
 							if item.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
@@ -108,7 +118,8 @@ struct MenuCollectionViewCell: View {
 											.font(.subheadline)
 											.foregroundColor(.white)
 											.multilineTextAlignment(.leading)
-											.padding()
+											.padding(.horizontal)
+											.padding(.bottom)
 											
 										Spacer()
 										
@@ -119,7 +130,7 @@ struct MenuCollectionViewCell: View {
 												.foregroundColor(Color(UIColor.appGreen))
 												.padding()
 										})
-									}
+									}.background(Color(UIColor.appBrown))
 								}
 							}.padding(.bottom)
 							.padding(.top, 160)
