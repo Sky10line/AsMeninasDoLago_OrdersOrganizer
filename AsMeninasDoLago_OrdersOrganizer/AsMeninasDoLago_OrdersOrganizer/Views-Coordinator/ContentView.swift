@@ -39,15 +39,17 @@ struct ContentView: View {
 							.tag(CustomTabBar.Tabs.menu)
 							.gesture(DragGesture())
 						
-					}.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+					}
+					.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 					.ignoresSafeArea()
 				
 				CustomTabBar(selectedTab: $selectedTab)
-					.padding(.bottom, horizontalSizeClass == .regular ? 32 : 0)
+					.padding(.bottom, horizontalSizeClass == .regular ? 32 : (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 1 > 0 ? 0 : 16))
 //					.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
-		}.navigationViewStyle(StackNavigationViewStyle())
+		}
+		.navigationViewStyle(StackNavigationViewStyle())
 		.accentColor(Color(UIColor.appGreen))
     }
 }
@@ -55,5 +57,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
 		ContentView()
+					.previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+					.previewDisplayName("iPhone 11")
+
+				ContentView()
+					.previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+					.previewDisplayName("iPhone 8")
 	}
 }

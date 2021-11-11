@@ -21,6 +21,11 @@ struct HomeView: View {
 		OrderJSON(name: "Aline", totalValue: 50.00)
 	]
 	
+	#if os(iOS)
+		@Environment(\.verticalSizeClass) private var verticalSizeClass
+	#endif
+		
+	
 	init() {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
@@ -50,7 +55,7 @@ struct HomeView: View {
 				BigButton(text: "Nova comanda") {
 					isShowingNewOrderView = true
 				}
-				Spacer(minLength: 160)
+				Spacer(minLength: UIScreen.main.bounds.height / 5.5)
 			}
 			.background(Color.white.ignoresSafeArea())
 			.navigationBarHidden(true)
