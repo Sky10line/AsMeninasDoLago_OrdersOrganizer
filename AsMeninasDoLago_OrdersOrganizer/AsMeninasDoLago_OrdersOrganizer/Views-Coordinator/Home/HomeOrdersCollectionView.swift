@@ -20,39 +20,37 @@ struct HomeOrdersCollectionViewCell: View {
 			}
 			action?()
 		}, label: {
-			VStack {
-				if let name = item.name {
-					HStack {
-						Text(name)
-							.fontWeight(.bold)
-							.foregroundColor(Color(UIColor.appGreen))
-							.multilineTextAlignment(.leading)
-							.frame(width: nil, height: 50, alignment: .topLeading)
-							.padding(.horizontal)
-							
-						Spacer()
-					}.padding(.top)
-					
-					Spacer(minLength: 4)
-					
-					if let total = item.totalValue {
+				VStack {
+					if let name = item.name {
 						HStack {
-							Text(total.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
-								.foregroundColor(.black)
-								.fontWeight(.medium)
+							Text(name)
+								.fontWeight(.bold)
+								.foregroundColor(Color(UIColor.appGreen))
+								.multilineTextAlignment(.leading)
+								.frame(width: nil, height: 50, alignment: .topLeading)
 								.padding(.horizontal)
-								
-								
+									
 							Spacer()
-						}.padding(.bottom)
+						}.padding(.top)
+							
+						Spacer(minLength: 4)
+							
+						if let total = item.totalValue {
+							HStack {
+								Text(total.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+									.foregroundColor(.black)
+									.fontWeight(.medium)
+									.padding(.horizontal)
+										
+								Spacer()
+							}.padding(.bottom)
+						}
 					}
-				}
-			}.zIndex(1)
-			.background(Color(UIColor.gray3))
-			.cornerRadius(20)
-			.shadow(radius: 4)
-		}).transition(.opacity.combined(with: .slide).animation(.easeInOut))
-		.animation(.easeInOut(duration: 0.5))
+				}.zIndex(1)
+				.background(Color(UIColor.gray3))
+				.cornerRadius(20)
+				.shadow(radius: 4)
+		})
 		.scaleEffect(tap ? 0.95 : 1)
 		.animation(.spring(response: 0.6, dampingFraction: 1))
 	}
@@ -62,25 +60,37 @@ struct HomeOrdersCollectionView: View {
 	let data: Array<OrderJSON>
     @Binding var showOrderDetails: Bool
     @Binding var dataToBeShown: OrderJSON
+	@Binding var searchText: String
 	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+
 	let layout = [
+		GridItem(.flexible(), spacing: 16),
+		GridItem(.flexible(), spacing: 16)
+	]
+
+	let layoutRegular = [
+		GridItem(.flexible(), spacing: 16),
 		GridItem(.flexible(), spacing: 16),
 		GridItem(.flexible(), spacing: 16)
 	]
 	
     var body: some View {
-		ScrollView {
-			LazyVGrid(columns: layout, spacing: 16) {
+			LazyVGrid(columns: horizontalSizeClass == .regular ? layoutRegular : layout, spacing: 16) {
 				ForEach(data, id: \.self) { item in
-                    HomeOrdersCollectionViewCell(item: item, action: {
-                        showOrderDetails = true
-                        dataToBeShown = item
-                        print("Cliquei num item da collection")
-                    })
+          if item.name?.lowercased().contains(searchText.lowercased()) ?? true || searchText.isEmpty {
+						HomeOrdersCollectionViewCell(item: item, action: {
+							showOrderDetails = true
+							dataToBeShown = item
+							print("Cliquei num item da collection")
+						}).transition(.opacity.combined(with: .slide).animation(.easeInOut))
+						.animation(.easeInOut(duration: 0.5))
+					}
 				}
 			}.padding(.horizontal)
-			.padding(.vertical, 8)
-		}.zIndex(0)
+			.padding(.vertical, 8)            
     }
 }
 
@@ -91,5 +101,6 @@ struct HomeOrdersCollectionView_Previews: PreviewProvider {
 			OrderJSON(name: "Pilar de Souza Rocha da Silva", totalValue: 50.00)
 		]
         HomeOrdersCollectionView(data: orders, showOrderDetails: .constant(true), dataToBeShown: .constant(OrderJSON(name: "Rodrigo", totalValue: 10.00)))
+
     }
 }

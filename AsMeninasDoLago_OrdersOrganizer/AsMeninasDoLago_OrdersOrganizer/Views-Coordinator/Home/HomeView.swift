@@ -31,32 +31,28 @@ struct HomeView: View {
 	}
 	
 	var body: some View {
-			ZStack {
-                VStack {
-                    NavBar(title: "Comandas")
-                    
-                    SearchBar(searchText: $searchText)
-                    Divider()
-                        .padding(.top, 8)
-                        .padding(.horizontal)
-                    
-                    HomeOrdersCollectionView(data: orders.filter({ "\($0.name?.lowercased() ?? "")".contains(searchText.lowercased()) || searchText.isEmpty }), showOrderDetails: $showOrderDetails, dataToBeShown: $orderData)
-                        
-                    Spacer()
-                
-                    
-                    NavigationLink(
-                        destination: NewOrderView(),
-                        isActive: $isShowingNewOrderView,
-                        label: { EmptyView() })
-                    
-                    BigButton(text: "Nova comanda") {
-                        isShowingNewOrderView = true
-                    }
-                    Spacer(minLength: 80)
-                }
-                
-                
+			VStack {
+				NavBar(title: "Comandas")
+				
+				SearchBar(searchText: $searchText)
+				Divider()
+					.padding(.top, 8)
+					.padding(.horizontal)
+				
+				ScrollView {
+					HomeOrdersCollectionView(data: orders, isModalToBeShown: $showOrderDetails, dataToBeShown: $orderData, searchText: $searchText)
+				}
+				Spacer()
+				
+				NavigationLink(
+					destination: NewOrderView(),
+					isActive: $isShowingNewOrderView,
+					label: { EmptyView() })
+				
+				BigButton(text: "Nova comanda") {
+					isShowingNewOrderView = true
+				}
+				Spacer(minLength: 160)
 			}
 			.background(Color.white.ignoresSafeArea())
 			.navigationBarHidden(true)
@@ -65,6 +61,7 @@ struct HomeView: View {
 	}
 }
 
+/*
 struct teste: View {
     var body: some View {
         ZStack {
@@ -146,3 +143,5 @@ struct HomeView_Previews: PreviewProvider {
         ContentView()
     }
 }
+*/
+

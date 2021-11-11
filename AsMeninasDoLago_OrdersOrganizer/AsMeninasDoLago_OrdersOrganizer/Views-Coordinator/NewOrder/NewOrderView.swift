@@ -17,11 +17,24 @@ struct NewOrderView: View {
     @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
 
     var body: some View {
-        
-        ZStack {
-            VStack {
-                NameTextField(name: $name)
-                    .padding(.top)
+    ZStack {
+		VStack {
+			NameTextField(name: $name)
+				.padding(.top)
+			
+			Divider()
+				.padding(.horizontal)
+				.padding(.top, 8)
+			
+			TabMenu(tabs: categories, selectedTab: $selectedTab)
+			
+			Divider()
+				.padding(.horizontal)
+			
+			Spacer()
+			ScrollView {
+				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
+					.animation(.spring(response: 1, dampingFraction: 1))
                 
                 Divider()
                     .padding(.horizontal)
