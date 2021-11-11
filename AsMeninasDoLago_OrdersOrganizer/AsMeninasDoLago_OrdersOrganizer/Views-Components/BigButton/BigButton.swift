@@ -12,6 +12,11 @@ struct BigButton: View {
 	let text: String
 	let action: (() -> Void)?
 	@State private var tap: Bool = false
+	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	var body: some View {
 		ZStack {
 			Button(action: {
@@ -36,6 +41,7 @@ struct BigButton: View {
 			.shadow(radius: tap ? 1 : 4)
 			.animation(.spring(response: 0.6, dampingFraction: 1))
 			.padding()
+//			.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 		}.scaleEffect(tap ? 0.9 : 1)
 		.animation(.spring(response: 0.6, dampingFraction: 1))
 			

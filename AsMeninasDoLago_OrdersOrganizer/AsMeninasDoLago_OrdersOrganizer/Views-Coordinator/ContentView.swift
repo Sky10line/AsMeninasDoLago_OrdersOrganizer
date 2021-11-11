@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	@State var selectedTab: CustomTabBar.Tabs = .orders
 	init() {
 		UITabBar.appearance().isHidden = true
@@ -38,9 +43,12 @@ struct ContentView: View {
 					.ignoresSafeArea()
 				
 				CustomTabBar(selectedTab: $selectedTab)
+					.padding(.bottom, horizontalSizeClass == .regular ? 32 : 0)
+//					.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
-		}.accentColor(Color(UIColor.appGreen))
+		}.navigationViewStyle(StackNavigationViewStyle())
+		.accentColor(Color(UIColor.appGreen))
     }
 }
 
