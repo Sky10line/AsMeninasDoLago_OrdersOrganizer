@@ -94,13 +94,13 @@ struct HomeOrdersCollectionView: View {
     }
 }
 
-struct HomeOrdersCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-		let orders = [
-			OrderJSON(name: "Rodrigo", totalValue: 10.00),
-			OrderJSON(name: "Pilar de Souza Rocha da Silva", totalValue: 50.00)
-		]
-        HomeOrdersCollectionView(data: orders, showOrderDetails: .constant(true), dataToBeShown: .constant(OrderJSON(name: "Rodrigo", totalValue: 10.00)))
-
-    }
-}
+//struct HomeOrdersCollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//		let orders = [
+//			OrderJSON(name: "Rodrigo", totalValue: 10.00),
+//			OrderJSON(name: "Pilar de Souza Rocha da Silva", totalValue: 50.00)
+//		]
+//        HomeOrdersCollectionView(data: orders, showOrderDetails: .constant(true), dataToBeShown: .constant(OrderJSON(name: "Rodrigo", totalValue: 10.00)))
+//
+//    }
+//}

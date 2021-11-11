@@ -17,30 +17,16 @@ struct NewOrderView: View {
     @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
 
     var body: some View {
-    ZStack {
-		VStack {
-			NameTextField(name: $name)
-				.padding(.top)
-			
-			Divider()
-				.padding(.horizontal)
-				.padding(.top, 8)
-			
-			TabMenu(tabs: categories, selectedTab: $selectedTab)
-			
-			Divider()
-				.padding(.horizontal)
-			
-			Spacer()
-			ScrollView {
-				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
-					.animation(.spring(response: 1, dampingFraction: 1))
+        ZStack {
+            VStack {
+                NameTextField(name: $name)
+                    .padding(.top)
                 
                 Divider()
                     .padding(.horizontal)
                     .padding(.top, 8)
                 
-                TabNewOrder(tabs: categories, selectedTab: $selectedTab)
+                TabMenu(tabs: categories, selectedTab: $selectedTab)
                 
                 Divider()
                     .padding(.horizontal)
@@ -50,11 +36,27 @@ struct NewOrderView: View {
                     NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
                         .animation(.spring(response: 1, dampingFraction: 1))
                     
-                }
+                    Divider()
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+                    
                 
+                    
+                    Divider()
+                        .padding(.horizontal)
+                    
+                    Spacer()
+                    ScrollView {
+                        NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
+                            .animation(.spring(response: 1, dampingFraction: 1))
+                        
+                    }
+                    
+                    
+                }.background(Color.white.ignoresSafeArea())
+                .navigationBarTitle("Nova comanda", displayMode: .inline)
                 
-            }.background(Color.white.ignoresSafeArea())
-            .navigationBarTitle("Nova comanda", displayMode: .inline)
+            }
             
             ZStack {
                 if showItemNewOrder {
@@ -63,17 +65,15 @@ struct NewOrderView: View {
                         .opacity(showItemNewOrder ? 0.6 : 0)
                         .ignoresSafeArea()
                         .animation(.easeIn)
-
+            
                     ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
                         .padding(.top,UIScreen.main.bounds.height / 5)
                         .transition(.scale)
                         .animation(.spring())
                         .edgesIgnoringSafeArea(.all)
-
+            
                 }
             }.animation(.easeInOut)
-            
-            
         }
     }
 }

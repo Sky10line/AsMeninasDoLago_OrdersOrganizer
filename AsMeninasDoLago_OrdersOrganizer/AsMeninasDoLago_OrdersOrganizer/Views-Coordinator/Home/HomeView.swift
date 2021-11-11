@@ -40,7 +40,7 @@ struct HomeView: View {
 					.padding(.horizontal)
 				
 				ScrollView {
-					HomeOrdersCollectionView(data: orders, isModalToBeShown: $showOrderDetails, dataToBeShown: $orderData, searchText: $searchText)
+                    HomeOrdersCollectionView(data: orders, showOrderDetails: $showOrderDetails, dataToBeShown: $orderData, searchText: $searchText)
 				}
 				Spacer()
 				

@@ -24,47 +24,45 @@ struct ContentView: View {
     var body: some View {
 		NavigationView {
 			ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-					TabView(selection: $selectedTab) { // Isso é uma tab bar
+                TabView(selection: $selectedTab) { // Isso é uma tab bar
 
-						// Primeiro item da tab bar
-                        HomeView(showOrderDetails: $showOrderDetails, orderData: $detaislData)
-							.tag(CustomTabBar.Tabs.orders)
-							.gesture(DragGesture())
+                    // Primeiro item da tab bar
+                    HomeView(showOrderDetails: $showOrderDetails, orderData: $detaislData)
+                        .tag(CustomTabBar.Tabs.orders)
+                        .gesture(DragGesture())
 
-						// Segundo item da tab bar
-						FinishedOrders()
-							.tag(CustomTabBar.Tabs.finishedOrders)
-							.gesture(DragGesture())
-							
+                    // Segundo item da tab bar
+                    FinishedOrders()
+                        .tag(CustomTabBar.Tabs.finishedOrders)
+                        .gesture(DragGesture())
+                        
 
-						// Terceiro item da tab bar
-						MenuView()
-							.tag(CustomTabBar.Tabs.menu)
-							.gesture(DragGesture())
-						
-					}.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    // Terceiro item da tab bar
+                    MenuView()
+                        .tag(CustomTabBar.Tabs.menu)
+                        .gesture(DragGesture())
+                    
+                }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 					.ignoresSafeArea()
 				
-				CustomTabBar(selectedTab: $selectedTab)
-          .padding(.bottom, horizontalSizeClass == .regular ? 32 : 0)
+                CustomTabBar(selectedTab: $selectedTab)
+                    .padding(.bottom, horizontalSizeClass == .regular ? 32 : 0)
                 
                 ZStack {
                     if showOrderDetails {
-                        
                         Rectangle()
                             .foregroundColor(Color.black)
                             .opacity(showOrderDetails ? 0.6 : 0)
                             .ignoresSafeArea()
                             .animation(.easeIn)
-                        
+                            
                         modalDetailsView(testData: $detaislData, isShowing: $showOrderDetails)
                             .padding(.top,UIScreen.main.bounds.height / 8)
                             .transition(.scale)
                             .animation(.spring())
                             .edgesIgnoringSafeArea(.all)
-                        
                     }
-                    
+                        
                 }.animation(.easeInOut)
 
 
