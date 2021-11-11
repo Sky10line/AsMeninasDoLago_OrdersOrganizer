@@ -58,7 +58,7 @@ struct HomeOrdersCollectionViewCell: View {
 
 struct HomeOrdersCollectionView: View {
 	let data: Array<OrderJSON>
-    @Binding var isModalToBeShown: Bool
+    @Binding var showOrderDetails: Bool
     @Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
 	
@@ -80,9 +80,9 @@ struct HomeOrdersCollectionView: View {
     var body: some View {
 			LazyVGrid(columns: horizontalSizeClass == .regular ? layoutRegular : layout, spacing: 16) {
 				ForEach(data, id: \.self) { item in
-					if item.name?.lowercased().contains(searchText.lowercased()) ?? true || searchText.isEmpty {
+          if item.name?.lowercased().contains(searchText.lowercased()) ?? true || searchText.isEmpty {
 						HomeOrdersCollectionViewCell(item: item, action: {
-							isModalToBeShown = true
+							showOrderDetails = true
 							dataToBeShown = item
 							print("Cliquei num item da collection")
 						}).transition(.opacity.combined(with: .slide).animation(.easeInOut))
@@ -90,7 +90,17 @@ struct HomeOrdersCollectionView: View {
 					}
 				}
 			}.padding(.horizontal)
-			.padding(.vertical, 8)
-		
+			.padding(.vertical, 8)            
+    }
+}
+
+struct HomeOrdersCollectionView_Previews: PreviewProvider {
+    static var previews: some View {
+		let orders = [
+			OrderJSON(name: "Rodrigo", totalValue: 10.00),
+			OrderJSON(name: "Pilar de Souza Rocha da Silva", totalValue: 50.00)
+		]
+        HomeOrdersCollectionView(data: orders, showOrderDetails: .constant(true), dataToBeShown: .constant(OrderJSON(name: "Rodrigo", totalValue: 10.00)))
+
     }
 }

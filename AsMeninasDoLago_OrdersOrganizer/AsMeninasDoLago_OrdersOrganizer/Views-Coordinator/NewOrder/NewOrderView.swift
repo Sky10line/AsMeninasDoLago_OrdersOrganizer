@@ -13,10 +13,11 @@ struct NewOrderView: View {
 	
 	@State private var selectedTab: String = ""
     
-    @State private var showModal = false
-    @State var dataa: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
+    @State var showItemNewOrder: Bool = false
+    @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
 
     var body: some View {
+    ZStack {
 		VStack {
 			NameTextField(name: $name)
 				.padding(.top)
@@ -35,13 +36,45 @@ struct NewOrderView: View {
 				NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $dataa)
 					.animation(.spring(response: 1, dampingFraction: 1))
                 
-			}
-		}.background(Color.white.ignoresSafeArea())
-		.navigationBarTitle("Nova comanda", displayMode: .inline)
-        .sheet(isPresented: $showModal, content: {
-                    ModalAddItemView(dataa: $dataa)
+                Divider()
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                
+                TabNewOrder(tabs: categories, selectedTab: $selectedTab)
+                
+                Divider()
+                    .padding(.horizontal)
+                
+                Spacer()
+                ScrollView {
+                    NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
+                        .animation(.spring(response: 1, dampingFraction: 1))
+                    
+                }
+                
+                
+            }.background(Color.white.ignoresSafeArea())
+            .navigationBarTitle("Nova comanda", displayMode: .inline)
+            
+            ZStack {
+                if showItemNewOrder {
+                    Rectangle()
+                        .foregroundColor(Color.black)
+                        .opacity(showItemNewOrder ? 0.6 : 0)
                         .ignoresSafeArea()
-		})
+                        .animation(.easeIn)
+
+                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
+                        .padding(.top,UIScreen.main.bounds.height / 5)
+                        .transition(.scale)
+                        .animation(.spring())
+                        .edgesIgnoringSafeArea(.all)
+
+                }
+            }.animation(.easeInOut)
+            
+            
+        }
     }
 }
 
@@ -62,6 +95,6 @@ struct NameTextField: View {
 
 struct NewOrderView_Previews: PreviewProvider {
     static var previews: some View {
-		NewOrderView()
+        NewOrderView()
     }
 }
