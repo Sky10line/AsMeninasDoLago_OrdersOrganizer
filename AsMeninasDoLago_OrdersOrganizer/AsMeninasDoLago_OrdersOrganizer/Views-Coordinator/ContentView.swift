@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
 	@State var selectedTab: CustomTabBar.Tabs = .orders
+	
+	#if os(iOS)
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	init() {
 		UITabBar.appearance().isHidden = true
 	}
@@ -37,10 +42,15 @@ struct ContentView: View {
 					}.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 					.ignoresSafeArea()
 				
+				
 				CustomTabBar(selectedTab: $selectedTab)
+					.padding(.bottom, horizontalSizeClass == .regular ? 32 : 0)
+//					.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+				
 
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
-		}.accentColor(Color(UIColor.appGreen))
+		}.navigationViewStyle(StackNavigationViewStyle())
+		.accentColor(Color(UIColor.appGreen))
     }
 }
 

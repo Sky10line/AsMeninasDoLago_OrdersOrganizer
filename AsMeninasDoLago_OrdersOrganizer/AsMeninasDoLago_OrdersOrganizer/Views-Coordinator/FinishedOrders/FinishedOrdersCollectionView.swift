@@ -15,6 +15,16 @@ struct FinishedOrdersCollectionView: View {
 		GridItem(.flexible(), spacing: 8)
 	]
 	
+	let ordersLayoutRegular = [
+		GridItem(.flexible(), spacing: 8),
+		GridItem(.flexible(), spacing: 8),
+		GridItem(.flexible(), spacing: 8)
+	]
+	
+	#if os(iOS)
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	let layout = [GridItem(.flexible(), spacing: 4)]
 	
 	var isShow: Bool = false
@@ -48,7 +58,7 @@ struct FinishedOrdersCollectionView: View {
 						.animation(.easeInOut(duration: 0.5))
 					}
 					
-					LazyVGrid(columns: ordersLayout, spacing: 16) {
+					LazyVGrid(columns: horizontalSizeClass == .regular ? ordersLayoutRegular : ordersLayout, spacing: 16) {
 						ForEach(orders, id: \.self) { order in
 							if order.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
 								HomeOrdersCollectionViewCell(item: order, action: {

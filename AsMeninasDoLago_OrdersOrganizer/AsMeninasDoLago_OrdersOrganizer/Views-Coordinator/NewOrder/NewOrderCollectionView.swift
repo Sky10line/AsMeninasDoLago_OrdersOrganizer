@@ -47,10 +47,11 @@ struct NewOrderCollectionViewCell: View {
 											.font(.subheadline)
 											.foregroundColor(.white)
 											.multilineTextAlignment(.leading)
-											.padding()
+											.padding(.horizontal)
+											.padding(.bottom)
 											
 										Spacer()
-									}
+									}.background(Color(UIColor.appBrown))
 								}
 							}.padding(.bottom)
 							.padding(.top, 160)
@@ -75,6 +76,16 @@ struct NewOrderCollectionView: View {
 		GridItem(.flexible(), spacing: 8),
 		GridItem(.flexible(), spacing: 8)
 	]
+	
+	let layoutRegular = [
+		GridItem(.flexible(), spacing: 8),
+		GridItem(.flexible(), spacing: 8),
+		GridItem(.flexible(), spacing: 8)
+	]
+	
+	#if os(iOS)
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
     
     @Binding var isModalToBeShown: Bool
     @Binding var dataToBeShown: ItemJSON
@@ -95,7 +106,7 @@ struct NewOrderCollectionView: View {
 					}
 				}
 				if let items = subcategory.items {
-					LazyVGrid(columns: layout, spacing: 16) {
+					LazyVGrid(columns: horizontalSizeClass == .regular ? layoutRegular : layout, spacing: 16) {
 						ForEach(items, id: \.self) { item in
 							NewOrderCollectionViewCell(item: item, action: {
                                 isModalToBeShown = true

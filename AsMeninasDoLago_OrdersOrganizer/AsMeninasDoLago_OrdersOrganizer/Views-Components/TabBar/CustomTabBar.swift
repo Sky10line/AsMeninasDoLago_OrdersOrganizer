@@ -68,6 +68,10 @@ struct TabBarButton: View {
 	@Binding var selectedTab: CustomTabBar.Tabs
 	@Binding var tabPoints: [CGFloat]
 	
+	#if os(iOS)
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	var body: some View {
 		GeometryReader {reader -> AnyView in
 			

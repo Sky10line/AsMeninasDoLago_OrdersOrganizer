@@ -62,13 +62,23 @@ struct HomeOrdersCollectionView: View {
     @Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
 	
+	#if os(iOS)
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	let layout = [
 		GridItem(.flexible(), spacing: 16),
 		GridItem(.flexible(), spacing: 16)
 	]
 	
+	let layoutRegular = [
+		GridItem(.flexible(), spacing: 16),
+		GridItem(.flexible(), spacing: 16),
+		GridItem(.flexible(), spacing: 16)
+	]
+	
     var body: some View {
-			LazyVGrid(columns: layout, spacing: 16) {
+		LazyVGrid(columns: horizontalSizeClass == .regular ? layoutRegular : layout, spacing: 16) {
 				ForEach(data, id: \.self) { item in
 					if item.name?.lowercased().contains(searchText.lowercased()) ?? true || searchText.isEmpty {
 						HomeOrdersCollectionViewCell(item: item, action: {

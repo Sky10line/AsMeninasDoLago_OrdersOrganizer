@@ -253,7 +253,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BDAFEEA3270FAA840000CE8C /* Build configuration list for PBXProject "AsMeninasDoLago_OrdersOrganizer" */;
+			buildConfigurationList = BDAFEEA3270FAA840000CE8C /* Build configuration list for PBXProject "AsMeninasDoLago" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -445,18 +445,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"AsMeninasDoLago_OrdersOrganizer/Preview Content\"";
 				DEVELOPMENT_TEAM = HKSJLM4DRR;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AsMeninasDoLago_OrdersOrganizer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Aoki.AsMeninasDoLago-OrdersOrganizer";
+				PRODUCT_BUNDLE_IDENTIFIER = Aoki.AsMeninasDoLago;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -467,18 +469,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"AsMeninasDoLago_OrdersOrganizer/Preview Content\"";
 				DEVELOPMENT_TEAM = HKSJLM4DRR;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AsMeninasDoLago_OrdersOrganizer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Aoki.AsMeninasDoLago-OrdersOrganizer";
+				PRODUCT_BUNDLE_IDENTIFIER = Aoki.AsMeninasDoLago;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -487,7 +491,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BDAFEEA3270FAA840000CE8C /* Build configuration list for PBXProject "AsMeninasDoLago_OrdersOrganizer" */ = {
+		BDAFEEA3270FAA840000CE8C /* Build configuration list for PBXProject "AsMeninasDoLago" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BDAFEEB5270FAA850000CE8C /* Debug */,
