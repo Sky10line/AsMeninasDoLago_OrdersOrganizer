@@ -20,6 +20,8 @@ struct HomeView: View {
 		OrderJSON(name: "Roger", totalValue: 50.00),
 		OrderJSON(name: "Aline", totalValue: 50.00)
 	]
+    
+//    @State var orders = [OrderJSON]()
 	
     init(showOrderDetails: Binding<Bool>, orderData: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -51,6 +53,16 @@ struct HomeView: View {
 				
 				BigButton(text: "Nova comanda") {
 					isShowingNewOrderView = true
+//                    guard let url = URL(string: "https://api-grupo1.herokuapp.com/MostraCardapio") else {
+//                        print("erro")
+//                        return
+//                    }
+//                    let req = URLSession.shared.dataTask(with: url) { (data, res, err) in
+//                    guard let data = data else { return }
+//                    print(String(data:data, encoding: .utf8) ?? "eita")
+//
+//                    }
+//                    req.resume()
 				}
 				Spacer(minLength: 160)
 			}
@@ -58,7 +70,32 @@ struct HomeView: View {
 			.navigationBarHidden(true)
 			.navigationTitle("Comandas")
             .edgesIgnoringSafeArea(.all)
+            .onAppear(perform: {
+                loadOrders()
+            })
 	}
+    
+    func loadOrders(){
+        guard let url = URL(string: "https://api-grupo1.herokuapp.com/MostraComandasAbertas") else {
+            print("Erro: URL Inválida")
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode([OrderJSON].self, from: data) {
+                    DispatchQueue.main.async {
+                        //self.orders = decodedResponse
+                    }
+                    return
+                }
+            }
+            print("Falha: \(String(describing: error?.localizedDescription))")
+        }.resume()
+        
+    }
 }
 
 /*

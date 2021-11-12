@@ -12,3 +12,18 @@ struct ItemJSON: Decodable, Hashable {
 	var price: Double?
 	var image: String?
 }
+
+
+
+
+struct NewOrderItem: Decodable, Hashable {
+    var item: ItemJSON
+    var quantity: Int
+    var comments: String?
+}
+
+struct Order: Decodable, Hashable {
+    var name: String
+    var items: [NewOrderItem]
+    var total: Double
+}

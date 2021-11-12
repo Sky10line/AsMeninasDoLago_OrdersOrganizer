@@ -9,8 +9,6 @@ import SwiftUI
 
 struct modalDetailsView: View {
     
-    @Environment(\.presentationMode) var presentation
-    
     // Dummy data
     var data: [testData] = dataa
     @Binding var testData: OrderJSON
@@ -20,12 +18,6 @@ struct modalDetailsView: View {
     
     var body: some View {
             ZStack (alignment: .topLeading) {
-                
-//                Rectangle()
-//                    .foregroundColor(Color.black)
-//                    .opacity(isShowing ? 0.6 : 0)
-//                    .offset(y: -100)
-                   
                 
                 VStack (alignment: .leading) {
                     
@@ -37,7 +29,7 @@ struct modalDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                         
                         // Botão de fechar
-                        Button(action: { //presentation.wrappedValue.dismiss()
+                        Button(action: {
                             isShowing = false
                             
                         }){
@@ -56,7 +48,7 @@ struct modalDetailsView: View {
                     ScrollView {
                         LazyVStack {
                             ForEach(data, id: \.self) { el in
-                                TableCell(item: el)
+                                //TableCell(item: )
                             }
                             
                             // Botão de adicionar mais itens

@@ -16,6 +16,9 @@ struct ModalAddItemView: View {
     @Binding var data: ItemJSON
     @Binding var isShowing: Bool
     
+    @Binding var order: Order
+    
+    @State private var showAlert = false
     
     var body: some View {
         ZStack (alignment: .topLeading) {
@@ -83,8 +86,22 @@ struct ModalAddItemView: View {
                         } // Fecha Stepper
                         
                         // Botão de adicionar item
-                        BigButton(text: "Adicionar Item", action: nil)
+                        BigButton(text: "Adicionar Item", action: {
+                            
+                            if qtdItem == 0 {
+                                showAlert = true
+                                return
+                            }
+                            
+                            order.items.append(
+                                NewOrderItem(item: data, quantity: qtdItem, comments: obsText)
+                            )
+                            isShowing = false
+                        })
                             .fixedSize()
+                        .alert(isPresented: $showAlert, content: {
+                            Alert(title: Text("Atenção"), message: Text("Você precisa adicionar pelo menos 1 item."), dismissButton: .default(Text("OK")))
+                        })
                         
                     } // Fecha HStack com Stepper e botão
                 } // Fecha VStack com nome, observações e controles
@@ -111,7 +128,7 @@ struct ModalAddItemView: View {
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
         Text("Background").sheet(isPresented: .constant(true)) {
-            ModalAddItemView(data: .constant(ItemJSON(name: "Carne louca", price: 20, image: "LanchePlaceHolder")), isShowing: .constant(true))
+//            ModalAddItemView(data: .constant(ItemJSON(name: "Carne louca", price: 20, image: "LanchePlaceHolder")), isShowing: .constant(true))
         }
     }
 }

@@ -39,6 +39,28 @@ struct MenuView: View {
 			}
 		}
     }
+    
+    func loadOrders(){
+        guard let url = URL(string: "https://api-grupo1.herokuapp.com/MostraCardapio") else {
+            print("Erro: URL Inválida")
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode([OrderJSON].self, from: data) {
+                    DispatchQueue.main.async {
+                        //self.orders = decodedResponse
+                    }
+                    return
+                }
+            }
+            print("Falha: \(String(describing: error?.localizedDescription))")
+        }.resume()
+        
+    }
 }
 
 struct MenuView_Previews: PreviewProvider {

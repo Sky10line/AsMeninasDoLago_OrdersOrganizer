@@ -15,6 +15,9 @@ struct NewOrderView: View {
     
     @State var showItemNewOrder: Bool = false
     @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
+    
+    @State var order = Order(name: "", items: [], total: 0)
+    @State var showOrder: Bool = false
 
     var body: some View {
         ZStack {
@@ -58,6 +61,16 @@ struct NewOrderView: View {
                 
             }
             
+            
+            if !order.items.isEmpty {
+                VStack {
+                    Spacer()
+                    WeirdButton(text: "Comanda", action: { showOrder = true }, total: order.total)
+                }.ignoresSafeArea()
+                .frame(alignment: .bottom)
+                
+            }
+            
             ZStack {
                 if showItemNewOrder {
                     Rectangle()
@@ -66,12 +79,25 @@ struct NewOrderView: View {
                         .ignoresSafeArea()
                         .animation(.easeIn)
             
-                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
+                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder, order: $order)
                         .padding(.top,UIScreen.main.bounds.height / 5)
                         .transition(.scale)
                         .animation(.spring())
                         .edgesIgnoringSafeArea(.all)
             
+                }
+                else if showOrder {
+                    Rectangle()
+                        .foregroundColor(Color.black)
+                        .opacity(showOrder ? 0.6 : 0)
+                        .ignoresSafeArea()
+                        .animation(.easeIn)
+                    
+                    ModalCurrentOrder(testData: $order, isShowing: $showOrder)
+                        .padding(.top,UIScreen.main.bounds.height / 5)
+                        .transition(.scale)
+                        .animation(.spring())
+                        .edgesIgnoringSafeArea(.all)
                 }
             }.animation(.easeInOut)
         }

@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct TableCell: View {
-    var item: testData
+    var item: NewOrderItem
     
     var body: some View {
         VStack {
             HStack {
                 // Quantidade
-                Text(item.qtd)
+                Text("\(item.quantity)")
                     .fontWeight(.bold)
                     .font(.title)
                 + Text("x")
                     .fontWeight(.light)
 
                 // Imagem
-                Image(systemName: item.img)
+                Image(item.item.image ?? "LanchePlaceHolder")
                     .resizable()
                     .scaledToFit()
                     .frame(minHeight: 50, idealHeight: 75, maxHeight: 75)
@@ -29,12 +29,12 @@ struct TableCell: View {
                 
                 VStack (alignment: .leading, spacing: 5) {
                     // Nome do item
-                    Text(item.nome)
+                    Text(item.item.name ?? "Item")
                         .fontWeight(.bold)
                         .lineLimit(3)
                     
                     // Preço do item
-                    Text (item.preco.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+                    Text ((item.item.price ?? 0.00).asCurrencyBR() ?? 0.00.asCurrencyBR()!)
                         .padding(.top)
                 }
                 
@@ -78,8 +78,8 @@ struct TableCell: View {
     } // Fecha body
 } // Fecha struct
 
-struct TableCell_Previews: PreviewProvider {
-    static var previews: some View {
-        TableCell(item: testData(img: "circle", nome: "Carne Louca", preco: 22, qtd: "3"))
-    }
-}
+//struct TableCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TableCell(item: testData(img: "circle", nome: "Carne Louca", preco: 22, qtd: "3"))
+//    }
+//}

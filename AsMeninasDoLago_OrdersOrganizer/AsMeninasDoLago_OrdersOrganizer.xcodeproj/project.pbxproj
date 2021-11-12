@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10097A8D273EFBA70035C4C8 /* WeirdButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10097A8C273EFBA70035C4C8 /* WeirdButton.swift */; };
+		10097A8F273F04AC0035C4C8 /* ModalCurrentOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10097A8E273F04AC0035C4C8 /* ModalCurrentOrder.swift */; };
 		10105ECF272851D100B9B1F2 /* BigButtonVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */; };
 		10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ED0272859C300B9B1F2 /* TableCell.swift */; };
 		10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10097A8C273EFBA70035C4C8 /* WeirdButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeirdButton.swift; sourceTree = "<group>"; };
+		10097A8E273F04AC0035C4C8 /* ModalCurrentOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCurrentOrder.swift; sourceTree = "<group>"; };
 		10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonVariant.swift; sourceTree = "<group>"; };
 		10105ED0272859C300B9B1F2 /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 		10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddItemView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			children = (
 				BD2FF14F2720EFC400768CEE /* BigButton.swift */,
 				10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */,
+				10097A8C273EFBA70035C4C8 /* WeirdButton.swift */,
 			);
 			path = BigButton;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 				BDAFEEB1270FAA850000CE8C /* Preview Content */,
 				105969622719DED700510399 /* modalDetailsView.swift */,
 				10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */,
+				10097A8E273F04AC0035C4C8 /* ModalCurrentOrder.swift */,
 			);
 			path = AsMeninasDoLago_OrdersOrganizer;
 			sourceTree = "<group>";
@@ -296,6 +302,7 @@
 				BD30508C273346B100A0E0EA /* FinishedDatesJSON.swift in Sources */,
 				BD3050792731A71200A0E0EA /* TabCurve.swift in Sources */,
 				BD3050742728D74F00A0E0EA /* DebugHelper.swift in Sources */,
+				10097A8D273EFBA70035C4C8 /* WeirdButton.swift in Sources */,
 				BD3050842732176500A0E0EA /* SearchBar.swift in Sources */,
 				BD3050702728D67200A0E0EA /* CategoryJSON.swift in Sources */,
 				BDAFEEBE270FAE140000CE8C /* HomeOrdersCollectionView.swift in Sources */,
@@ -317,6 +324,7 @@
 				BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */,
 				BD30506E27264E7A00A0E0EA /* ItemJSON.swift in Sources */,
 				BD30507B2731F59900A0E0EA /* HomeView.swift in Sources */,
+				10097A8F273F04AC0035C4C8 /* ModalCurrentOrder.swift in Sources */,
 				BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
