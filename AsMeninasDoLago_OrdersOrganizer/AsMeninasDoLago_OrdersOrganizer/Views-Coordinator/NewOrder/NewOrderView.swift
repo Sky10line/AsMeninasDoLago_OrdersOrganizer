@@ -109,8 +109,9 @@ struct NewOrderView: View {
 							
 							ScrollView {
 								LazyVStack {
-									ForEach(data, id: \.self) { el in
-										TableCell(item: el)
+									ForEach(data, id: \.self) { item in
+										//TableCell(item: el)
+                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
 									}
 								}.background(Color.white)
 							}

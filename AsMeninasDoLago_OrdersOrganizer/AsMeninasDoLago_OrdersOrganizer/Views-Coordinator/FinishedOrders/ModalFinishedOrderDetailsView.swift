@@ -10,7 +10,7 @@ import SwiftUI
 struct ModalFinishedOrderDetailsView: View {
 	@Environment(\.presentationMode) var presentation
 	
-	// Dummy data
+	// Dummy data 
 	var data: [testData] = dataa
 	@Binding var testData: OrderJSON
 	@Binding var selectedModal: ContentView.Modals
@@ -40,8 +40,8 @@ struct ModalFinishedOrderDetailsView: View {
 				}
 				ScrollView {
 					LazyVStack {
-						ForEach(data, id: \.self) { el in
-							FinishedOrderDetailsCell(item: el)
+						ForEach(data, id: \.self) { item in
+                            OrderCollectionCell(selectedModal: $selectedModal, item: item)
 						}
 					}
 				}
@@ -65,47 +65,8 @@ struct ModalFinishedOrderDetailsView: View {
 	}
 }
 
-struct FinishedOrderDetailsCell: View {
-	var item: testData
-	
-	var body: some View {
-		VStack {
-			HStack {
-				Text(item.qtd)
-					.fontWeight(.bold)
-					.font(.title)
-					+ Text("x")
-					.fontWeight(.light)
-				
-				Image(systemName: item.img)
-					.resizable()
-					.scaledToFit()
-					.frame(minHeight: 50, idealHeight: 75, maxHeight: 75)
-				//.frame(height: 75)
-				
-				VStack (alignment: .leading, spacing: 5) {
-					Text(item.nome)
-						.fontWeight(.bold)
-						.lineLimit(3)
-					
-					Text (item.preco.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
-						.padding(.top)
-				}
-				
-				Spacer()
-				
-			}
-			.padding(.vertical, 10)
-			
-			Divider()
-			
-		}
-		.padding(.horizontal, 20)
-	}
-}
-
 struct ModalFinishedOrderDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
 		ContentView()
-	}
+    }
 }
