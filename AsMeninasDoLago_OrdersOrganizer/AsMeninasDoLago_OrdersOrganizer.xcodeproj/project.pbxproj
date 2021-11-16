@@ -37,7 +37,6 @@
 		BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */; };
 		BDAFEEC5271B93E30000CE8C /* OrderJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */; };
 		BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */; };
-		BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */; };
 		BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */; };
 		BDC2D94027401F33006EFCEE /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93F27401F33006EFCEE /* NameTextField.swift */; };
 		BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D94127406A97006EFCEE /* CustomStepper.swift */; };
@@ -77,7 +76,6 @@
 		BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOrdersCollectionView.swift; sourceTree = "<group>"; };
 		BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderJSON.swift; sourceTree = "<group>"; };
-		BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFinishedOrderDetailsView.swift; sourceTree = "<group>"; };
 		BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalMenuItem.swift; sourceTree = "<group>"; };
 		BDC2D93F27401F33006EFCEE /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
 		BDC2D94127406A97006EFCEE /* CustomStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStepper.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 			children = (
 				BD305087273217F600A0E0EA /* FinishedOrders.swift */,
 				BD3050892733465E00A0E0EA /* FinishedOrdersCollectionView.swift */,
-				BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */,
 			);
 			path = FinishedOrders;
 			sourceTree = "<group>";
@@ -331,7 +328,6 @@
 				BD30506A2723772500A0E0EA /* TabMenu.swift in Sources */,
 				BD30508A2733465E00A0E0EA /* FinishedOrdersCollectionView.swift in Sources */,
 				BD3050932735C29E00A0E0EA /* MenuCollectionView.swift in Sources */,
-				BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */,
 				BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */,
 				BD30506E27264E7A00A0E0EA /* ItemJSON.swift in Sources */,
 				BD30507B2731F59900A0E0EA /* HomeView.swift in Sources */,
