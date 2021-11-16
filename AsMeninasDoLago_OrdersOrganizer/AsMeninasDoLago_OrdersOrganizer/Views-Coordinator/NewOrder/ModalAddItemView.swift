@@ -56,35 +56,42 @@ struct ModalAddItemView: View {
                     HStack {
                         // Stepper da quantidade (mais e menos)
                         // Tem um text field dentro dele que pode receber um valor digitado também
-                        Stepper(value: $qtdItem, in: 0...100) {
-                            TextField("\(qtdItem)", value: $qtdItem, formatter: NumberFormatter())
-                                .font(.title2)
-                                .onAppear {
-                                    // Configurar o rolê com o teclado
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
-                                        let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                                        let height = value.height
-                                        if UIDevice.current.model == "iPad" {
-                                            self.value = height / 6
-                                        }
-                                        else {
-                                            self.value = height / 1.1
-                                        }
-                                        
-                                        
-                                    }
-                                    
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
-                                        
-                                        self.value = 0
-                                        
-                                    }
-                                } // Fecha onAppear
-                        } // Fecha Stepper
+					
+//                        Stepper(value: $qtdItem, in: 0...100) {
+//                            TextField("\(qtdItem)", value: $qtdItem, formatter: NumberFormatter())
+//                                .font(.title2)
+//                                .onAppear {
+//                                    // Configurar o rolê com o teclado
+//                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
+//                                        let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+//                                        let height = value.height
+//                                        if UIDevice.current.model == "iPad" {
+//                                            self.value = height / 6
+//                                        }
+//                                        else {
+//                                            self.value = height / 1.1
+//                                        }
+//
+//
+//                                    }
+//
+//                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
+//
+//                                        self.value = 0
+//
+//                                    }
+//                                } // Fecha onAppear
+//                        } // Fecha Stepper
+						
+//						)
                         
+						CustomStepper(value: $qtdItem)
+							.shadow(radius: 20)
+						
                         // Botão de adicionar item
-                        BigButton(text: "Adicionar Item", action: nil)
-                            .fixedSize()
+						BigButton(text: "Adicionar Item", action: nil)
+							.padding(.vertical)
+                            
                         
                     } // Fecha HStack com Stepper e botão
                 } // Fecha VStack com nome, observações e controles

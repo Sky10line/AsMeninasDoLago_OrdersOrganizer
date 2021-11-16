@@ -18,8 +18,16 @@ struct ContentView: View {
 		UITabBar.appearance().isHidden = true
 	}
     
-    @State var showOrderDetails = false
+	@State var selectedModal: Modals = .none
     @State var detaislData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+	
+	enum Modals {
+		case homeOrderDetails
+		case finishedOrderDetails
+		case editMenuItem
+		case addMenuItem
+		case none
+	}
 	
     var body: some View {
 		NavigationView {
@@ -27,43 +35,74 @@ struct ContentView: View {
                 TabView(selection: $selectedTab) { // Isso é uma tab bar
 
                     // Primeiro item da tab bar
-                    HomeView(showOrderDetails: $showOrderDetails, orderData: $detaislData)
+                    HomeView(selectedModal: $selectedModal, orderData: $detaislData)
                         .tag(CustomTabBar.Tabs.orders)
                         .gesture(DragGesture())
 
                     // Segundo item da tab bar
-                    FinishedOrders()
+                    FinishedOrders(selectedModal: $selectedModal, orderData: $detaislData)
                         .tag(CustomTabBar.Tabs.finishedOrders)
                         .gesture(DragGesture())
                         
 
                     // Terceiro item da tab bar
-                    MenuView()
+					MenuView(selectedModal: $selectedModal, orderData: $detaislData)
                         .tag(CustomTabBar.Tabs.menu)
                         .gesture(DragGesture())
                     
                 }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-					.ignoresSafeArea()
+				.ignoresSafeArea()
+				.blur(radius: selectedModal != .none ? 25 : 0)
 				
                 CustomTabBar(selectedTab: $selectedTab)
                     .padding(.bottom, horizontalSizeClass == .regular ? 32 : 0)
                 
-                ZStack {
-                    if showOrderDetails {
-                        Rectangle()
-                            .foregroundColor(Color.black)
-                            .opacity(showOrderDetails ? 0.6 : 0)
-                            .ignoresSafeArea()
-                            .animation(.easeIn)
-                            
-                        modalDetailsView(testData: $detaislData, isShowing: $showOrderDetails)
-                            .padding(.top,UIScreen.main.bounds.height / 8)
-                            .transition(.scale)
-                            .animation(.spring())
-                            .edgesIgnoringSafeArea(.all)
-                    }
-                        
-                }.animation(.easeInOut)
+				ZStack(alignment: .bottom) {
+					Rectangle()
+						.foregroundColor(Color.black)
+						.opacity(selectedModal != .none ? 0.6 : 0)
+						.ignoresSafeArea()
+						.animation(.easeIn)
+					
+					switch selectedModal {
+					case .homeOrderDetails:
+						ModalDetailsView(testData: $detaislData, selectedModal: $selectedModal)
+							.cornerRadius(30)
+							.padding(.top,UIScreen.main.bounds.height / 8)
+							.transition(.move(edge: .bottom))
+							.animation(.spring(response: 0.6, dampingFraction: 1))
+							.edgesIgnoringSafeArea(.all)
+						
+					case .finishedOrderDetails:
+						ModalFinishedOrderDetailsView(testData: $detaislData, selectedModal: $selectedModal)
+							.cornerRadius(30)
+							.padding(.top,UIScreen.main.bounds.height / 8)
+							.transition(.move(edge: .bottom))
+							.animation(.spring(response: 0.6, dampingFraction: 1))
+							.edgesIgnoringSafeArea(.all)
+						
+					case .editMenuItem:
+						ModalMenuItem(title: "Editar item", selectedModal: $selectedModal)
+							.cornerRadius(30)
+							.padding(.top,UIScreen.main.bounds.height / 8)
+							.transition(.move(edge: .bottom))
+							.animation(.spring(response: 0.6, dampingFraction: 1))
+							.edgesIgnoringSafeArea(.all)
+						
+					case .addMenuItem:
+						ModalMenuItem(title: "Adicionar item", selectedModal: $selectedModal)
+							.cornerRadius(30)
+							.padding(.top,UIScreen.main.bounds.height / 8)
+							.transition(.move(edge: .bottom))
+							.animation(.spring(response: 0.6, dampingFraction: 1))
+							.edgesIgnoringSafeArea(.all)
+						
+					case .none:
+						EmptyView()
+					}
+                                                
+				}.ignoresSafeArea()
+				.animation(.easeInOut)
 
 
 			}.ignoresSafeArea(.keyboard, edges: .bottom)

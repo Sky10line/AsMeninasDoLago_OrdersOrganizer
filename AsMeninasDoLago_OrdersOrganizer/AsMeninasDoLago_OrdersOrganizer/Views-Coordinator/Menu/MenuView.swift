@@ -12,8 +12,10 @@ struct MenuView: View {
 	let categories = DebugHelper().createCategoryMock()
 	@State private var selectedTab: String = ""
 	
-	@State private var showModal = false
 	@State var data: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
+	
+	@Binding var selectedModal: ContentView.Modals
+	@Binding var orderData: OrderJSON
 	
     var body: some View {
 		VStack {
@@ -32,17 +34,20 @@ struct MenuView: View {
 			
 			Spacer()
 			
-			ScrollView {
-				MenuCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showModal, dataToBeShown: $data, searchText: $searchText)
-				
-				Spacer(minLength: 160)
+			ZStack(alignment: .bottom) {
+				ScrollView {
+					MenuCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], selectedModal: $selectedModal, dataToBeShown: $data, searchText: $searchText)
+
+					Spacer(minLength: 280)
+				}
+				VStack {
+					BigButton(text: "Adicionar item") {
+						selectedModal = .addMenuItem
+					}.padding()
+					.background(Color.clear)
+					Rectangle().opacity(0).frame(height: 150)
+				}
 			}
 		}
-    }
-}
-
-struct MenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        MenuView()
     }
 }

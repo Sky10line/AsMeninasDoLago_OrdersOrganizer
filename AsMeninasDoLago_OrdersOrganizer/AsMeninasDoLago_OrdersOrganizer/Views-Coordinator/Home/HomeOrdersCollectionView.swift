@@ -18,7 +18,9 @@ struct HomeOrdersCollectionViewCell: View {
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 				tap = false
 			}
-			action?()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+				action?()
+			}
 		}, label: {
 				VStack {
 					if let name = item.name {
@@ -58,7 +60,7 @@ struct HomeOrdersCollectionViewCell: View {
 
 struct HomeOrdersCollectionView: View {
 	let data: Array<OrderJSON>
-    @Binding var showOrderDetails: Bool
+    @Binding var selectedModal: ContentView.Modals
     @Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
 	
@@ -82,7 +84,7 @@ struct HomeOrdersCollectionView: View {
 				ForEach(data, id: \.self) { item in
           if item.name?.lowercased().contains(searchText.lowercased()) ?? true || searchText.isEmpty {
 						HomeOrdersCollectionViewCell(item: item, action: {
-							showOrderDetails = true
+							selectedModal = .homeOrderDetails
 							dataToBeShown = item
 							print("Cliquei num item da collection")
 						}).transition(.opacity.combined(with: .slide).animation(.easeInOut))

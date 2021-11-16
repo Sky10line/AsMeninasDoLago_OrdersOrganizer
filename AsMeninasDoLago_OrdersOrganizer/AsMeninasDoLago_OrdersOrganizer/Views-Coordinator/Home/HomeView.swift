@@ -11,22 +11,27 @@ struct HomeView: View {
 	@State var searchText = ""
 	@State private var isShowingNewOrderView: Bool = false
 	
-    @Binding var showOrderDetails: Bool
+	@Binding var selectedModal: ContentView.Modals
     @Binding var orderData: OrderJSON
 	
 	let orders = [
 		OrderJSON(name: "Rodrigo", totalValue: 10.00),
 		OrderJSON(name: "Rafael", totalValue: 50.00),
 		OrderJSON(name: "Roger", totalValue: 50.00),
-		OrderJSON(name: "Aline", totalValue: 50.00)
+		OrderJSON(name: "Aline", totalValue: 50.00),
+		OrderJSON(name: "odrigo", totalValue: 10.00),
+		OrderJSON(name: "afael", totalValue: 50.00),
+		OrderJSON(name: "oger", totalValue: 50.00),
+		OrderJSON(name: "line", totalValue: 50.00)
+		
 	]
 	
-    init(showOrderDetails: Binding<Bool>, orderData: Binding<OrderJSON>) {
+    init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
 				  UINavigationBar.appearance().isTranslucent = true
 				  UINavigationBar.appearance().backgroundColor = .clear
-        self._showOrderDetails = showOrderDetails
+        self._selectedModal = selectedModal
         self._orderData = orderData
 	}
 	
@@ -39,20 +44,26 @@ struct HomeView: View {
 					.padding(.top, 8)
 					.padding(.horizontal)
 				
-				ScrollView {
-                    HomeOrdersCollectionView(data: orders, showOrderDetails: $showOrderDetails, dataToBeShown: $orderData, searchText: $searchText)
+				ZStack(alignment: .bottom) {
+					ScrollView {
+						HomeOrdersCollectionView(data: orders, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
+						
+						Spacer(minLength: 280)
+					}
+					
+					NavigationLink(
+						destination: NewOrderView(),
+						isActive: $isShowingNewOrderView,
+						label: { EmptyView() })
+					
+					VStack {
+						BigButton(text: "Nova comanda") {
+							isShowingNewOrderView = true
+						}.padding()
+						.background(Color.clear)
+						Rectangle().opacity(0).frame(height: 150)
+					}
 				}
-				Spacer()
-				
-				NavigationLink(
-					destination: NewOrderView(),
-					isActive: $isShowingNewOrderView,
-					label: { EmptyView() })
-				
-				BigButton(text: "Nova comanda") {
-					isShowingNewOrderView = true
-				}
-				Spacer(minLength: 160)
 			}
 			.background(Color.white.ignoresSafeArea())
 			.navigationBarHidden(true)

@@ -1,5 +1,5 @@
 //
-//  modalView.swift
+//  ModalView.swift
 //  AsMeninasDoLago_OrdersOrganizer
 //
 //  Created by Caroline Viana on 15/10/21.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct modalDetailsView: View {
+struct ModalDetailsView: View {
     
     @Environment(\.presentationMode) var presentation
     
     // Dummy data
     var data: [testData] = dataa
     @Binding var testData: OrderJSON
-    @Binding var isShowing: Bool
+	@Binding var selectedModal: ContentView.Modals
     
     @State var op: CGFloat = -100
     
@@ -38,7 +38,7 @@ struct modalDetailsView: View {
                         
                         // Botão de fechar
                         Button(action: { //presentation.wrappedValue.dismiss()
-                            isShowing = false
+							selectedModal = .none
                             
                         }){
                             Image(systemName: "xmark.circle.fill")
@@ -78,6 +78,7 @@ struct modalDetailsView: View {
                         
                         // Botão de Finalizar comanda
                         BigButton(text: "Finalizar comanda", action: nil)
+							.padding()
                             .padding(.bottom, 25)
                     } // Fecha VStack bottom menu
                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -93,7 +94,7 @@ struct modalDetailsView: View {
 
 
 
-struct modalView_Previews: PreviewProvider {
+struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
