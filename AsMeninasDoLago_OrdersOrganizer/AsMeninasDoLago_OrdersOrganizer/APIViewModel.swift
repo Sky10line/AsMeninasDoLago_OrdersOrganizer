@@ -24,7 +24,7 @@ class APIViewModel: ObservableObject {
        return URLRequest(url: url)
     }
     
-    /// GET para //MostraComandaPorNome/<string:Nome>
+    /// GET para //MostraComandaPorNome/ string:Nome
     func getFullOrder(name: String) {
         guard let request = createRequest(endpoint: "/MostraComandaPorNome/\(name)") else {
                 print("Erro ao crir request")
@@ -105,7 +105,7 @@ class APIViewModel: ObservableObject {
         }.resume()
     }
     
-    /// GET para /RemoveDaComanda/<string:Nome>/<string:Item>
+    /// GET para /RemoveDaComanda/string:Nome/string:Item
     func removeItemFromOrder(name: String, item: String){
         guard let request = createRequest(endpoint: "/RemoveDaComanda/\(name)/\(item)") else {
             print("Erro ao criar request")

@@ -22,8 +22,6 @@ struct HomeView: View {
 		OrderJSON(name: "Roger", totalValue: 50.00),
 		OrderJSON(name: "Aline", totalValue: 50.00)
 	]
-    
-//    @State var orders = [OrderJSON]()
 	
     init(showOrderDetails: Binding<Bool>, orderData: Binding<OrderJSON?>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)

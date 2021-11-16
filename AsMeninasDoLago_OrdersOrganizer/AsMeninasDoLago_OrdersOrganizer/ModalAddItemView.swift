@@ -10,15 +10,12 @@ import SwiftUI
 struct ModalAddItemView: View {
     @State private var obsText = "Observações"
     @State private var qtdItem = 0
-    
+    @State private var showAlert = false
     @State var value: CGFloat = 0
     
     @Binding var data: ItemJSON
     @Binding var isShowing: Bool
-    
     @Binding var order: Order?
-    
-    @State private var showAlert = false
     
     var body: some View {
         ZStack (alignment: .topLeading) {

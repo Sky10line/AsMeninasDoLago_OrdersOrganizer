@@ -11,11 +11,9 @@ struct FinishedOrders: View {
     @ObservedObject var vm = APIViewModel()
     
 	@State var searchText = ""
-	@State private var showModal = false
-	@State var data: OrderJSON? = OrderJSON(name: "Placeholder", totalValue: 0).self
-	
 	@State var finishedDates = DebugHelper().createFinishedDateMock()
     
+    // Modal da comanda finalizada
     @Binding var showDetails: Bool
     @Binding var orderData: OrderJSON?
 	

@@ -13,12 +13,14 @@ struct NewOrderView: View {
 	
 	@State private var selectedTab: String = ""
     
+    // Modal do item
     @State var showItemNewOrder: Bool = false
     @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
     
-    @State var order: Order? = Order(name: "", items: [], total: 0)
+    // Modal da comanda
     @State var showOrder: Bool = false
-
+    @State var order: Order? = Order(name: "", items: [], total: 0)
+    
     var body: some View {
         ZStack {
             VStack {
@@ -61,11 +63,13 @@ struct NewOrderView: View {
                 
             }
             
-            
             if !order!.items.isEmpty {
                 VStack {
                     Spacer()
-                    WeirdButton(text: "Comanda", action: { showOrder = true }, total: order!.total)
+                    WeirdButton(text: "Comanda", action: {
+                        order!.name = name
+                        showOrder = true
+                    }, total: order!.total)
                 }.ignoresSafeArea()
                 .frame(alignment: .bottom)
                 

@@ -18,13 +18,13 @@ struct ContentView: View {
 		UITabBar.appearance().isHidden = true
 	}
     
+    // Modal de detalhes das comandas abertas
     @State var showOrderDetails = false
     @State var detaislData: OrderJSON? = OrderJSON(name: "Placeholder", totalValue: 0).self
     
+    // Modal de detalhes das comandas finalizadas
     @State var showFinishedOrder = false
     @State var finishedData: OrderJSON? = OrderJSON(name: "Placeholder", totalValue: 0).self
-    
-    //@State var null: Order? = nil
 	
     var body: some View {
 		NavigationView {
