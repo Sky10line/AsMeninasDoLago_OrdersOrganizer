@@ -9,9 +9,11 @@ import SwiftUI
 
 struct TableCell: View {
     var item: NewOrderItem
+    var isEditActive: Bool
+    let removeAction: (() -> Void)?
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading) {
             HStack {
                 // Quantidade
                 Text("\(item.quantity)")
@@ -38,35 +40,39 @@ struct TableCell: View {
                         .padding(.top)
                 }
                 
-                // Pra encostar os botões no canto
-                Spacer()
-                
-                // Botões de ação
-                HStack {
-                    // Botão de editar
-                    Button(action: {
-                        print("Editar")
-                    }) {
-                        Image(systemName: "pencil")
-                            .renderingMode(.template)
-                            .foregroundColor(.black)
-                            .font(.title)
-                            
-                    }
-                    .padding(3)
+                if isEditActive {
+                    // Pra encostar os botões no canto
+                    Spacer()
                     
-                    // Botão de deletar
-                    Button(action: {
-                        print("Excluir")
-                    }){
-                        Image(systemName: "trash")
-                            .renderingMode(.template)
-                            .foregroundColor(.red)
-                            .font(.title2)
-                            
-                    }
-                    .padding(3)
-                } // Fecha HStack dos botões de ação
+                    // Botões de ação
+                    HStack {
+                        // Botão de editar
+                        Button(action: {
+                            print("Editar")
+                        }) {
+                            Image(systemName: "pencil")
+                                .renderingMode(.template)
+                                .foregroundColor(.black)
+                                .font(.title)
+                                
+                        }
+                        .padding(3)
+                        
+                        // Botão de deletar
+                        Button(action: {
+                            removeAction?()
+                        }){
+                            Image(systemName: "trash")
+                                .renderingMode(.template)
+                                .foregroundColor(.red)
+                                .font(.title2)
+                                
+                        }
+                        .padding(3)
+                    } // Fecha HStack dos botões de ação
+                }
+                
+                
 
             } // Fecha HStack de tudo
             .padding(.vertical, 10)

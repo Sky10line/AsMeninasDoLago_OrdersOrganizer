@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		10097A8D273EFBA70035C4C8 /* WeirdButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10097A8C273EFBA70035C4C8 /* WeirdButton.swift */; };
-		10097A8F273F04AC0035C4C8 /* ModalCurrentOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10097A8E273F04AC0035C4C8 /* ModalCurrentOrder.swift */; };
 		10105ECF272851D100B9B1F2 /* BigButtonVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */; };
 		10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ED0272859C300B9B1F2 /* TableCell.swift */; };
 		10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */; };
-		105969632719DED700510399 /* modalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105969622719DED700510399 /* modalDetailsView.swift */; };
+		10321E8527432CEE0005D685 /* ModalOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10321E8427432CEE0005D685 /* ModalOrder.swift */; };
+		10321E872743455C0005D685 /* APIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10321E862743455C0005D685 /* APIViewModel.swift */; };
 		BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD284914271B9DB600A8FD46 /* FoundationExtension.swift */; };
 		BD2FF1502720EFC400768CEE /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2FF14F2720EFC400768CEE /* BigButton.swift */; };
 		BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3050652722347500A0E0EA /* NewOrderView.swift */; };
@@ -43,11 +43,11 @@
 
 /* Begin PBXFileReference section */
 		10097A8C273EFBA70035C4C8 /* WeirdButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeirdButton.swift; sourceTree = "<group>"; };
-		10097A8E273F04AC0035C4C8 /* ModalCurrentOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCurrentOrder.swift; sourceTree = "<group>"; };
 		10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonVariant.swift; sourceTree = "<group>"; };
 		10105ED0272859C300B9B1F2 /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 		10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddItemView.swift; sourceTree = "<group>"; };
-		105969622719DED700510399 /* modalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modalDetailsView.swift; sourceTree = "<group>"; };
+		10321E8427432CEE0005D685 /* ModalOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOrder.swift; sourceTree = "<group>"; };
+		10321E862743455C0005D685 /* APIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIViewModel.swift; sourceTree = "<group>"; };
 		BD284914271B9DB600A8FD46 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		BD2FF14F2720EFC400768CEE /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		BD3050652722347500A0E0EA /* NewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderView.swift; sourceTree = "<group>"; };
@@ -161,9 +161,9 @@
 				BDAFEEAF270FAA850000CE8C /* Assets.xcassets */,
 				BDAFEEB4270FAA850000CE8C /* Info.plist */,
 				BDAFEEB1270FAA850000CE8C /* Preview Content */,
-				105969622719DED700510399 /* modalDetailsView.swift */,
 				10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */,
-				10097A8E273F04AC0035C4C8 /* ModalCurrentOrder.swift */,
+				10321E8427432CEE0005D685 /* ModalOrder.swift */,
+				10321E862743455C0005D685 /* APIViewModel.swift */,
 			);
 			path = AsMeninasDoLago_OrdersOrganizer;
 			sourceTree = "<group>";
@@ -294,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10321E8527432CEE0005D685 /* ModalOrder.swift in Sources */,
 				10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */,
 				10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */,
 				BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */,
@@ -308,9 +309,7 @@
 				BDAFEEBE270FAE140000CE8C /* HomeOrdersCollectionView.swift in Sources */,
 				BD305088273217F600A0E0EA /* FinishedOrders.swift in Sources */,
 				BD3050722728D6EE00A0E0EA /* SubcategoriesJSON.swift in Sources */,
-				105969632719DED700510399 /* modalDetailsView.swift in Sources */,
 				10105ECF272851D100B9B1F2 /* BigButtonVariant.swift in Sources */,
-				105969632719DED700510399 /* modalDetailsView.swift in Sources */,
 				BDAFEEAC270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift in Sources */,
 				BD3050912735C17500A0E0EA /* MenuView.swift in Sources */,
 				BD30506C27264E4700A0E0EA /* NewOrderCollectionView.swift in Sources */,
@@ -320,11 +319,11 @@
 				BD30507627319EF600A0E0EA /* CustomTabBar.swift in Sources */,
 				BD30506A2723772500A0E0EA /* TabMenu.swift in Sources */,
 				BD30508A2733465E00A0E0EA /* FinishedOrdersCollectionView.swift in Sources */,
+				10321E872743455C0005D685 /* APIViewModel.swift in Sources */,
 				BD3050932735C29E00A0E0EA /* MenuCollectionView.swift in Sources */,
 				BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */,
 				BD30506E27264E7A00A0E0EA /* ItemJSON.swift in Sources */,
 				BD30507B2731F59900A0E0EA /* HomeView.swift in Sources */,
-				10097A8F273F04AC0035C4C8 /* ModalCurrentOrder.swift in Sources */,
 				BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

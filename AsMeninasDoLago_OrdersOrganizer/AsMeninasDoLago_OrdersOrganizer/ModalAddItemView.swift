@@ -16,7 +16,7 @@ struct ModalAddItemView: View {
     @Binding var data: ItemJSON
     @Binding var isShowing: Bool
     
-    @Binding var order: Order
+    @Binding var order: Order?
     
     @State private var showAlert = false
     
@@ -93,7 +93,7 @@ struct ModalAddItemView: View {
                                 return
                             }
                             
-                            order.items.append(
+                            order!.items.append(
                                 NewOrderItem(item: data, quantity: qtdItem, comments: obsText)
                             )
                             isShowing = false
@@ -122,6 +122,10 @@ struct ModalAddItemView: View {
         } // Fecha ZStack
         .offset(y: -self.value)
         .animation(.spring())
+        .onAppear() {
+            qtdItem = 0
+            obsText = "Observações"
+        }
     } // Fecha body
 } // Fecha struct
 

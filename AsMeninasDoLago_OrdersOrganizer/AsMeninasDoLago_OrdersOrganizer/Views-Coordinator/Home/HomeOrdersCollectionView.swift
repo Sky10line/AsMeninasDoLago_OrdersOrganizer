@@ -59,7 +59,7 @@ struct HomeOrdersCollectionViewCell: View {
 struct HomeOrdersCollectionView: View {
 	let data: Array<OrderJSON>
     @Binding var showOrderDetails: Bool
-    @Binding var dataToBeShown: OrderJSON
+    @Binding var dataToBeShown: OrderJSON?
 	@Binding var searchText: String
 	
 	#if os(iOS)

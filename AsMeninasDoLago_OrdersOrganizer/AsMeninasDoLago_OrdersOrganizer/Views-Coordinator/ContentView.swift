@@ -19,7 +19,12 @@ struct ContentView: View {
 	}
     
     @State var showOrderDetails = false
-    @State var detaislData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+    @State var detaislData: OrderJSON? = OrderJSON(name: "Placeholder", totalValue: 0).self
+    
+    @State var showFinishedOrder = false
+    @State var finishedData: OrderJSON? = OrderJSON(name: "Placeholder", totalValue: 0).self
+    
+    //@State var null: Order? = nil
 	
     var body: some View {
 		NavigationView {
@@ -32,7 +37,7 @@ struct ContentView: View {
                         .gesture(DragGesture())
 
                     // Segundo item da tab bar
-                    FinishedOrders()
+                    FinishedOrders(showDetails: $showFinishedOrder, orderData: $finishedData)
                         .tag(CustomTabBar.Tabs.finishedOrders)
                         .gesture(DragGesture())
                         
@@ -56,12 +61,26 @@ struct ContentView: View {
                             .ignoresSafeArea()
                             .animation(.easeIn)
                             
-                        modalDetailsView(testData: $detaislData, isShowing: $showOrderDetails)
+                        ModalOrder(editType: modalEditType.openOrder, isShowing: $showOrderDetails, basicOrder: $detaislData, currentOrder: Binding.constant(nil))
                             .padding(.top,UIScreen.main.bounds.height / 8)
                             .transition(.scale)
                             .animation(.spring())
                             .edgesIgnoringSafeArea(.all)
                     }
+                    else if showFinishedOrder {
+                            Rectangle()
+                                .foregroundColor(Color.black)
+                                .opacity(showFinishedOrder ? 0.6 : 0)
+                                .ignoresSafeArea()
+                                .animation(.easeIn)
+                                
+                            ModalOrder(editType: modalEditType.noEdit, isShowing: $showFinishedOrder, basicOrder: $finishedData, currentOrder: Binding.constant(nil))
+                                .padding(.top,UIScreen.main.bounds.height / 8)
+                                .transition(.scale)
+                                .animation(.spring())
+                                .edgesIgnoringSafeArea(.all)
+                        }
+                            
                         
                 }.animation(.easeInOut)
 

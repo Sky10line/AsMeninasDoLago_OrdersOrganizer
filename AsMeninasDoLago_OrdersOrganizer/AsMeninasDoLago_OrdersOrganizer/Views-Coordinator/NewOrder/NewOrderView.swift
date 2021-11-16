@@ -16,7 +16,7 @@ struct NewOrderView: View {
     @State var showItemNewOrder: Bool = false
     @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
     
-    @State var order = Order(name: "", items: [], total: 0)
+    @State var order: Order? = Order(name: "", items: [], total: 0)
     @State var showOrder: Bool = false
 
     var body: some View {
@@ -62,10 +62,10 @@ struct NewOrderView: View {
             }
             
             
-            if !order.items.isEmpty {
+            if !order!.items.isEmpty {
                 VStack {
                     Spacer()
-                    WeirdButton(text: "Comanda", action: { showOrder = true }, total: order.total)
+                    WeirdButton(text: "Comanda", action: { showOrder = true }, total: order!.total)
                 }.ignoresSafeArea()
                 .frame(alignment: .bottom)
                 
@@ -93,7 +93,8 @@ struct NewOrderView: View {
                         .ignoresSafeArea()
                         .animation(.easeIn)
                     
-                    ModalCurrentOrder(testData: $order, isShowing: $showOrder)
+                    
+                    ModalOrder(editType: modalEditType.notOpened, isShowing: $showOrder, basicOrder: Binding.constant(nil), currentOrder: $order)
                         .padding(.top,UIScreen.main.bounds.height / 5)
                         .transition(.scale)
                         .animation(.spring())

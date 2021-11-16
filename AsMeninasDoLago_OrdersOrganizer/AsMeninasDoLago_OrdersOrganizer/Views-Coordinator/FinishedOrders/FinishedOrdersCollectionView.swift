@@ -30,7 +30,7 @@ struct FinishedOrdersCollectionView: View {
 	var isShow: Bool = false
 	
 	@Binding var isModalToBeShown: Bool
-	@Binding var dataToBeShown: OrderJSON
+	@Binding var dataToBeShown: OrderJSON?
 	@Binding var searchText: String
 	
 	var body: some View {
