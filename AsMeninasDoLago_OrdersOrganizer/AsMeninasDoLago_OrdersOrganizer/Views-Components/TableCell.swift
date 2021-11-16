@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct TableCell: View {
-    var item: NewOrderItem
-    var isEditActive: Bool
-    let removeAction: (() -> Void)?
+    var item: testData
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack {
             HStack {
                 // Quantidade
-                Text("\(item.quantity)")
+                Text(item.qtd)
                     .fontWeight(.bold)
                     .font(.title)
                 + Text("x")
                     .fontWeight(.light)
 
                 // Imagem
-                Image(item.item.image ?? "LanchePlaceHolder")
+                Image(systemName: item.img)
                     .resizable()
                     .scaledToFit()
                     .frame(minHeight: 50, idealHeight: 75, maxHeight: 75)
@@ -31,48 +29,44 @@ struct TableCell: View {
                 
                 VStack (alignment: .leading, spacing: 5) {
                     // Nome do item
-                    Text(item.item.name ?? "Item")
+                    Text(item.nome)
                         .fontWeight(.bold)
                         .lineLimit(3)
                     
                     // Preço do item
-                    Text ((item.item.price ?? 0.00).asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+                    Text (item.preco.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
                         .padding(.top)
                 }
                 
-                if isEditActive {
-                    // Pra encostar os botões no canto
-                    Spacer()
+                // Pra encostar os botões no canto
+                Spacer()
+                
+                // Botões de ação
+                HStack {
+                    // Botão de editar
+                    Button(action: {
+                        print("Editar")
+                    }) {
+                        Image(systemName: "pencil")
+                            .renderingMode(.template)
+                            .foregroundColor(.black)
+                            .font(.title)
+                            
+                    }
+                    .padding(3)
                     
-                    // Botões de ação
-                    HStack {
-                        // Botão de editar
-                        Button(action: {
-                            print("Editar")
-                        }) {
-                            Image(systemName: "pencil")
-                                .renderingMode(.template)
-                                .foregroundColor(.black)
-                                .font(.title)
-                                
-                        }
-                        .padding(3)
-                        
-                        // Botão de deletar
-                        Button(action: {
-                            removeAction?()
-                        }){
-                            Image(systemName: "trash")
-                                .renderingMode(.template)
-                                .foregroundColor(.red)
-                                .font(.title2)
-                                
-                        }
-                        .padding(3)
-                    } // Fecha HStack dos botões de ação
-                }
-                
-                
+                    // Botão de deletar
+                    Button(action: {
+                        print("Excluir")
+                    }){
+                        Image(systemName: "trash")
+                            .renderingMode(.template)
+                            .foregroundColor(.red)
+                            .font(.title2)
+                            
+                    }
+                    .padding(3)
+                } // Fecha HStack dos botões de ação
 
             } // Fecha HStack de tudo
             .padding(.vertical, 10)
@@ -84,8 +78,8 @@ struct TableCell: View {
     } // Fecha body
 } // Fecha struct
 
-//struct TableCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TableCell(item: testData(img: "circle", nome: "Carne Louca", preco: 22, qtd: "3"))
-//    }
-//}
+struct TableCell_Previews: PreviewProvider {
+    static var previews: some View {
+        TableCell(item: testData(img: "circle", nome: "Carne Louca", preco: 22, qtd: "3"))
+    }
+}

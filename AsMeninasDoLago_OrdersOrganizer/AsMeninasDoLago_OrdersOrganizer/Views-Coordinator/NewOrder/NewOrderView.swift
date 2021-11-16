@@ -13,18 +13,20 @@ struct NewOrderView: View {
 	
 	@State private var selectedTab: String = ""
     
-    // Modal do item
     @State var showItemNewOrder: Bool = false
     @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
-    
-    // Modal da comanda
-    @State var showOrder: Bool = false
-    @State var order: Order? = Order(name: "", items: [], total: 0)
-    
+	
+	@State var offsetBottomView: CGFloat = 0
+	@State var lastOffsetBottomView: CGFloat = 0
+	@GestureState var gestureOffset: CGFloat = 0
+	
+	var data: [testData] = dataa
+	var totalValue: Double = 0.00
+	
     var body: some View {
         ZStack {
             VStack {
-                NameTextField(name: $name)
+                NameTextField(placeholder: "Nome do cliente", name: $name)
                     .padding(.top)
                 
                 Divider()
@@ -41,86 +43,121 @@ struct NewOrderView: View {
                     NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
                         .animation(.spring(response: 1, dampingFraction: 1))
                     
-                    Divider()
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                    
-                
-                    
-                    Divider()
-                        .padding(.horizontal)
-                    
-                    Spacer()
-                    ScrollView {
-                        NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
-                            .animation(.spring(response: 1, dampingFraction: 1))
-                        
-                    }
-                    
-                    
                 }.background(Color.white.ignoresSafeArea())
                 .navigationBarTitle("Nova comanda", displayMode: .inline)
-                
-            }
-            
-            if !order!.items.isEmpty {
-                VStack {
-                    Spacer()
-                    WeirdButton(text: "Comanda", action: {
-                        order!.name = name
-                        showOrder = true
-                    }, total: order!.total)
-                }.ignoresSafeArea()
-                .frame(alignment: .bottom)
-                
             }
             
             ZStack {
                 if showItemNewOrder {
-                    Rectangle()
-                        .foregroundColor(Color.black)
-                        .opacity(showItemNewOrder ? 0.6 : 0)
-                        .ignoresSafeArea()
-                        .animation(.easeIn)
-            
-                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder, order: $order)
-                        .padding(.top,UIScreen.main.bounds.height / 5)
-                        .transition(.scale)
-                        .animation(.spring())
+                    
+					Rectangle()
+						.foregroundColor(Color.black)
+						.opacity(showItemNewOrder ? 0.6 : 0)
+						.ignoresSafeArea()
+						.animation(.easeIn)
+					
+                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
+						.cornerRadius(30)
+						.padding(.top,UIScreen.main.bounds.height / 2.5)
+						.transition(.move(edge: .bottom))
+						.animation(.spring(response: 0.6, dampingFraction: 1))
                         .edgesIgnoringSafeArea(.all)
             
                 }
-                else if showOrder {
-                    Rectangle()
-                        .foregroundColor(Color.black)
-                        .opacity(showOrder ? 0.6 : 0)
-                        .ignoresSafeArea()
-                        .animation(.easeIn)
-                    
-                    
-                    ModalOrder(editType: modalEditType.notOpened, isShowing: $showOrder, basicOrder: Binding.constant(nil), currentOrder: $order)
-                        .padding(.top,UIScreen.main.bounds.height / 5)
-                        .transition(.scale)
-                        .animation(.spring())
-                        .edgesIgnoringSafeArea(.all)
-                }
-            }.animation(.easeInOut)
-        }
-    }
-}
-
-struct NameTextField: View {
-	@Binding var name: String
+			}.zIndex(2)
+			.animation(.easeInOut)
+			
+			Rectangle()
+				.foregroundColor(Color.black)
+				.opacity(getBackShadow())
+				.ignoresSafeArea()
+				.animation(.easeIn)
+			
+			GeometryReader{proxy -> AnyView in
+				let height = proxy.frame(in: .global).height
+				
+				return AnyView(
+					ZStack{
+						Color(UIColor.appGreen)
+						
+						VStack(spacing: 0) {
+							Capsule()
+								.fill(Color.white)
+								.frame(width: 60, height: 4)
+								.padding(.top, 5)
+							
+							ZStack {
+							Text("Comanda")
+								.fontWeight(.bold)
+								.font(.title2)
+								.foregroundColor(.white)
+								
+								
+								HStack {
+									Spacer()
+									Text(totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+										.foregroundColor(.white)
+										.fontWeight(.regular)
+										.font(.body)
+										.padding(.horizontal)
+								}
+							}.padding(.vertical, 10)
+							.padding(.bottom, 25)
+							
+							Spacer()
+							
+							
+							ScrollView {
+								LazyVStack {
+									ForEach(data, id: \.self) { el in
+										TableCell(item: el)
+									}
+								}.background(Color.white)
+							}
+							
+							BigButton(text: "Enivar comanda") {
+								
+							}.padding()
+							.padding(.bottom, 200).background(Color.white)
+							
+							
+							
+						}.frame(maxHeight: .infinity, alignment: .top)
+					}.cornerRadius(20)
+					.offset(y: height - 80)
+					.offset(y: -offsetBottomView > 0 ? -offsetBottomView <= (height - 80) ? offsetBottomView : -(height - 80) : 0)
+					.gesture(DragGesture().updating($gestureOffset, body: { value, out, _ in
+						
+						out = value.translation.height
+						onBottomViewChange()
+					}).onEnded({ value in
+						
+						let maxHeight = height - 80
+						withAnimation {
+							if  -offsetBottomView < maxHeight / 3 {
+								offsetBottomView = 0
+							} else {
+								offsetBottomView = -(maxHeight / 1.3)
+							}
+						}
+						lastOffsetBottomView = offsetBottomView
+					}))
+				)
+			}
+			.ignoresSafeArea(.all, edges: .bottom)
+		}
+	}
 	
-	var body: some View {
-		HStack {
-			TextField("Nome do cliente", text: $name)
-				.padding()
-		}.background(Color.clear)
-		.overlay(
-			RoundedRectangle(cornerRadius: 20)
-				.stroke(Color.black, lineWidth: 1)
-		).padding(.horizontal)
+	func onBottomViewChange() {
+		DispatchQueue.main.async {
+			self.offsetBottomView = gestureOffset + lastOffsetBottomView
+		}
+	}
+	
+	func getBackShadow() -> Double {
+		let progress = -offsetBottomView / (UIScreen.main.bounds.height - 80)
+
+		return Double(progress)
 	}
 }
 

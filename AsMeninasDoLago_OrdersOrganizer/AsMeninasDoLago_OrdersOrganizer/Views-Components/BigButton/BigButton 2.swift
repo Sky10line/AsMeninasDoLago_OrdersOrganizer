@@ -11,7 +11,6 @@ import SwiftUI
 struct BigButton: View {
 	let text: String
 	let action: (() -> Void)?
-	var withPadding: Bool = true
 	@State private var tap: Bool = false
 	
 	#if os(iOS)
@@ -36,15 +35,16 @@ struct BigButton: View {
 						.font(.title3)
 						.foregroundColor(.white)
 						.padding()
-						.background(Color.clear)
 				}.frame(maxWidth: .infinity)
 			}).background(Color(UIColor.appGreen))
 			.cornerRadius(20)
 			.shadow(radius: tap ? 1 : 4)
 			.animation(.spring(response: 0.6, dampingFraction: 1))
+			.padding()
 //			.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 		}.scaleEffect(tap ? 0.9 : 1)
 		.animation(.spring(response: 0.6, dampingFraction: 1))
+			
 	}
 }
 
@@ -53,6 +53,6 @@ struct BigButton_Previews: PreviewProvider {
 		VStack {
 			Spacer()
 			BigButton(text: "Nova Comanda", action: nil)
-		}.background(Color.blue)
+		}
 	}
 }

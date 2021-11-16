@@ -27,7 +27,7 @@ struct MenuCollectionView: View {
 		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	#endif
 	
-	@Binding var selectedModal: ContentView.Modals
+	@Binding var isModalToBeShown: Bool
 	@Binding var dataToBeShown: ItemJSON
 	
 	@Binding var searchText: String
@@ -59,7 +59,7 @@ struct MenuCollectionView: View {
 							if item.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
 								MenuCollectionViewCell(item: item,
 													   action: {
-														selectedModal = .editMenuItem
+														isModalToBeShown = true
 														dataToBeShown = item
 														print("cliquei na collection")
 														
@@ -89,9 +89,7 @@ struct MenuCollectionViewCell: View {
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 				tap = false
 			}
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-				action?()
-			}
+			action?()
 		}, label: {
 			VStack {
 				if let image = item.image {

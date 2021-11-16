@@ -8,47 +8,33 @@
 import SwiftUI
 
 struct FinishedOrders: View {
-    @ObservedObject var vm = APIViewModel()
-    
 	@State var searchText = ""
-	@State var finishedDates = DebugHelper().createFinishedDateMock()
-    
-    // Modal da comanda finalizada
-    @Binding var showDetails: Bool
-    @Binding var orderData: OrderJSON?
+	@State private var isShowingNewOrderView: Bool = false
+	
+	@Binding var selectedModal: ContentView.Modals
+	@Binding var orderData: OrderJSON
+	
+	let finishedDates = DebugHelper().createFinishedDateMock()
 	
     var body: some View {
-        ZStack {
-            VStack {
-                NavBar(title: "Pedidos Finalizados")
-                
-                SearchBar(searchText: $searchText)
+		VStack {
+			NavBar(title: "Pedidos Finalizados")
+			
+			SearchBar(searchText: $searchText)
 
-                Spacer()
-                
-                ScrollView {
-                    FinishedOrdersCollectionView(data: finishedDates, isModalToBeShown: $showDetails, dataToBeShown: $orderData, searchText: $searchText)
-                    
-                    Spacer(minLength: 160)
-                }
-                
-           
-                
-                
-            }
-		
+			Spacer()
+			
+			ScrollView {
+				FinishedOrdersCollectionView(data: finishedDates, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
+				
+				Spacer(minLength: 160)
+			}
 		}
-        .onAppear(perform: {
-            vm.getFinishedOrders()
-            if !vm.finishedOrders.isEmpty {
-                self.finishedDates = vm.finishedOrders
-            }
-        })
     }
 }
 
 //struct FinishedOrders_Previews: PreviewProvider {
 //    static var previews: some View {
-//        //FinishedOrders(showDetails: .constant(true))
+//		FinishedOrders(selectedModal: , orderData: )
 //    }
 //}
