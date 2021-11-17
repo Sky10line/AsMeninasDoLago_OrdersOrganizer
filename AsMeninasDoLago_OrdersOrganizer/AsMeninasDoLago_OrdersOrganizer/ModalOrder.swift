@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ModalOrder: View {
     
-    @Binding var fullOrder: OrderJSON2
+    @Binding var fullOrder: OrderJSON
     @Binding var selectedModal: ContentView.Modals
     
     var body: some View {

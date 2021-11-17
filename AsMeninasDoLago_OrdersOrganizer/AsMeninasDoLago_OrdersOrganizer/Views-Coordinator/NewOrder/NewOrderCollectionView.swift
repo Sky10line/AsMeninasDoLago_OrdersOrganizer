@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewOrderCollectionViewCell: View {
-	let item: ItemJSON2
+	let item: ItemJSON
 	let action: (() -> Void)?
 	@State private var tap: Bool = false
 	
@@ -90,7 +90,7 @@ struct NewOrderCollectionView: View {
 	#endif
 	
     @Binding var isModalToBeShown: Bool
-    @Binding var dataToBeShown: ItemJSON2
+    @Binding var dataToBeShown: ItemJSON
 	
 	var body: some View {
 		VStack {

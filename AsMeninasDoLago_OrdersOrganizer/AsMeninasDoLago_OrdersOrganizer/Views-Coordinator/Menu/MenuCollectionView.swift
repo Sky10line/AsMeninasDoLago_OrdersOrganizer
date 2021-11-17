@@ -28,7 +28,7 @@ struct MenuCollectionView: View {
 	#endif
 	
 	@Binding var selectedModal: ContentView.Modals
-	@Binding var dataToBeShown: ItemJSON2
+	@Binding var dataToBeShown: ItemJSON
 	
 	@Binding var searchText: String
 	
@@ -51,7 +51,7 @@ struct MenuCollectionView: View {
 		}.padding(.horizontal)
 	}
     
-    private func createSubcategoriesHeader(name: String, items: [ItemJSON2]) -> some View {
+    private func createSubcategoriesHeader(name: String, items: [ItemJSON]) -> some View {
         Group {
             if !items.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
                 HStack {
@@ -70,7 +70,7 @@ struct MenuCollectionView: View {
         }
     }
     
-    private func populateCollection(item: ItemJSON2) -> some View {
+    private func populateCollection(item: ItemJSON) -> some View {
         Group {
             if item.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                 MenuCollectionViewCell(item: item, action: {
@@ -88,7 +88,7 @@ struct MenuCollectionView: View {
 }
 
 struct MenuCollectionViewCell: View {
-	let item: ItemJSON2
+	let item: ItemJSON
 	let action: (() -> Void)?
 	let editAction: (() -> Void)?
 	@State private var tap: Bool = false

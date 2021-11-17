@@ -12,10 +12,10 @@ struct ModalAddItemView: View {
     @State private var qtdItem = 0
     @State private var showAlert = false
     
-    @Binding var data: ItemJSON2
+    @Binding var data: ItemJSON
     @Binding var isShowing: Bool
     
-    @Binding var order: OrderJSON2
+    @Binding var order: OrderJSON
     
     
     var body: some View {

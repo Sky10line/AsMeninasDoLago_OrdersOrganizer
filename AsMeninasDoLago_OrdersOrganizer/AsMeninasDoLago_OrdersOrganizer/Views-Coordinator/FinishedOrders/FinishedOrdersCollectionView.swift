@@ -30,7 +30,7 @@ struct FinishedOrdersCollectionView: View {
 	var isShow: Bool = false
 	
 	@Binding var selectedModal: ContentView.Modals
-	@Binding var dataToBeShown: OrderJSON2
+	@Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
 	
 	var body: some View {
@@ -57,7 +57,7 @@ struct FinishedOrdersCollectionView: View {
 		.padding(.horizontal)
 	}
 	
-	func countTotal(orders: [OrderJSON2]) -> Double {
+	func countTotal(orders: [OrderJSON]) -> Double {
 		var total: Double = 0.00
 		
 		for order in orders {
@@ -67,7 +67,7 @@ struct FinishedOrdersCollectionView: View {
 		return total
 	}
     
-    private func createDateHeader(name: String, orders: [OrderJSON2]) -> some View {
+    private func createDateHeader(name: String, orders: [OrderJSON]) -> some View {
         Group {
             if !orders.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
                 VStack(spacing: 0) {
@@ -90,7 +90,7 @@ struct FinishedOrdersCollectionView: View {
         }
     }
     
-    private func populateCollection(order: OrderJSON2) -> some View {
+    private func populateCollection(order: OrderJSON) -> some View {
         Group {
             if order.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                 HomeOrdersCollectionViewCell(item: order, action: {
@@ -103,7 +103,7 @@ struct FinishedOrdersCollectionView: View {
         }
     }
     
-    private func dailyTotal(orders: [OrderJSON2]) -> some View {
+    private func dailyTotal(orders: [OrderJSON]) -> some View {
         Group {
             HStack {
                 Spacer()

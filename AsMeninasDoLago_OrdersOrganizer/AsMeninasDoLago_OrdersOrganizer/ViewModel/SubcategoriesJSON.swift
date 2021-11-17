@@ -9,5 +9,5 @@ import Foundation
 
 struct SubcategoriesJSON: Decodable, Hashable  {
 	var name: String?
-	var items: [ItemJSON2]?
+	var items: [ItemJSON]?
 }

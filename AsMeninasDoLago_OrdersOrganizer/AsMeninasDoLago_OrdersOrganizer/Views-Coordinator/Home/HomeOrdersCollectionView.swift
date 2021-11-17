@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeOrdersCollectionViewCell: View {
-	let item: OrderJSON2
+	let item: OrderJSON
 	let action: (() -> Void)?
 	@State private var tap: Bool = false
 	
@@ -59,9 +59,9 @@ struct HomeOrdersCollectionViewCell: View {
 }
 
 struct HomeOrdersCollectionView: View {
-	let data: Array<OrderJSON2>
+	let data: Array<OrderJSON>
     @Binding var selectedModal: ContentView.Modals
-    @Binding var dataToBeShown: OrderJSON2
+    @Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
 	
 	#if os(iOS)

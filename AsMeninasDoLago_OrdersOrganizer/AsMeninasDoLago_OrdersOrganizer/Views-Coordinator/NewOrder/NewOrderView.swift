@@ -14,14 +14,14 @@ struct NewOrderView: View {
 	@State private var selectedTab: String = ""
     
     @State var showItemNewOrder: Bool = false
-    @State var itemData: ItemJSON2 = dummyCalabresa
+    @State var itemData: ItemJSON = dummyCalabresa
 	@State var offsetBottomView: CGFloat = 0
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
 	
 	//var totalValue: Double = 0.00
     
-    @State var order: OrderJSON2 = emptyOrder
+    @State var order: OrderJSON = emptyOrder
 	
     var body: some View {
         ZStack {

@@ -12,11 +12,11 @@ struct HomeView: View {
 	@State private var isShowingNewOrderView: Bool = false
 	
 	@Binding var selectedModal: ContentView.Modals
-    @Binding var orderData: OrderJSON2
+    @Binding var orderData: OrderJSON
 	
 	let orders = dummyCollection
 	
-    init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON2>) {
+    init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
 				  UINavigationBar.appearance().isTranslucent = true

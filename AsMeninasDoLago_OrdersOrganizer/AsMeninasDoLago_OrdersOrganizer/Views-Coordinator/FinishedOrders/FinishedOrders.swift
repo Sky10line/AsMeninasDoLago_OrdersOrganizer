@@ -12,7 +12,7 @@ struct FinishedOrders: View {
 	@State private var isShowingNewOrderView: Bool = false
 	
 	@Binding var selectedModal: ContentView.Modals
-	@Binding var orderData: OrderJSON2
+	@Binding var orderData: OrderJSON
 	
 	let finishedDates = DebugHelper().createFinishedDateMock()
 	
