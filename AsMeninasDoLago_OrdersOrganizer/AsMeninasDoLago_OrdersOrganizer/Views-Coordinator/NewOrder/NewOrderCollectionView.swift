@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewOrderCollectionViewCell: View {
-	let item: ItemJSON
+	let item: ItemJSON2
 	let action: (() -> Void)?
 	@State private var tap: Bool = false
 	
@@ -90,7 +90,7 @@ struct NewOrderCollectionView: View {
 	#endif
 	
     @Binding var isModalToBeShown: Bool
-    @Binding var dataToBeShown: ItemJSON
+    @Binding var dataToBeShown: ItemJSON2
 	
 	var body: some View {
 		VStack {
@@ -127,6 +127,6 @@ struct NewOrderCollectionView: View {
 struct NewOrderCollectionView_Previews: PreviewProvider {
     static var previews: some View {
 		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
-        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(ItemJSON(name: "Comida", price: 20, image: "LanchePlaceHolder")))
+        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(dummyCalabresa))
     }
 }

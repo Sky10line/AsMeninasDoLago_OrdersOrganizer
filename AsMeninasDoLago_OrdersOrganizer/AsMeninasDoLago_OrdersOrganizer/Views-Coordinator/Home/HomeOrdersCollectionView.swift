@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeOrdersCollectionViewCell: View {
-	let item: OrderJSON
+	let item: OrderJSON2
 	let action: (() -> Void)?
 	@State private var tap: Bool = false
 	
@@ -59,9 +59,9 @@ struct HomeOrdersCollectionViewCell: View {
 }
 
 struct HomeOrdersCollectionView: View {
-	let data: Array<OrderJSON>
+	let data: Array<OrderJSON2>
     @Binding var selectedModal: ContentView.Modals
-    @Binding var dataToBeShown: OrderJSON
+    @Binding var dataToBeShown: OrderJSON2
 	@Binding var searchText: String
 	
 	#if os(iOS)
@@ -82,7 +82,7 @@ struct HomeOrdersCollectionView: View {
     var body: some View {
 			LazyVGrid(columns: horizontalSizeClass == .regular ? layoutRegular : layout, spacing: 16) {
 				ForEach(data, id: \.self) { item in
-          if item.name?.lowercased().contains(searchText.lowercased()) ?? true || searchText.isEmpty {
+                    if item.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
 						HomeOrdersCollectionViewCell(item: item, action: {
 							selectedModal = .homeOrderDetails
 							dataToBeShown = item

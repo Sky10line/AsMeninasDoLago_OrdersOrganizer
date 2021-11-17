@@ -10,8 +10,8 @@ import SwiftUI
 struct ModalOrder: View {
     
     // Dummy data
-    var data: [testData] = dataa
-    @Binding var testData: OrderJSON
+    //var data: [testData] = dataa
+    @Binding var testData: OrderJSON2
     @Binding var selectedModal: ContentView.Modals
     
     @State var op: CGFloat = -100
@@ -22,7 +22,7 @@ struct ModalOrder: View {
             // Cabeçalho com nome e botão de fechar
             ZStack (alignment: .leading) {
                 // Nome do cliente
-                Text(testData.name ?? "Cliente")
+                Text(testData.name)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .center)
                         
@@ -40,7 +40,7 @@ struct ModalOrder: View {
                 // Table View + Scroll com a Dummy Data
                 ScrollView {
                     LazyVStack {
-                        ForEach(data, id: \.self) { item in
+                        ForEach(testData.items, id: \.self) { item in
                             OrderCollectionCell(selectedModal: $selectedModal, item: item)
                         }
                             
@@ -83,7 +83,7 @@ struct ModalOrder: View {
 struct ModalOrder_Previews: PreviewProvider {
     static var previews: some View {
         Text("Background").sheet(isPresented: .constant(true)){
-            ModalOrder(testData: .constant(OrderJSON(name: "Eu", totalValue: 420)), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
+            ModalOrder(testData: .constant(dummyOrder1), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
         }
     }
 }

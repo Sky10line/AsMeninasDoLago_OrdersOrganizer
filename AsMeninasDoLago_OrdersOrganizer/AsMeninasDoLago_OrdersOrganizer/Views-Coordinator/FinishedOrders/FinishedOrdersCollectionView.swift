@@ -30,7 +30,7 @@ struct FinishedOrdersCollectionView: View {
 	var isShow: Bool = false
 	
 	@Binding var selectedModal: ContentView.Modals
-	@Binding var dataToBeShown: OrderJSON
+	@Binding var dataToBeShown: OrderJSON2
 	@Binding var searchText: String
 	
 	var body: some View {
@@ -48,7 +48,7 @@ struct FinishedOrdersCollectionView: View {
 						
 					}
 					
-					if !orders.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
+                    if !orders.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
 						outroifla(orders: orders)
 					}
                 }
@@ -57,7 +57,7 @@ struct FinishedOrdersCollectionView: View {
 		.padding(.horizontal)
 	}
 	
-	func countTotal(orders: [OrderJSON]) -> Double {
+	func countTotal(orders: [OrderJSON2]) -> Double {
 		var total: Double = 0.00
 		
 		for order in orders {
@@ -67,9 +67,9 @@ struct FinishedOrdersCollectionView: View {
 		return total
 	}
     
-    private func ifleteee(name: String, orders: [OrderJSON]) -> some View {
+    private func ifleteee(name: String, orders: [OrderJSON2]) -> some View {
         Group {
-            if !orders.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
+            if !orders.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
                 VStack(spacing: 0) {
                     
                     VStack {
@@ -90,20 +90,21 @@ struct FinishedOrdersCollectionView: View {
         }
     }
     
-    private func lazyvgridforeach(order: OrderJSON) -> some View {
+    private func lazyvgridforeach(order: OrderJSON2) -> some View {
         Group {
-            if order.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
+            if order.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                 HomeOrdersCollectionViewCell(item: order, action: {
                     selectedModal = .finishedOrderDetails
                     dataToBeShown = order
                     print("Cliquei num item da collection")
                 }).transition(.opacity.combined(with: .slide).animation(.easeInOut))
                 .animation(.easeInOut(duration: 0.5))
+                //Text("Água com gás é muito ruim")
             }
         }
     }
     
-    private func outroifla(orders: [OrderJSON]) -> some View {
+    private func outroifla(orders: [OrderJSON2]) -> some View {
         Group {
             HStack {
                 Spacer()

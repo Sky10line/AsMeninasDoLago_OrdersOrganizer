@@ -14,8 +14,7 @@ struct NewOrderView: View {
 	@State private var selectedTab: String = ""
     
     @State var showItemNewOrder: Bool = false
-    @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
-	
+    @State var itemData: ItemJSON2 = dummyCalabresa
 	@State var offsetBottomView: CGFloat = 0
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
@@ -111,7 +110,7 @@ struct NewOrderView: View {
 								LazyVStack {
 									ForEach(data, id: \.self) { item in
 										//TableCell(item: el)
-                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
+//                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
 									}
 								}.background(Color.white)
 							}

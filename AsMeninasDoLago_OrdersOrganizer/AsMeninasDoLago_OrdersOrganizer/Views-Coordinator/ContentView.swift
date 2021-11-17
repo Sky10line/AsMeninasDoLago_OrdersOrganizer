@@ -19,7 +19,7 @@ struct ContentView: View {
 	}
     
 	@State var selectedModal: Modals = .none
-    @State var detaislData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+    @State var detaislData: OrderJSON2 = dummyOrder1
 	
 	enum Modals {
 		case homeOrderDetails
@@ -46,7 +46,7 @@ struct ContentView: View {
                         
 
                     // Terceiro item da tab bar
-					MenuView(selectedModal: $selectedModal, orderData: $detaislData)
+					MenuView(selectedModal: $selectedModal)
                         .tag(CustomTabBar.Tabs.menu)
                         .gesture(DragGesture())
                     

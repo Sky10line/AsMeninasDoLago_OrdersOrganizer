@@ -13,7 +13,7 @@ struct ModalAddItemView: View {
     
     @State var value: CGFloat = 0
     
-    @Binding var data: ItemJSON
+    @Binding var data: ItemJSON2
     @Binding var isShowing: Bool
     
     
@@ -36,7 +36,7 @@ struct ModalAddItemView: View {
                     
                     Spacer()
                     // Nome do produto
-                    Text(data.name ?? "")
+                    Text(data.name)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Spacer()
@@ -118,7 +118,7 @@ struct ModalAddItemView: View {
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
         Text("Background").sheet(isPresented: .constant(true)) {
-            ModalAddItemView(data: .constant(ItemJSON(name: "Carne louca", price: 20, image: "LanchePlaceHolder")), isShowing: .constant(true))
+            ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true))
         }
     }
 }

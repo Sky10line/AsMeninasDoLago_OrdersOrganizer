@@ -12,21 +12,22 @@ struct HomeView: View {
 	@State private var isShowingNewOrderView: Bool = false
 	
 	@Binding var selectedModal: ContentView.Modals
-    @Binding var orderData: OrderJSON
+    @Binding var orderData: OrderJSON2
 	
-	let orders = [
-		OrderJSON(name: "Rodrigo", totalValue: 10.00),
-		OrderJSON(name: "Rafael", totalValue: 50.00),
-		OrderJSON(name: "Roger", totalValue: 50.00),
-		OrderJSON(name: "Aline", totalValue: 50.00),
-		OrderJSON(name: "odrigo", totalValue: 10.00),
-		OrderJSON(name: "afael", totalValue: 50.00),
-		OrderJSON(name: "oger", totalValue: 50.00),
-		OrderJSON(name: "line", totalValue: 50.00)
-		
-	]
+	let orders = dummyCollection
+//        [
+//		OrderJSON(name: "Rodrigo", totalValue: 10.00),
+//		OrderJSON(name: "Rafael", totalValue: 50.00),
+//		OrderJSON(name: "Roger", totalValue: 50.00),
+//		OrderJSON(name: "Aline", totalValue: 50.00),
+//		OrderJSON(name: "odrigo", totalValue: 10.00),
+//		OrderJSON(name: "afael", totalValue: 50.00),
+//		OrderJSON(name: "oger", totalValue: 50.00),
+//		OrderJSON(name: "line", totalValue: 50.00)
+//
+//	]
 	
-    init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON>) {
+    init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON2>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
 				  UINavigationBar.appearance().isTranslucent = true

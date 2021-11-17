@@ -9,5 +9,5 @@ import Foundation
 
 struct FinishedDatesJSON: Decodable, Hashable  {
 	var dateTitle: String?
-	var finishedOrders: [OrderJSON]?
+	var finishedOrders: [OrderJSON2]?
 }

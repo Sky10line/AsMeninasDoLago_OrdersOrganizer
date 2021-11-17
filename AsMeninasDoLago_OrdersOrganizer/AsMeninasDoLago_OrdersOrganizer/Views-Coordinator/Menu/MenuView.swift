@@ -12,10 +12,10 @@ struct MenuView: View {
 	let categories = DebugHelper().createCategoryMock()
 	@State private var selectedTab: String = ""
 	
-	@State var data: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
+	@State var data: ItemJSON2 = dummyCalabresa
 	
 	@Binding var selectedModal: ContentView.Modals
-	@Binding var orderData: OrderJSON
+	//@Binding var orderData: OrderJSON2
 	
     var body: some View {
 		VStack {

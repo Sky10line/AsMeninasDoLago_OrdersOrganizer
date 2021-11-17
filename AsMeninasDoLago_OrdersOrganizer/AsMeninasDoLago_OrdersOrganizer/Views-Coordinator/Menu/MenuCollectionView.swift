@@ -28,7 +28,7 @@ struct MenuCollectionView: View {
 	#endif
 	
 	@Binding var selectedModal: ContentView.Modals
-	@Binding var dataToBeShown: ItemJSON
+	@Binding var dataToBeShown: ItemJSON2
 	
 	@Binding var searchText: String
 	
@@ -51,9 +51,9 @@ struct MenuCollectionView: View {
 		}.padding(.horizontal)
 	}
     
-    private func ifletdoido(name: String, items: [ItemJSON]) -> some View {
+    private func ifletdoido(name: String, items: [ItemJSON2]) -> some View {
         Group {
-            if !items.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
+            if !items.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
                 HStack {
                     Text(name)
                         .font(.title2)
@@ -70,9 +70,9 @@ struct MenuCollectionView: View {
         }
     }
     
-    private func ifletforeachif(item: ItemJSON) -> some View {
+    private func ifletforeachif(item: ItemJSON2) -> some View {
         Group {
-            if item.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
+            if item.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                 MenuCollectionViewCell(item: item,
                                        action: {
                                         selectedModal = .editMenuItem
@@ -90,7 +90,7 @@ struct MenuCollectionView: View {
 }
 
 struct MenuCollectionViewCell: View {
-	let item: ItemJSON
+	let item: ItemJSON2
 	let action: (() -> Void)?
 	let editAction: (() -> Void)?
 	@State private var tap: Bool = false
