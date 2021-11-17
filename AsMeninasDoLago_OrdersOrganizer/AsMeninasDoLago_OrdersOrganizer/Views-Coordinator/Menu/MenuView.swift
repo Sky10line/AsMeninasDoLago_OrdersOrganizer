@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct MenuView: View {
+    var api = ApiRequest()
+    
 	@State var searchText = ""
-	let categories = DebugHelper().createCategoryMock()
+	@State var categories = DebugHelper().createCategoryMock()
+    //@State var categories: [CategoryJSON] = []
 	@State private var selectedTab: String = ""
 	
 	@State var data: ItemJSON = dummyCalabresa
@@ -42,12 +45,17 @@ struct MenuView: View {
 				VStack {
 					BigButton(text: "Adicionar item") {
 						selectedModal = .addMenuItem
+                        print(api.categories)
 					}.padding()
 					.background(Color.clear)
 					Rectangle().opacity(0).frame(height: 150)
 				}
 			}
 		}
+        .onAppear() {
+            api.getMenu()
+            //print(api.categories)
+        }
     }
 }
 

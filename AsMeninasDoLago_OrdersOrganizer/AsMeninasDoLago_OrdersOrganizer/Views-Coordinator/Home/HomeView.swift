@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    //@ObservedObject var api = ApiRequest()
+    
 	@State var searchText = ""
 	@State private var isShowingNewOrderView: Bool = false
 	
 	@Binding var selectedModal: ContentView.Modals
     @Binding var orderData: OrderJSON
 	
-	let orders = dummyCollection
+	@State var orders = dummyCollection
 	
     init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -59,5 +61,9 @@ struct HomeView: View {
 			.navigationBarHidden(true)
 			.navigationTitle("Comandas")
             .edgesIgnoringSafeArea(.all)
+            .onAppear() {
+                //api.getOpenOrders()
+                //orders = api.openOrders
+            }
 	}
 }
