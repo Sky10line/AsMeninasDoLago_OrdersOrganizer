@@ -10,9 +10,12 @@ import SwiftUI
 struct ModalAddItemView: View {
     @State private var obsText = "Observações"
     @State private var qtdItem = 0
+    @State private var showAlert = false
     
     @Binding var data: ItemJSON2
     @Binding var isShowing: Bool
+    
+    @Binding var order: OrderJSON2
     
     
     var body: some View {
@@ -57,8 +60,18 @@ struct ModalAddItemView: View {
 							.shadow(radius: 20)
 						
                         // Botão de adicionar item
-						BigButton(text: "Adicionar Item", action: nil)
-							.padding(.vertical)
+						BigButton(text: "Adicionar Item", action: {
+                            if qtdItem > 0 {
+                                let item = OrderItem(item: data, quantity: qtdItem, comments: obsText)
+                                order.items.append(item)
+                                order.totalValue += (data.price * Double(qtdItem))
+                                isShowing = false
+                            }
+                            else {
+                                showAlert = true
+                            }
+                        })
+                        .padding(.vertical)
                             
                         
                     } // Fecha HStack com Stepper e botão
@@ -79,12 +92,15 @@ struct ModalAddItemView: View {
             
         } // Fecha ZStack
         .animation(.spring())
+        .alert(isPresented: $showAlert, content: {
+            Alert(title: Text("Atenção"), message: Text("Você não pode adicionar zero de um item a um pedido."), dismissButton: .default(Text("OK")))
+        })
     } // Fecha body
 } // Fecha struct
 
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true))
+        ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true), order: .constant(emptyOrder))
         
     }
 }

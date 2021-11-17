@@ -52,7 +52,7 @@ struct ModalOrder: View {
                     Divider()
                         
                     // Valor da comanda
-                    Text("Total: " + ((fullOrder.totalValue ?? 0).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
+                    Text("Total: " + ((fullOrder.totalValue ).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
                         .font(.title3)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .trailing)

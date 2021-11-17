@@ -61,7 +61,7 @@ struct FinishedOrdersCollectionView: View {
 		var total: Double = 0.00
 		
 		for order in orders {
-			total += order.totalValue ?? 0.00
+            total += order.totalValue 
 		}
 		
 		return total

@@ -19,7 +19,7 @@ struct NewOrderView: View {
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
 	
-	var totalValue: Double = 0.00
+	//var totalValue: Double = 0.00
     
     @State var order: OrderJSON2 = emptyOrder
 	
@@ -49,14 +49,13 @@ struct NewOrderView: View {
             
             ZStack {
                 if showItemNewOrder {
-                    
 					Rectangle()
 						.foregroundColor(Color.black)
 						.opacity(showItemNewOrder ? 0.6 : 0)
 						.ignoresSafeArea()
 						.animation(.easeIn)
 					
-                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
+                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder, order: $order)
 						.cornerRadius(30)
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
 						.transition(.move(edge: .bottom))
@@ -95,7 +94,7 @@ struct NewOrderView: View {
 								
 								HStack {
 									Spacer()
-									Text(totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+                                    Text(order.totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
 										.foregroundColor(.white)
 										.fontWeight(.regular)
 										.font(.body)

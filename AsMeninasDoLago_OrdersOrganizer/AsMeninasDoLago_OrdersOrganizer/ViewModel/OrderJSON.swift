@@ -20,7 +20,7 @@ import Foundation
 struct OrderJSON2: Decodable, Hashable {
     var name: String
     var items: [OrderItem]
-    var totalValue: Double?
+    var totalValue: Double
 }
 
 
