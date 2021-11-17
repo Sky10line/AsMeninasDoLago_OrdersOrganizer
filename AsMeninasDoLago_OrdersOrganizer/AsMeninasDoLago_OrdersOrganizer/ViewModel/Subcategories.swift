@@ -14,27 +14,18 @@ struct Subcategories {
 		case sucosDetox
 	}
 	
-	enum Caldos {
-		case a
-	}
-	
-	enum Escondidinhos {
-		case a
-	}
-	
 	enum Lanches {
-		case a
-	}
-	
-	enum Porcoes {
-		case a
+		case sanduiches
+		case hotdogs
 	}
 	
 	enum Salgados {
-		case a
+		case tortas
+		case empadas
 	}
 	
-	enum Tapicos {
-		case a
+	enum Tapiocas {
+		case salgados
+		case doces
 	}
 }
