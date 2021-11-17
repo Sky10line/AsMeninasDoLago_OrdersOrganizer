@@ -1,5 +1,5 @@
 //
-//  modalView.swift
+//  ModalView.swift
 //  AsMeninasDoLago_OrdersOrganizer
 //
 //  Created by Caroline Viana on 15/10/21.
@@ -7,16 +7,26 @@
 
 import SwiftUI
 
-struct modalDetailsView: View {
+struct ModalDetailsView: View {
     
     @Environment(\.presentationMode) var presentation
     
     // Dummy data
     var data: [testData] = dataa
     @Binding var testData: OrderJSON
+	@Binding var selectedModal: ContentView.Modals
+    
+    @State var op: CGFloat = -100
     
     var body: some View {
-            ZStack (alignment: .bottom) {
+            ZStack (alignment: .topLeading) {
+                
+//                Rectangle()
+//                    .foregroundColor(Color.black)
+//                    .opacity(isShowing ? 0.6 : 0)
+//                    .offset(y: -100)
+                   
+                
                 VStack (alignment: .leading) {
                     
                     // Cabeçalho com nome e botão de fechar
@@ -27,7 +37,10 @@ struct modalDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                         
                         // Botão de fechar
-                        Button(action: { presentation.wrappedValue.dismiss() }){
+                        Button(action: { //presentation.wrappedValue.dismiss()
+							selectedModal = .none
+                            
+                        }){
                             Image(systemName: "xmark.circle.fill")
                                 .renderingMode(.template)
                                 .foregroundColor(.black)
@@ -65,11 +78,13 @@ struct modalDetailsView: View {
                         
                         // Botão de Finalizar comanda
                         BigButton(text: "Finalizar comanda", action: nil)
+							.padding()
                             .padding(.bottom, 25)
                     } // Fecha VStack bottom menu
                     .frame(minWidth: 0, maxWidth: .infinity)
 
                 } // Fecha VStack geral
+                .background(Color.white)
                 
         } // Fecha ZStack
         
@@ -79,7 +94,7 @@ struct modalDetailsView: View {
 
 
 
-struct modalView_Previews: PreviewProvider {
+struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }

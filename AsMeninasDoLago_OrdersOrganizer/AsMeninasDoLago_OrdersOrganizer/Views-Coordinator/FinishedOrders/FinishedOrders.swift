@@ -10,8 +10,9 @@ import SwiftUI
 struct FinishedOrders: View {
 	@State var searchText = ""
 	@State private var isShowingNewOrderView: Bool = false
-	@State private var showModal = false
-	@State var data: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+	
+	@Binding var selectedModal: ContentView.Modals
+	@Binding var orderData: OrderJSON
 	
 	let finishedDates = DebugHelper().createFinishedDateMock()
 	
@@ -24,7 +25,7 @@ struct FinishedOrders: View {
 			Spacer()
 			
 			ScrollView {
-				FinishedOrdersCollectionView(data: finishedDates, isModalToBeShown: $showModal, dataToBeShown: $data, searchText: $searchText)
+				FinishedOrdersCollectionView(data: finishedDates, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
 				
 				Spacer(minLength: 160)
 			}
@@ -32,8 +33,8 @@ struct FinishedOrders: View {
     }
 }
 
-struct FinishedOrders_Previews: PreviewProvider {
-    static var previews: some View {
-        FinishedOrders()
-    }
-}
+//struct FinishedOrders_Previews: PreviewProvider {
+//    static var previews: some View {
+//		FinishedOrders(selectedModal: , orderData: )
+//    }
+//}

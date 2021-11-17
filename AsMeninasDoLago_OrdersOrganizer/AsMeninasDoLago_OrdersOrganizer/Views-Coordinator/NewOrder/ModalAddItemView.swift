@@ -8,25 +8,23 @@
 import SwiftUI
 
 struct ModalAddItemView: View {
-    @Environment(\.presentationMode) var presentation
-    
     @State private var obsText = "Observações"
     @State private var qtdItem = 0
     
     @State var value: CGFloat = 0
     
-    @Binding var dataa: ItemJSON
+    @Binding var data: ItemJSON
+    @Binding var isShowing: Bool
     
-    // Array pra simular o recebimento de dados
-    var data = ["crown","Nome do produto"]
     
     var body: some View {
         ZStack (alignment: .topLeading) {
+            Color.white
+            
             VStack (alignment: .leading, spacing: 0) {
                 
                 // Imagem do produto
-                //Image(systemName: data[0])
-                Image(dataa.image ?? "LanchePlaceHolder")
+                Image(data.image ?? "LanchePlaceHolder")
                     .renderingMode(.original)
                     .resizable()
                     .scaledToFit()
@@ -38,7 +36,7 @@ struct ModalAddItemView: View {
                     
                     Spacer()
                     // Nome do produto
-                    Text(dataa.name ?? "")
+                    Text(data.name ?? "")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Spacer()
@@ -58,35 +56,42 @@ struct ModalAddItemView: View {
                     HStack {
                         // Stepper da quantidade (mais e menos)
                         // Tem um text field dentro dele que pode receber um valor digitado também
-                        Stepper(value: $qtdItem, in: 0...100) {
-                            TextField("\(qtdItem)", value: $qtdItem, formatter: NumberFormatter())
-                                .font(.title2)
-                                .onAppear {
-                                    // Configurar o rolê com o teclado
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
-                                        let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                                        let height = value.height
-                                        if UIDevice.current.model == "iPad" {
-                                            self.value = height / 6
-                                        }
-                                        else {
-                                            self.value = height / 1.1
-                                        }
-                                        
-                                        
-                                    }
-                                    
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
-                                        
-                                        self.value = 0
-                                        
-                                    }
-                                } // Fecha onAppear
-                        } // Fecha Stepper
+					
+//                        Stepper(value: $qtdItem, in: 0...100) {
+//                            TextField("\(qtdItem)", value: $qtdItem, formatter: NumberFormatter())
+//                                .font(.title2)
+//                                .onAppear {
+//                                    // Configurar o rolê com o teclado
+//                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
+//                                        let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+//                                        let height = value.height
+//                                        if UIDevice.current.model == "iPad" {
+//                                            self.value = height / 6
+//                                        }
+//                                        else {
+//                                            self.value = height / 1.1
+//                                        }
+//
+//
+//                                    }
+//
+//                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
+//
+//                                        self.value = 0
+//
+//                                    }
+//                                } // Fecha onAppear
+//                        } // Fecha Stepper
+						
+//						)
                         
+						CustomStepper(value: $qtdItem)
+							.shadow(radius: 20)
+						
                         // Botão de adicionar item
-                        BigButton(text: "Adicionar Item", action: nil)
-                            .fixedSize()
+						BigButton(text: "Adicionar Item", action: nil)
+							.padding(.vertical)
+                            
                         
                     } // Fecha HStack com Stepper e botão
                 } // Fecha VStack com nome, observações e controles
@@ -95,7 +100,7 @@ struct ModalAddItemView: View {
             } // Fecha VStack geral
             
             // Botão de fechar no topo
-            Button(action: { presentation.wrappedValue.dismiss() }){
+            Button(action: { isShowing = false }){
                 Image(systemName: "xmark.circle.fill")
                     .renderingMode(.template)
                     .foregroundColor(Color.primary)
@@ -113,7 +118,7 @@ struct ModalAddItemView: View {
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
         Text("Background").sheet(isPresented: .constant(true)) {
-            ModalAddItemView(dataa: .constant(ItemJSON(name: "Carne louca", price: 20, image: "LanchePlaceHolder")))
+            ModalAddItemView(data: .constant(ItemJSON(name: "Carne louca", price: 20, image: "LanchePlaceHolder")), isShowing: .constant(true))
         }
     }
 }
