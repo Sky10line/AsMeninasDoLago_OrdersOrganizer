@@ -18,7 +18,9 @@ struct NewOrderCollectionViewCell: View {
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 				tap = false
 			}
-			action?()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+				action?()
+			}
 		}, label: {
 			VStack {
 				if let image = item.image {

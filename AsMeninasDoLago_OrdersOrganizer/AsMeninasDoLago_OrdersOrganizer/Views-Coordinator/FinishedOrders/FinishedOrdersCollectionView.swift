@@ -29,7 +29,7 @@ struct FinishedOrdersCollectionView: View {
 	
 	var isShow: Bool = false
 	
-	@Binding var isModalToBeShown: Bool
+	@Binding var selectedModal: ContentView.Modals
 	@Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String
 	
@@ -62,7 +62,7 @@ struct FinishedOrdersCollectionView: View {
 						ForEach(orders, id: \.self) { order in
 							if order.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
 								HomeOrdersCollectionViewCell(item: order, action: {
-									isModalToBeShown = true
+									selectedModal = .finishedOrderDetails
 									dataToBeShown = order
 									print("Cliquei num item da collection")
 								}).transition(.opacity.combined(with: .slide).animation(.easeInOut))
