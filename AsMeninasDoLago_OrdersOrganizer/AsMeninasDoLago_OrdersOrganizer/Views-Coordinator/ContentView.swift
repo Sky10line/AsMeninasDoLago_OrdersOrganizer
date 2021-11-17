@@ -66,7 +66,7 @@ struct ContentView: View {
 					
 					switch selectedModal {
 					case .homeOrderDetails:
-                        ModalOrder(testData: $detaislData, selectedModal: $selectedModal)
+                        ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
 							.transition(.move(edge: .bottom))
@@ -74,7 +74,7 @@ struct ContentView: View {
 							.edgesIgnoringSafeArea(.all)
 						
 					case .finishedOrderDetails:
-                        ModalOrder(testData: $detaislData, selectedModal: $selectedModal)
+                        ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
 							.transition(.move(edge: .bottom))

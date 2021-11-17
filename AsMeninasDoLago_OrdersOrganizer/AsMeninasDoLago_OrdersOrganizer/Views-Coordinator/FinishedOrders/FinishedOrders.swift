@@ -33,8 +33,8 @@ struct FinishedOrders: View {
     }
 }
 
-//struct FinishedOrders_Previews: PreviewProvider {
-//    static var previews: some View {
-//		FinishedOrders(selectedModal: , orderData: )
-//    }
-//}
+struct FinishedOrders_Previews: PreviewProvider {
+    static var previews: some View {
+        FinishedOrders(selectedModal: .constant(ContentView.Modals.finishedOrderDetails), orderData: .constant(dummyOrder1))
+    }
+}

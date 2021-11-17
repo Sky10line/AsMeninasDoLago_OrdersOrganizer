@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct OrderJSON: Decodable, Hashable {
-	var name: String?
-	var totalValue: Double?
-}
+//struct OrderJSON: Decodable, Hashable {
+//	var name: String?
+//	var totalValue: Double?
+//}
 
 
 
@@ -31,7 +31,7 @@ struct OrderItem: Decodable, Hashable {
 }
 
 
-// MARK: - New Dummy Data
+// MARK: - Dummy Data
 
 let dummyCalabresa = ItemJSON2(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
 let dummyCarneLouca = ItemJSON2(name: "Carne Louca", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
@@ -46,3 +46,6 @@ let dummyOrder2 = OrderJSON2(name: "Rodrigo", items: dummyItens2, totalValue: 26
 
 
 let dummyCollection = [dummyOrder1, dummyOrder2]
+
+
+let emptyOrder = OrderJSON2(name: "", items: [], totalValue: 0)

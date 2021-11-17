@@ -19,9 +19,6 @@ struct ModalMenuItem: View {
     @State private var value: String = ""
     
     @Binding var selectedModal: ContentView.Modals
-//    @Binding var data: ItemJSON?
-    
-    @State var op: CGFloat = -100
     
     @State private var category: Categories = .none
     @State private var subcategory: String = ""
@@ -191,3 +188,10 @@ struct ModalMenuItem: View {
         }
     }
 }
+
+struct ModalMenuItem_Previews: PreviewProvider {
+    static var previews: some View {
+        ModalMenuItem(title: "Item", selectedModal: .constant(ContentView.Modals.editMenuItem))
+    }
+}
+

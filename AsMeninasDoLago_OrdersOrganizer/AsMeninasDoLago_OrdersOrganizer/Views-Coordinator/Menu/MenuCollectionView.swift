@@ -37,13 +37,13 @@ struct MenuCollectionView: View {
 			ForEach(data, id: \.self) { subcategory in
 
 				if let name = subcategory.name, let items = subcategory.items {
-					ifletdoido(name: name, items: items)
+					createSubcategoriesHeader(name: name, items: items)
 				}
 
 				LazyVGrid(columns: horizontalSizeClass == .regular ? itemsGridLayoutRegular : itemsGridLayout, spacing: 16) {
 					if let items = subcategory.items {
 						ForEach(items, id: \.self) { item in
-							ifletforeachif(item: item)
+							populateCollection(item: item)
 						}
 					}
 				}
@@ -51,7 +51,7 @@ struct MenuCollectionView: View {
 		}.padding(.horizontal)
 	}
     
-    private func ifletdoido(name: String, items: [ItemJSON2]) -> some View {
+    private func createSubcategoriesHeader(name: String, items: [ItemJSON2]) -> some View {
         Group {
             if !items.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
                 HStack {
@@ -70,18 +70,16 @@ struct MenuCollectionView: View {
         }
     }
     
-    private func ifletforeachif(item: ItemJSON2) -> some View {
+    private func populateCollection(item: ItemJSON2) -> some View {
         Group {
             if item.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
-                MenuCollectionViewCell(item: item,
-                                       action: {
-                                        selectedModal = .editMenuItem
-                                        dataToBeShown = item
-                                        print("cliquei na collection")
-
-                                       }, editAction: {
-                                        print("cliquei no edit")
-                                    }
+                MenuCollectionViewCell(item: item, action: {
+                    selectedModal = .editMenuItem
+                    dataToBeShown = item
+                    print("cliquei na collection")
+                }, editAction: {
+                    print("cliquei no edit")
+                }
                 ).transition(.opacity.combined(with: .slide).animation(.easeInOut))
                 .animation(.easeInOut(duration: 0.5))
             }

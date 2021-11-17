@@ -9,12 +9,8 @@ import SwiftUI
 
 struct ModalOrder: View {
     
-    // Dummy data
-    //var data: [testData] = dataa
-    @Binding var testData: OrderJSON2
+    @Binding var fullOrder: OrderJSON2
     @Binding var selectedModal: ContentView.Modals
-    
-    @State var op: CGFloat = -100
     
     var body: some View {
                 
@@ -22,7 +18,7 @@ struct ModalOrder: View {
             // Cabeçalho com nome e botão de fechar
             ZStack (alignment: .leading) {
                 // Nome do cliente
-                Text(testData.name)
+                Text(fullOrder.name)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .center)
                         
@@ -40,13 +36,13 @@ struct ModalOrder: View {
                 // Table View + Scroll com a Dummy Data
                 ScrollView {
                     LazyVStack {
-                        ForEach(testData.items, id: \.self) { item in
+                        ForEach(fullOrder.items, id: \.self) { item in
                             OrderCollectionCell(selectedModal: $selectedModal, item: item)
                         }
                             
                         // Botão de adicionar mais itens
                         if selectedModal == ContentView.Modals.homeOrderDetails {
-                            BigButtonVariant(text: "Adicionar mais itens", action: { print(testData) })
+                            BigButtonVariant(text: "Adicionar mais itens", action: { print(fullOrder) })
                         }
                     } // Fecha LazyVStack
                 } // Fecha ScrollView
@@ -56,7 +52,7 @@ struct ModalOrder: View {
                     Divider()
                         
                     // Valor da comanda
-                    Text("Total: " + ((testData.totalValue ?? 0).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
+                    Text("Total: " + ((fullOrder.totalValue ?? 0).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
                         .font(.title3)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -82,32 +78,6 @@ struct ModalOrder: View {
 
 struct ModalOrder_Previews: PreviewProvider {
     static var previews: some View {
-        Text("Background").sheet(isPresented: .constant(true)){
-            ModalOrder(testData: .constant(dummyOrder1), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
-        }
+        ModalOrder(fullOrder: .constant(dummyOrder1), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
     }
 }
-
-// MARK: - Dados para teste
-
-// Struct da Dummy Data
-struct testData: Hashable, Identifiable {
-    var id = UUID()
-    var img: String
-    var nome: String
-    var preco: Double
-    var qtd: String
-}
-
-// Dummy Data
-let dataa = [
-    testData(img: "circle", nome: "Carne Louca", preco: 22, qtd: "3"),
-    testData(img: "square", nome: "comida2", preco: 36, qtd: "1"),
-    testData(img: "square", nome: "Calabresa com queijo e vinagrete", preco: 26, qtd: "1"),
-    testData(img: "square", nome: "Leite condensado com coco", preco: 36, qtd: "1"),
-    testData(img: "square", nome: "Long neck budweiser", preco: 36, qtd: "1"),
-    testData(img: "square", nome: "Bolinhos de 3 queijos do porpeta", preco: 36, qtd: "1"),
-    testData(img: "square", nome: "comida2", preco: 36, qtd: "1"),
-    testData(img: "square", nome: "comida2", preco: 36, qtd: "1"),
-    testData(img: "square", nome: "comida2", preco: 36, qtd: "1")
-]

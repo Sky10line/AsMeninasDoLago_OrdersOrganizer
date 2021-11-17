@@ -38,18 +38,18 @@ struct FinishedOrdersCollectionView: View {
 			ForEach(data, id: \.self) { date in
 				
 				if let name = date.dateTitle, let orders = date.finishedOrders {
-					ifleteee(name: name, orders: orders)
+					createDateHeader(name: name, orders: orders)
 					
 					
 					LazyVGrid(columns: horizontalSizeClass == .regular ? ordersLayoutRegular : ordersLayout, spacing: 16) {
 						ForEach(orders, id: \.self) { order in
-                            lazyvgridforeach(order: order)
+                            populateCollection(order: order)
 						}
 						
 					}
 					
                     if !orders.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
-						outroifla(orders: orders)
+						dailyTotal(orders: orders)
 					}
                 }
 			}
@@ -67,7 +67,7 @@ struct FinishedOrdersCollectionView: View {
 		return total
 	}
     
-    private func ifleteee(name: String, orders: [OrderJSON2]) -> some View {
+    private func createDateHeader(name: String, orders: [OrderJSON2]) -> some View {
         Group {
             if !orders.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
                 VStack(spacing: 0) {
@@ -90,7 +90,7 @@ struct FinishedOrdersCollectionView: View {
         }
     }
     
-    private func lazyvgridforeach(order: OrderJSON2) -> some View {
+    private func populateCollection(order: OrderJSON2) -> some View {
         Group {
             if order.name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                 HomeOrdersCollectionViewCell(item: order, action: {
@@ -99,12 +99,11 @@ struct FinishedOrdersCollectionView: View {
                     print("Cliquei num item da collection")
                 }).transition(.opacity.combined(with: .slide).animation(.easeInOut))
                 .animation(.easeInOut(duration: 0.5))
-                //Text("Água com gás é muito ruim")
             }
         }
     }
     
-    private func outroifla(orders: [OrderJSON2]) -> some View {
+    private func dailyTotal(orders: [OrderJSON2]) -> some View {
         Group {
             HStack {
                 Spacer()
@@ -116,5 +115,11 @@ struct FinishedOrdersCollectionView: View {
             }.transition(.opacity.combined(with: .slide).animation(.easeInOut))
             .animation(.easeInOut(duration: 0.5))
         }
+    }
+}
+
+struct FinishedOrdersCollectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        FinishedOrdersCollectionView(data: DebugHelper().createFinishedDateMock(), selectedModal: .constant(ContentView.Modals.finishedOrderDetails), dataToBeShown: .constant(dummyOrder1), searchText: .constant(""))
     }
 }

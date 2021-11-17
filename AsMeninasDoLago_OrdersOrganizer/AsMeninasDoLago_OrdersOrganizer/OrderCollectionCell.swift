@@ -24,7 +24,6 @@ struct OrderCollectionCell: View {
                     .resizable()
                     .scaledToFit()
                     .frame(minHeight: 50, idealHeight: 75, maxHeight: 75)
-                //.frame(height: 75)
                 
                 VStack (alignment: .leading, spacing: 5) {
                     Text(item.item.name)
@@ -76,6 +75,6 @@ struct OrderCollectionCell: View {
 
 struct OrderCollectionCell_Previews: PreviewProvider {
     static var previews: some View {
-        OrderCollectionCell(selectedModal: .constant(ContentView.Modals.finishedOrderDetails), item: dummyItens2[0])
+        OrderCollectionCell(selectedModal: .constant(ContentView.Modals.homeOrderDetails), item: dummyItens2[0])
     }
 }

@@ -15,17 +15,6 @@ struct HomeView: View {
     @Binding var orderData: OrderJSON2
 	
 	let orders = dummyCollection
-//        [
-//		OrderJSON(name: "Rodrigo", totalValue: 10.00),
-//		OrderJSON(name: "Rafael", totalValue: 50.00),
-//		OrderJSON(name: "Roger", totalValue: 50.00),
-//		OrderJSON(name: "Aline", totalValue: 50.00),
-//		OrderJSON(name: "odrigo", totalValue: 10.00),
-//		OrderJSON(name: "afael", totalValue: 50.00),
-//		OrderJSON(name: "oger", totalValue: 50.00),
-//		OrderJSON(name: "line", totalValue: 50.00)
-//
-//	]
 	
     init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON2>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -72,88 +61,3 @@ struct HomeView: View {
             .edgesIgnoringSafeArea(.all)
 	}
 }
-
-/*
-struct teste: View {
-    var body: some View {
-        ZStack {
-            Color.red.ignoresSafeArea()
-        }
-        .background(Color.blue.ignoresSafeArea())
-        .edgesIgnoringSafeArea(.all)
-    }
-}
-
-private struct NavBar: View {
-	var title: String
-	var body: some View {
-		HStack {
-			Text(title)
-				.bold()
-				.font(.largeTitle)
-				.padding(.horizontal)
-				.foregroundColor(.black)
-			
-			Spacer()
-		}
-	}
-}
-
-private struct SearchBar: View {
-	@Binding var searchText: String
-	@State var isSearching = false
-	
-	var body: some View {
-		HStack {
-			HStack {
-				TextField("Pesquisar", text: $searchText)
-					.padding(.leading, 30)
-			}.padding()
-			.background(Color(UIColor.gray2))
-			.cornerRadius(20)
-			.padding(.horizontal)
-			.onTapGesture(perform: {
-				isSearching = true
-			})
-			.overlay(
-				HStack {
-					Image(systemName: "magnifyingglass")
-					Spacer()
-					
-					if isSearching {
-						Button(action: {
-							searchText.removeAll()
-						}, label: {
-							Image(systemName: "xmark.circle.fill")
-								.padding(.vertical)
-						})
-					}
-				}.padding(.horizontal, 32)
-				.foregroundColor(Color(UIColor.defaultPlaceholder))
-			).transition(.move(edge: .trailing))
-			.animation(.spring())
-			
-			if isSearching {
-				Button(action: {
-					isSearching = false
-					searchText.removeAll()
-					
-					UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-				}, label: {
-					Text("Cancelar")
-						.padding(.vertical)
-						.padding(.trailing)
-				}).transition(.move(edge: .trailing))
-				.animation(.spring())
-			}
-		}
-	}
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-*/
-

@@ -19,8 +19,9 @@ struct NewOrderView: View {
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
 	
-	var data: [testData] = dataa
 	var totalValue: Double = 0.00
+    
+    @State var order: OrderJSON2 = emptyOrder
 	
     var body: some View {
         ZStack {
@@ -108,9 +109,8 @@ struct NewOrderView: View {
 							
 							ScrollView {
 								LazyVStack {
-									ForEach(data, id: \.self) { item in
-										//TableCell(item: el)
-//                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
+                                    ForEach(order.items, id: \.self) { item in
+                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
 									}
 								}.background(Color.white)
 							}

@@ -11,8 +11,6 @@ struct ModalAddItemView: View {
     @State private var obsText = "Observações"
     @State private var qtdItem = 0
     
-    @State var value: CGFloat = 0
-    
     @Binding var data: ItemJSON2
     @Binding var isShowing: Bool
     
@@ -54,36 +52,6 @@ struct ModalAddItemView: View {
                     
                     // Pilha horizontal com o Stepper e o botão
                     HStack {
-                        // Stepper da quantidade (mais e menos)
-                        // Tem um text field dentro dele que pode receber um valor digitado também
-					
-//                        Stepper(value: $qtdItem, in: 0...100) {
-//                            TextField("\(qtdItem)", value: $qtdItem, formatter: NumberFormatter())
-//                                .font(.title2)
-//                                .onAppear {
-//                                    // Configurar o rolê com o teclado
-//                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
-//                                        let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-//                                        let height = value.height
-//                                        if UIDevice.current.model == "iPad" {
-//                                            self.value = height / 6
-//                                        }
-//                                        else {
-//                                            self.value = height / 1.1
-//                                        }
-//
-//
-//                                    }
-//
-//                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
-//
-//                                        self.value = 0
-//
-//                                    }
-//                                } // Fecha onAppear
-//                        } // Fecha Stepper
-						
-//						)
                         
 						CustomStepper(value: $qtdItem)
 							.shadow(radius: 20)
@@ -110,15 +78,13 @@ struct ModalAddItemView: View {
             .padding()
             
         } // Fecha ZStack
-        .offset(y: -self.value)
         .animation(.spring())
     } // Fecha body
 } // Fecha struct
 
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
-        Text("Background").sheet(isPresented: .constant(true)) {
-            ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true))
-        }
+        ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true))
+        
     }
 }
