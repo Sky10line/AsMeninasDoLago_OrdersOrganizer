@@ -35,46 +35,58 @@ struct MenuCollectionView: View {
 	var body: some View {
 		LazyVGrid(columns: layout) {
 			ForEach(data, id: \.self) { subcategory in
-				
+
 				if let name = subcategory.name, let items = subcategory.items {
-					if !items.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
-						HStack {
-							Text(name)
-								.font(.title2)
-								.fontWeight(.bold)
-								.foregroundColor(Color(UIColor.appGreen))
-								.padding(.vertical)
-							VStack{
-								Divider()
-									.background(Color(UIColor.appGreen))
-							}
-						}.transition(.opacity.combined(with: .slide).animation(.easeInOut))
-						.animation(.easeInOut(duration: 0.5))
-					}
+					ifletdoido(name: name, items: items)
 				}
-				
+
 				LazyVGrid(columns: horizontalSizeClass == .regular ? itemsGridLayoutRegular : itemsGridLayout, spacing: 16) {
 					if let items = subcategory.items {
 						ForEach(items, id: \.self) { item in
-							if item.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
-								MenuCollectionViewCell(item: item,
-													   action: {
-														selectedModal = .editMenuItem
-														dataToBeShown = item
-														print("cliquei na collection")
-														
-													   }, editAction: {
-														print("cliquei no edit")
-													}
-								).transition(.opacity.combined(with: .slide).animation(.easeInOut))
-								.animation(.easeInOut(duration: 0.5))
-							}
+							ifletforeachif(item: item)
 						}
 					}
 				}
 			}
 		}.padding(.horizontal)
 	}
+    
+    private func ifletdoido(name: String, items: [ItemJSON]) -> some View {
+        Group {
+            if !items.filter({ $0.name?.lowercased().contains(searchText.lowercased()) ?? false }).isEmpty || searchText.isEmpty {
+                HStack {
+                    Text(name)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color(UIColor.appGreen))
+                        .padding(.vertical)
+                    VStack{
+                        Divider()
+                            .background(Color(UIColor.appGreen))
+                    }
+                }.transition(.opacity.combined(with: .slide).animation(.easeInOut))
+                .animation(.easeInOut(duration: 0.5))
+            }
+        }
+    }
+    
+    private func ifletforeachif(item: ItemJSON) -> some View {
+        Group {
+            if item.name?.lowercased().contains(searchText.lowercased()) ?? false || searchText.isEmpty {
+                MenuCollectionViewCell(item: item,
+                                       action: {
+                                        selectedModal = .editMenuItem
+                                        dataToBeShown = item
+                                        print("cliquei na collection")
+
+                                       }, editAction: {
+                                        print("cliquei no edit")
+                                    }
+                ).transition(.opacity.combined(with: .slide).animation(.easeInOut))
+                .animation(.easeInOut(duration: 0.5))
+            }
+        }
+    }
 }
 
 struct MenuCollectionViewCell: View {
