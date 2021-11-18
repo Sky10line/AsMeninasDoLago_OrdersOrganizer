@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MenuView: View {
-    var api = ApiRequest()
+    @ObservedObject var api = ApiRequest()
     
 	@State var searchText = ""
 	@State var categories = DebugHelper().createCategoryMock()
@@ -45,7 +45,6 @@ struct MenuView: View {
 				VStack {
 					BigButton(text: "Adicionar item") {
 						selectedModal = .addMenuItem
-                        print(api.categories)
 					}.padding()
 					.background(Color.clear)
 					Rectangle().opacity(0).frame(height: 150)
@@ -53,8 +52,11 @@ struct MenuView: View {
 			}
 		}
         .onAppear() {
-            api.getMenu()
-            //print(api.categories)
+            api.getMenu() {
+                // Deixei só pra printar por enquanto, mas aqui pra fazer a requisição, vc faria algo tipo:
+                // variavelDaViewQueRecebeMenu = api.menu
+                print(api.menu as Any)
+            }
         }
     }
 }

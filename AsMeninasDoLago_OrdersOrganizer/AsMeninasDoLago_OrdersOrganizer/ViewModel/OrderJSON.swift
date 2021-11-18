@@ -14,6 +14,35 @@ struct OrderJSON: Decodable, Hashable {
 }
 
 
+// MARK: - OrderJSON2
+struct OrderJSON2: Codable {
+    let nome: String
+    let total: Int
+    let items: [Itemm]
+
+    enum CodingKeys: String, CodingKey {
+        case nome = "Nome"
+        case total = "Total"
+        case items = "Items"
+    }
+}
+
+// MARK: - Item
+struct Itemm: Codable {
+    let nome: String
+    let quantidade, preco: Int
+    let observacoes: String
+
+    enum CodingKeys: String, CodingKey {
+        case nome = "Nome"
+        case quantidade = "Quantidade"
+        case preco = "Preco"
+        case observacoes = "Observacoes"
+    }
+}
+
+
+
 struct OrderItem: Decodable, Hashable {
     var item: ItemJSON
     var quantity: Int
@@ -39,3 +68,24 @@ let dummyCollection = [dummyOrder1, dummyOrder2]
 
 
 let emptyOrder = OrderJSON(name: "", items: [], totalValue: 0)
+
+
+
+//{
+//    "Nome": "",
+//    "Total": 50,
+//    "Itens": {
+//         "Item": {
+//            "Nome":"Carne Louca",
+//            "Quantidade": 1,
+//            "Preco": 26,
+//            "Observacoes": "Nenhuma observação"
+//        },
+//        "Item" : {
+//            "Nome":"Chá Gelado",
+//            "Quantidade": 2,
+//            "Preco": 6,
+//            "Observacoes": "Nenhuma observação"
+//        }
+//    }
+//}

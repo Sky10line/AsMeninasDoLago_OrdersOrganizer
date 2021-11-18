@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NewOrderView: View {
+    @ObservedObject var api = ApiRequest()
+    
 	@State private var name = ""
 	let categories = DebugHelper().createCategoryMock()
 	
@@ -18,6 +20,10 @@ struct NewOrderView: View {
 	@State var offsetBottomView: CGFloat = 0
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
+    
+    @State private var showAlert = false
+    @State var alertMessage = ""
+    @Binding var isBeingPresented: Bool
 	
 	//var totalValue: Double = 0.00
     
@@ -114,8 +120,21 @@ struct NewOrderView: View {
 								}.background(Color.white)
 							}
 							
-							BigButton(text: "Enivar comanda") {
-								
+							BigButton(text: "Enviar comanda") {
+                                if order.items.isEmpty {
+                                    alertMessage = "Por favor, insira itens na comanda."
+                                    showAlert = true
+                                }
+                                else if name == "" || name == " " {
+                                    alertMessage = "Por favor, insira o nome do cliente"
+                                    showAlert = true
+                                }
+                                else {
+                                    order.name = name
+                                    api.postNewOrder(order: order)
+                                    isBeingPresented = false
+                                }
+                                
 							}.padding()
 							.padding(.bottom, 200).background(Color.white)
 							
@@ -144,6 +163,9 @@ struct NewOrderView: View {
 				)
 			}
 			.ignoresSafeArea(.all, edges: .bottom)
+            .alert(isPresented: $showAlert, content: {
+                Alert(title: Text("Atenção"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            })
 		}
 	}
 	
@@ -162,6 +184,6 @@ struct NewOrderView: View {
 
 struct NewOrderView_Previews: PreviewProvider {
     static var previews: some View {
-        NewOrderView()
+        NewOrderView(isBeingPresented: .constant(true))
     }
 }

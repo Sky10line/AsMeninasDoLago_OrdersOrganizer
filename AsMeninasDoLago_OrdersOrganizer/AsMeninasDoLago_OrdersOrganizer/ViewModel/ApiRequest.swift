@@ -7,9 +7,11 @@
 
 import Foundation
 
-class ApiRequest {
-    @Published var openOrders: [OrderJSON] = []
-    @Published var categories: [CategoryJSON] = []
+class ApiRequest: ObservableObject {
+    @Published var openOrders: [OrderJSON2] = []
+    @Published var menu: Cardapio? = nil
+    @Published var orderByName: OrderJSON = emptyOrder
+    @Published var finishedOrders: [FinishedDatesJSON] = []
     
     let session = URLSession.shared
     let baseURL = "https://api-grupo1.herokuapp.com/"
@@ -24,36 +26,55 @@ class ApiRequest {
         
     }
     
-    private func handleMenu(menu: Cardapio) -> [CategoryJSON] {
-        //let categories: [CategoryJSON]
+    // MARK: - Funções usando GET
+    
+    
+    
+    // MARK: getOpenOrders
+    // Retorna um array com todas as comandas abertas
+    /// Faz chamada GET para MostraComandasAbertas
+    func getOpenOrders(completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "MostraComandasAbertas") else {
+            print("Erro ao criar request")
+            return
+        }
         
-        //let category = CategoryJSON(name: , subcategories: [SubcategoriesJSON]?)
-        print(menu)
-        return []
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                do {
+                    let decodedResponse = try self.decoder.decode([OrderJSON2].self, from: data)
+                    
+                    // Linha de testes, por favor não apagar
+                    //self.openOrders = dummyCollection
+                    
+                    self.openOrders = decodedResponse
+                    
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                    
+                }
+                catch {
+                    print("Erro: \(error.localizedDescription)")
+                }
+            }
+            
+        }.resume()
+
+       
+
     }
     
-//    func getOpenOrders() {
-//        guard let request = createRequest(endpoint: "MostraComandasAbertas") else {
-//            print("Erro ao criar request")
-//            return
-//        }
-//
-//        session.dataTask(with: request) { data, respose, error in
-//            if let erro = error {
-//                print("Erro: \(erro.localizedDescription)")
-//                return
-//            }
-//            guard let data = data else { return }
-//            if let decodedResponse = try? self.decoder.decode([OrderJSON].self, from: data) {
-//                DispatchQueue.main.async {
-//                    self.openOrders = decodedResponse
-//                }
-//            }
-//        }
-//
-//    }
-    
-    func getMenu() {
+    // MARK: getMenu
+    // Retorna o cardápio
+    /// Faz chamada GET para MostraCardapio
+    func getMenu(completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "MostraCardapio") else {
             print("Erro ao criar request")
             return
@@ -68,7 +89,11 @@ class ApiRequest {
                 guard let data = data else { return }
                 do {
                     let decodedResponse = try self.decoder.decode(Cardapio.self, from: data)
-                        self.handleMenu(menu: decodedResponse)
+                    self.menu = decodedResponse
+                    
+                    DispatchQueue.main.async {
+                        completion()
+                    }
                     
                 }
                 catch {
@@ -80,210 +105,336 @@ class ApiRequest {
 
     }
     
+    // MARK: getOrderByName
+    // Retorna um pedido específico puxado pelo nome
+    /// Faz chamada GET para MostraComandaPorNome/{nome}
+    func getOrderByName(name: String, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "MostraComandaPorNome/\(name)") else {
+            print("Erro ao criar request")
+            return
+        }
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                do {
+                    let decodedResponse = try self.decoder.decode(OrderJSON.self, from: data)
+                    self.orderByName = decodedResponse
+                    
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                }
+                catch {
+                    print("Erro: \(error.localizedDescription)")
+                }
+            }
+            
+        }.resume()
+    }
+    
+    // MARK: getFinishedOrders
+    // Retorna um array com as comandas finalizadas
+    /// Faz chamada GET para MostraFinalizadas
+    func getFinishedOrders(completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "MostraFinalizadas") else {
+            print("Erro ao criar request")
+            return
+        }
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                do {
+                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
+                    self.finishedOrders = decodedResponse
+                    
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                }
+                catch {
+                    print("Erro: \(error.localizedDescription)")
+                }
+            }
+            
+        }.resume()
+    }
+    
+    // MARK: getFinishOrder
+    // Em teoria, não retorna nada
+    /// Faz chamada GET para Finaliza/{nome}
+    func getFinishOrder(for name: String, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "Finaliza/\(name)") else {
+            print("Erro ao criar request")
+            return
+        }
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+//                guard let data = data else { return }
+//                do {
+//                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
+//                    self.finishedOrders = decodedResponse
+                    
+//                    DispatchQueue.main.async {
+                        completion()
+//                    }
+//                }
+//                catch {
+//                    print("Erro: \(error.localizedDescription)")
+//                }
+            }
+            
+        }.resume()
+    }
+    
+    // MARK: getRemoveItemOpenOrder
+    // Em teoria, não retorna nada
+    /// Faz chamada GET para RemoveDaComanda/{nome}/{item}
+    func getRemoveItemOpenOrder(for name: String, item: ItemJSON, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "RemoveDaComanda/\(name)/\(item.name)") else {
+            print("Erro ao criar request")
+            return
+        }
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+//                guard let data = data else { return }
+//                do {
+//                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
+//                    self.finishedOrders = decodedResponse
+                    
+//                    DispatchQueue.main.async {
+                        completion()
+//                    }
+//                }
+//                catch {
+//                    print("Erro: \(error.localizedDescription)")
+//                }
+            }
+            
+        }.resume()
+    }
+    
+    // MARK: getRemoveItemOpenOrder
+    // Em teoria, não retorna nada
+    /// Faz chamada GET para RemoveDoCardapio/{item}
+    func getRemoveItemMenu(item: ItemJSON, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "RemoveDoCardapio/\(item.name)") else {
+            print("Erro ao criar request")
+            return
+        }
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+//                guard let data = data else { return }
+//                do {
+//                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
+//                    self.finishedOrders = decodedResponse
+                    
+//                    DispatchQueue.main.async {
+                        completion()
+//                    }
+//                }
+//                catch {
+//                    print("Erro: \(error.localizedDescription)")
+//                }
+            }
+            
+        }.resume()
+    }
+    
+    // MARK: getCancelOrder
+    // Em teoria, não retorna nada
+    /// Faz chamada GET para LimparComanda/{nome}
+    func getCancelOrder(for name: String, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "LimparComanda/\(name)") else {
+            print("Erro ao criar request")
+            return
+        }
+        session.dataTask(with: request) { data, respose, error in
+            
+            if let erro = error {
+                print("Erro: \(erro.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+//                guard let data = data else { return }
+//                do {
+//                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
+//                    self.finishedOrders = decodedResponse
+                    
+//                    DispatchQueue.main.async {
+                        completion()
+//                    }
+//                }
+//                catch {
+//                    print("Erro: \(error.localizedDescription)")
+//                }
+            }
+            
+        }.resume()
+    }
+    
+    
+    // MARK: - Funções usando POST
     
     
     
-}
-
-
-
-// MARK: - Welcome
-struct Cardapio: Codable {
-    let bebidas: Bebidas
-    let caldos: Caldos
-    let escondidinhos: Escondidinhos
-    let lanches: Lanches
-    let porcoes: [String: Int]
-    let salgados: Salgados
-    let tapiocas: Tapiocas
-
-    enum CodingKeys: String, CodingKey {
-        case bebidas = "Bebidas"
-        case caldos = "Caldos"
-        case escondidinhos = "Escondidinhos"
-        case lanches = "Lanches"
-        case porcoes = "Porcoes"
-        case salgados = "Salgados"
-        case tapiocas = "Tapiocas"
+    // MARK: postNewOrder
+    // Retorna resposta HTTP
+    /// Faz chamada POST para Pedido
+    func postNewOrder(order: OrderJSON) {
+        guard var request = createRequest(endpoint: "Pedido") else {
+            print("Erro ao criar request")
+            return
+        }
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        
+        var orderForPost: [String : Any] = [
+            "Nome" : order.name,
+            "Total": order.totalValue
+        ]
+        
+        var itens: [[String: Any]] = []
+        
+        order.items.forEach({
+            let dict: [String: Any] = [
+                "Nome": $0.item.name,
+                "Quantidade": $0.quantity,
+                "Preco": $0.item.price,
+                "Observacoes": $0.comments == "Observações" || $0.comments == "" || $0.comments == " " ? "Nenhuma Observação" : $0.comments!
+            ]
+            itens.append(dict)
+        })
+        
+        orderForPost["Itens"] = itens
+        
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: orderForPost, options: [])
+            session.uploadTask(with: request, from: jsonData) { data, response, error in
+                if let data = data, let httpResponse = response {
+                    print(data as Any)
+                    print(httpResponse as Any)
+                }
+            }.resume()
+        }
+        catch {
+            print("Erro: \(error.localizedDescription)")
+        }
+        
     }
-}
+    
+    // MARK: postChangeOpenOrderByName
+    // Retorna resposta HTTP
+    /// Faz chamada POST para AddNaComanda/{nome}
+    func postChangeOpenOrderByName(for name: String, item: OrderItem) {
+        guard var request = createRequest(endpoint: "AddNaComanda/\(name)") else {
+            print("Erro ao criar request")
+            return
+        }
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-// MARK: - Bebidas
-struct Bebidas: Codable {
-    let alcoolico: Alcoolico
-    let naoAlcoolico: NaoAlcoolico
-    let sucosDetox: SucosDetox
 
-    enum CodingKeys: String, CodingKey {
-        case alcoolico = "Alcoolico"
-        case naoAlcoolico = "Nao-alcoolico"
-        case sucosDetox = "Sucos-Detox"
+
+        let orderForPost: [String : Any] = [
+            "Nome": item.item.name,
+            "Quantidade": item.quantity,
+            "Preco": item.item.price,
+            "Observacoes": item.comments == "Observações" || item.comments == "" || item.comments == " " ? "Nenhuma Observação" : item.comments!
+        ]
+
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: orderForPost, options: [])
+            session.uploadTask(with: request, from: jsonData) { data, response, error in
+                if let data = data, let httpResponse = response {
+                    print(data as Any)
+                    print(httpResponse as Any)
+                }
+            }.resume()
+        }
+        catch {
+            print("Erro: \(error.localizedDescription)")
+        }
+        
     }
-}
-
-// MARK: - Alcoolico
-struct Alcoolico: Codable {
-    let doseGin, doseVodka, doseCachaça, gt: Int
-    let lata, longNeck: Int
-
-    enum CodingKeys: String, CodingKey {
-        case doseGin = "Dose Gin"
-        case doseVodka = "Dose Vodka"
-        case doseCachaça = "Dose cachaça"
-        case gt = "GT"
-        case lata = "Lata"
-        case longNeck = "Long Neck"
+    
+    // MARK: postAddItemToMenu
+    // Retorna resposta HTTP
+    /// Faz chamada POST para AddNoCardapio
+    func postAddItemToMenu(for name: ItemJSON) {
+//        guard var request = createRequest(endpoint: "AddNoCardapio") else {
+//            print("Erro ao criar request")
+//            return
+//        }
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//
+//
+//        var orderForPost: [String : Any] = [
+//            "Nome" : order.name,
+//            "Total": order.totalValue
+//        ]
+//
+//        var itens: [[String: Any]] = []
+//
+//        order.items.forEach({
+//            let dict: [String: Any] = [
+//                "Nome": $0.item.name,
+//                "Quantidade": $0.quantity,
+//                "Preco": $0.item.price,
+//                "Observacoes": $0.comments == "Observações" || $0.comments == "" || $0.comments == " " ? "Nenhuma Observação" : $0.comments!
+//            ]
+//            itens.append(dict)
+//        })
+//
+//        orderForPost["Itens"] = itens
+//
+//
+//        do {
+//            let jsonData = try JSONSerialization.data(withJSONObject: orderForPost, options: [])
+//            session.uploadTask(with: request, from: jsonData) { data, response, error in
+//                if let data = data, let httpResponse = response {
+//                    print(data as Any)
+//                    print(httpResponse as Any)
+//                }
+//            }.resume()
+//        }
+//        catch {
+//            print("Erro: \(error.localizedDescription)")
+//        }
+//
     }
+    
+    
+    
+    
 }
-
-// MARK: - NaoAlcoolico
-struct NaoAlcoolico: Codable {
-    let cháGelado, redBull, refrigerante, água: Int
-    let águaTônica: Int
-
-    enum CodingKeys: String, CodingKey {
-        case cháGelado = "Chá gelado"
-        case redBull = "Red Bull"
-        case refrigerante = "Refrigerante"
-        case água = "Água"
-        case águaTônica = "Água tônica"
-    }
-}
-
-// MARK: - SucosDetox
-struct SucosDetox: Codable {
-    let polpaBranca, polpaVerde, polpaVermelha: Int
-
-    enum CodingKeys: String, CodingKey {
-        case polpaBranca = "Polpa branca"
-        case polpaVerde = "Polpa verde"
-        case polpaVermelha = "Polpa vermelha"
-    }
-}
-
-// MARK: - Caldos
-struct Caldos: Codable {
-    let diversosSabores: Int
-
-    enum CodingKeys: String, CodingKey {
-        case diversosSabores = "Diversos sabores"
-    }
-}
-
-// MARK: - Escondidinhos
-struct Escondidinhos: Codable {
-    let baconCOMChampignon, camarão, estrogonofeDeFrango: Int
-
-    enum CodingKeys: String, CodingKey {
-        case baconCOMChampignon = "Bacon com champignon"
-        case camarão = "Camarão"
-        case estrogonofeDeFrango = "Estrogonofe de frango"
-    }
-}
-
-// MARK: - Lanches
-struct Lanches: Codable {
-    let hotDog: HotDog
-    let sanduiches: Sanduiches
-
-    enum CodingKeys: String, CodingKey {
-        case hotDog = "Hot-Dog"
-        case sanduiches = "Sanduiches"
-    }
-}
-
-// MARK: - HotDog
-struct HotDog: Codable {
-    let cheddarBaconCOM1Salsicha, cheddarBaconCOM2Salsichas, completoCOM1Salsicha, completoCOM2Salsichas: Int
-
-    enum CodingKeys: String, CodingKey {
-        case cheddarBaconCOM1Salsicha = "Cheddar bacon com 1 salsicha"
-        case cheddarBaconCOM2Salsichas = "Cheddar bacon com 2 salsichas"
-        case completoCOM1Salsicha = "Completo com 1 salsicha"
-        case completoCOM2Salsichas = "Completo com 2 salsichas"
-    }
-}
-
-// MARK: - Sanduiches
-struct Sanduiches: Codable {
-    let calabresaCOMQueijoEVinagre, carneLouca, pernil: Int
-
-    enum CodingKeys: String, CodingKey {
-        case calabresaCOMQueijoEVinagre = "Calabresa com queijo e vinagre"
-        case carneLouca = "Carne Louca"
-        case pernil = "Pernil"
-    }
-}
-
-// MARK: - Salgados
-struct Salgados: Codable {
-    let empadas: Empadas
-    let tortas: Tortas
-
-    enum CodingKeys: String, CodingKey {
-        case empadas = "Empadas"
-        case tortas = "Tortas"
-    }
-}
-
-// MARK: - Empadas
-struct Empadas: Codable {
-    let camarão, frango, palmito: Double
-
-    enum CodingKeys: String, CodingKey {
-        case camarão = "Camarão"
-        case frango = "Frango"
-        case palmito = "Palmito"
-    }
-}
-
-// MARK: - Tortas
-struct Tortas: Codable {
-    let alhoPoróCOMCatupiry, camarão, frangoCOMPalmito, palmito: Int
-
-    enum CodingKeys: String, CodingKey {
-        case alhoPoróCOMCatupiry = "Alho poró com catupiry"
-        case camarão = "Camarão"
-        case frangoCOMPalmito = "Frango com palmito"
-        case palmito = "Palmito"
-    }
-}
-
-// MARK: - Tapiocas
-struct Tapiocas: Codable {
-    let doces: Doces
-    let salgadas: Salgadas
-
-    enum CodingKeys: String, CodingKey {
-        case doces = "Doces"
-        case salgadas = "Salgadas"
-    }
-}
-
-// MARK: - Doces
-struct Doces: Codable {
-    let doceDeLeite, leiteCondensadoCOMCoco, nutellaCOMBanana, nutellaCOMMorango: Int
-    let romeuEJulieta: Int
-
-    enum CodingKeys: String, CodingKey {
-        case doceDeLeite = "Doce de leite"
-        case leiteCondensadoCOMCoco = "Leite condensado com coco"
-        case nutellaCOMBanana = "Nutella com banana"
-        case nutellaCOMMorango = "Nutella com morango"
-        case romeuEJulieta = "Romeu e Julieta"
-    }
-}
-
-// MARK: - Salgadas
-struct Salgadas: Codable {
-    let carneSeca, frango, peitoDePeru, presuntoCOMQueijo: Int
-
-    enum CodingKeys: String, CodingKey {
-        case carneSeca = "Carne seca"
-        case frango = "Frango"
-        case peitoDePeru = "Peito de peru"
-        case presuntoCOMQueijo = "Presunto com queijo"
-    }
-}
-
-
