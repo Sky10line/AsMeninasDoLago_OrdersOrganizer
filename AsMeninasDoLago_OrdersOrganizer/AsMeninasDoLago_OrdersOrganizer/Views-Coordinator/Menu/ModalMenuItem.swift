@@ -63,7 +63,7 @@ struct ModalMenuItem: View {
 					.padding(10)
 				}
 		
-				NameTextField(placeholder: "Nome do item", name: $name)
+				NameTextField(placeholder: "Nome do item", name: $name).padding(.bottom, 10)
 		
 				NameTextField(placeholder: "Valor", name: $value)
 		
@@ -73,20 +73,11 @@ struct ModalMenuItem: View {
 					.padding(.horizontal)
 					.padding(.top)
 				
-				HStack(alignment: .top) {
-					VStack(alignment: .leading, spacing: 12) {
-						buildCategory(category: .bebidas)
-						buildCategory(category: .caldos)
-						buildCategory(category: .escondidinhos)
-						buildCategory(category: .lanches)
-					}.frame(width: 200, alignment: .leading)
-					
-					VStack(alignment: .leading, spacing: 12) {
-						buildCategory(category: .porcoes)
-						buildCategory(category: .salgados)
-						buildCategory(category: .tapiocas)
-					}
-				}.padding()
+				if horizontalSizeClass == .regular {
+					buildCategoryRegular().padding()
+				} else {
+					buildCategoryCompact().padding()
+				}
 				
 				HStack {
 					Spacer()
@@ -136,9 +127,51 @@ struct ModalMenuItem: View {
 				BigButton(text: "Salvar item") {
 					//acao de salvar item
 				}.padding()
-				.padding(.bottom, 20)
+				.padding(.bottom, UIScreen.main.bounds.height / 20)
 			}
+			.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 			.background(Color(UIColor.gray3))
+		}
+	}
+	
+	func buildCategoryCompact() -> some View {
+		HStack(alignment: .top) {
+			VStack(alignment: .leading, spacing: 12) {
+				buildCategory(category: .bebidas)
+				buildCategory(category: .caldos)
+				buildCategory(category: .escondidinhos)
+				buildCategory(category: .lanches)
+			}.frame(width: 200, alignment: .leading)
+			
+			VStack(alignment: .leading, spacing: 12) {
+				buildCategory(category: .porcoes)
+				buildCategory(category: .salgados)
+				buildCategory(category: .tapiocas)
+			}
+		}
+	}
+	
+	func buildCategoryRegular() -> some View {
+		HStack(alignment: .top) {
+			VStack(alignment: .leading, spacing: 12) {
+				buildCategory(category: .bebidas)
+				buildCategory(category: .porcoes)
+			}
+			Spacer()
+			VStack(alignment: .leading, spacing: 12) {
+				buildCategory(category: .caldos)
+				buildCategory(category: .salgados)
+			}
+			Spacer()
+			VStack(alignment: .leading, spacing: 12) {
+				buildCategory(category: .escondidinhos)
+				buildCategory(category: .tapiocas)
+			}
+			Spacer()
+			VStack(alignment: .leading, spacing: 12) {
+				buildCategory(category: .lanches)
+			}.frame(width: 140, alignment: .leading)
+			Spacer()
 		}
 	}
 	

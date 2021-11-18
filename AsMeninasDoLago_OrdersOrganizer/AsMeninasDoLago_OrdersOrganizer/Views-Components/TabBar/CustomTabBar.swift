@@ -17,6 +17,10 @@ struct CustomTabBar: View {
 		case menu = "MenuTabImg"
 	}
 	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
     var body: some View {
 		ZStack {
 		HStack(spacing: 0) {
@@ -28,13 +32,13 @@ struct CustomTabBar: View {
 		}.padding()
 		.background(
 			Color(UIColor.gray3)
-				.clipShape(TabCurve(tabPoint: getCurvePoint() - 15))
+				.clipShape(TabCurve(tabPoint: getCurvePoint() - (horizontalSizeClass == .regular ? 32 : 0) - 15))
 		)
 		.overlay(
 			Circle()
 				.foregroundColor(Color(UIColor.appGreen))
 				.frame(width: 10, height: 10)
-				.offset(x: getCurvePoint() - 20)
+				.offset(x: getCurvePoint() - (horizontalSizeClass == .regular ? 32 : 0) - 20)
 
 			,alignment: .bottomLeading
 		)
@@ -43,6 +47,7 @@ struct CustomTabBar: View {
 		.shadow(color: .black.opacity(0.15), radius: 5, x: 5, y: 5)
 		.shadow(color: .black.opacity(0.15), radius: 5, x: -5, y: -5)
 		}
+		.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
     }
 	
 	func getCurvePoint() -> CGFloat {
