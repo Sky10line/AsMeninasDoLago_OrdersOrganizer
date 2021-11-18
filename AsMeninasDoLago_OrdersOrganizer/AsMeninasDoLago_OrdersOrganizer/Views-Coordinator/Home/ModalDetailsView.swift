@@ -17,6 +17,10 @@ struct ModalDetailsView: View {
 	@Binding var selectedModal: ContentView.Modals
     
     @State var op: CGFloat = -100
+	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
     
     var body: some View {
             ZStack (alignment: .topLeading) {
@@ -84,21 +88,14 @@ struct ModalDetailsView: View {
                     .frame(minWidth: 0, maxWidth: .infinity)
 
                 } // Fecha VStack geral
-                .background(Color.white)
+				.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+				.background(Color(UIColor.gray3))
                 
         } // Fecha ZStack
         
     } // Fecha body
 
 } // Fecha struct
-
-
-
-struct ModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
 
 
 // MARK: - Dados para teste

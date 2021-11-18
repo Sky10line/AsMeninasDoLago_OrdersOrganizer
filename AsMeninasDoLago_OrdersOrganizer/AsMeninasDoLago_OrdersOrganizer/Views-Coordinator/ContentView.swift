@@ -104,8 +104,7 @@ struct ContentView: View {
 				}.ignoresSafeArea()
 				.animation(.easeInOut)
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
-		}
-		.navigationViewStyle(StackNavigationViewStyle())
+		}.navigationViewStyle(StackNavigationViewStyle())
 		.accentColor(Color(UIColor.appGreen))
     }
 }

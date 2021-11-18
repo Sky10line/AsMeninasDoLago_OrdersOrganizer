@@ -65,7 +65,8 @@ struct FinishedOrdersCollectionView: View {
 									selectedModal = .finishedOrderDetails
 									dataToBeShown = order
 									print("Cliquei num item da collection")
-								}).transition(.opacity.combined(with: .slide).animation(.easeInOut))
+								})
+								.transition(.opacity.combined(with: .slide).animation(.easeInOut))
 								.animation(.easeInOut(duration: 0.5))
 							}
 						}

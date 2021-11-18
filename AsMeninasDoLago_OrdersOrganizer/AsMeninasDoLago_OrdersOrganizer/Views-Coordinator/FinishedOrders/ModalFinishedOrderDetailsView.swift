@@ -17,6 +17,10 @@ struct ModalFinishedOrderDetailsView: View {
 	
 	@State var op: CGFloat = -100
 	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	var body: some View {
 		ZStack (alignment: .topLeading) {
 			VStack (alignment: .leading) {
@@ -60,7 +64,8 @@ struct ModalFinishedOrderDetailsView: View {
 				}
 				.frame(minWidth: 0, maxWidth: .infinity)
 			}
-			.background(Color.white)
+			.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+			.background(Color(UIColor.gray3))
 		}
 	}
 }

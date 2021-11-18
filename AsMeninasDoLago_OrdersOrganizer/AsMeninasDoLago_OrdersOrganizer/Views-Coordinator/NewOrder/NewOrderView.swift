@@ -23,6 +23,10 @@ struct NewOrderView: View {
 	var data: [testData] = dataa
 	var totalValue: Double = 0.00
 	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
     var body: some View {
         ZStack {
             VStack {
@@ -45,7 +49,8 @@ struct NewOrderView: View {
                     
                 }.background(Color.white.ignoresSafeArea())
                 .navigationBarTitle("Nova comanda", displayMode: .inline)
-            }
+            }.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+			.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
             
             ZStack {
                 if showItemNewOrder {
@@ -103,6 +108,7 @@ struct NewOrderView: View {
 								}
 							}.padding(.vertical, 10)
 							.padding(.bottom, 25)
+							.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							
 							Spacer()
 							
@@ -112,17 +118,19 @@ struct NewOrderView: View {
 									ForEach(data, id: \.self) { el in
 										TableCell(item: el)
 									}
-								}.background(Color.white)
+								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+								.background(Color.white)
 							}
 							
-							BigButton(text: "Enivar comanda") {
+							BigButton(text: "Enviar comanda") {
 								
-							}.padding()
-							.padding(.bottom, 200).background(Color.white)
+							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+							.padding()
+							.padding(.bottom, UIScreen.main.bounds.height / 5).background(Color.white)
 							
 							
-							
-						}.frame(maxHeight: .infinity, alignment: .top)
+						}
+						.frame(maxHeight: .infinity, alignment: .top)
 					}.cornerRadius(20)
 					.offset(y: height - 80)
 					.offset(y: -offsetBottomView > 0 ? -offsetBottomView <= (height - 80) ? offsetBottomView : -(height - 80) : 0)
@@ -143,8 +151,7 @@ struct NewOrderView: View {
 						lastOffsetBottomView = offsetBottomView
 					}))
 				)
-			}
-			.ignoresSafeArea(.all, edges: .bottom)
+			}.ignoresSafeArea(.all, edges: .bottom)
 		}
 	}
 	
@@ -159,10 +166,4 @@ struct NewOrderView: View {
 
 		return Double(progress)
 	}
-}
-
-struct NewOrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewOrderView()
-    }
 }

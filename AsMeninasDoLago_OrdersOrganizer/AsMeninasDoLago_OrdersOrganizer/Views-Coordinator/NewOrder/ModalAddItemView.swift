@@ -16,20 +16,24 @@ struct ModalAddItemView: View {
     @Binding var data: ItemJSON
     @Binding var isShowing: Bool
     
-    
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
     var body: some View {
         ZStack (alignment: .topLeading) {
-            Color.white
+			Color(UIColor.white)
             
             VStack (alignment: .leading, spacing: 0) {
                 
                 // Imagem do produto
                 Image(data.image ?? "LanchePlaceHolder")
-                    .renderingMode(.original)
+					.renderingMode(.original)
                     .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
+					.scaledToFill()
+					.frame(maxWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height / 4.5)
                     .ignoresSafeArea()
+					.clipped()
                 
                 // Pilha vertical de nome, observações e ações
                 VStack {
@@ -42,7 +46,7 @@ struct ModalAddItemView: View {
                     Spacer()
                     
                     // TextField para as observações
-                    TextEditor(text: $obsText)
+					TextEditor(text: $obsText)
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.primary, lineWidth: 1))
                         .onTapGesture {
@@ -94,8 +98,8 @@ struct ModalAddItemView: View {
                             
                         
                     } // Fecha HStack com Stepper e botão
-                } // Fecha VStack com nome, observações e controles
-                .frame(maxWidth: .infinity, maxHeight: .infinity,alignment:.bottom)
+                }// Fecha VStack com nome, observações e controles
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment:.bottom)
                 .padding()
             } // Fecha VStack geral
             
@@ -106,7 +110,7 @@ struct ModalAddItemView: View {
                     .foregroundColor(Color.primary)
 					.opacity(0.5)
                     .font(.largeTitle)
-            }
+            }.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
             .padding()
             
         } // Fecha ZStack

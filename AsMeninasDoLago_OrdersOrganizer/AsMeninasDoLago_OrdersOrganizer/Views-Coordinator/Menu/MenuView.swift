@@ -17,6 +17,10 @@ struct MenuView: View {
 	@Binding var selectedModal: ContentView.Modals
 	@Binding var orderData: OrderJSON
 	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
     var body: some View {
 		VStack {
 			NavBar(title: "Cardápio")
@@ -38,16 +42,17 @@ struct MenuView: View {
 				ScrollView {
 					MenuCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], selectedModal: $selectedModal, dataToBeShown: $data, searchText: $searchText)
 
-					Spacer(minLength: 280)
+					Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
 				}
 				VStack {
 					BigButton(text: "Adicionar item") {
 						selectedModal = .addMenuItem
 					}.padding()
 					.background(Color.clear)
-					Rectangle().opacity(0).frame(height: 150)
+					Rectangle().opacity(0).frame(height: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 8 : UIScreen.main.bounds.height / 6)
 				}
 			}
-		}
+		}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+		.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
     }
 }
