@@ -19,7 +19,6 @@ struct MenuView: View {
 	
 	@Binding var selectedModal: ContentView.Modals
 	
-	@Binding var selectedModal: ContentView.Modals
 	@Binding var orderData: OrderJSON
 	
 	#if os(iOS)
@@ -69,9 +68,9 @@ struct MenuView: View {
     }
 }
 
-struct MenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        MenuView(searchText: "", data: dummyCalabresa, selectedModal: .constant(ContentView.Modals.editMenuItem))
-
-    }
-}
+//struct MenuView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MenuView(searchText: "", data: dummyCalabresa, selectedModal: .constant(ContentView.Modals.editMenuItem))
+//
+//    }
+//}

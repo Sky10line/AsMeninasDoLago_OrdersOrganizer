@@ -60,7 +60,7 @@ struct ModalDetailsView: View {
                     ScrollView {
                         LazyVStack {
                             ForEach(data, id: \.self) { el in
-                                TableCell(item: el)
+//                                TableCell(item: el)
                             }
                             
                             // Botão de adicionar mais itens

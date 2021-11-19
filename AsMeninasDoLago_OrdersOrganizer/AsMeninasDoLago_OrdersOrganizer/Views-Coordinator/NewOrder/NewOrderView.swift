@@ -194,8 +194,7 @@ struct NewOrderView: View {
 		return Double(progress)
 	}
 	
-	func getBackShadow() -> Double {
-		let progress = -offsetBottomView / (UIScreen.main.bounds.height - 80)
+}
 
 
 struct NewOrderView_Previews: PreviewProvider {
