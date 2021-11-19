@@ -18,9 +18,7 @@ struct NewOrderCollectionViewCell: View {
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 				tap = false
 			}
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-				action?()
-			}
+			action?()
 		}, label: {
 			VStack {
 				if let image = item.image {
@@ -120,14 +118,13 @@ struct NewOrderCollectionView: View {
 				}
 			}
 		}.padding(.horizontal)
-		.padding(.top, 8)
-		.padding(.bottom,  horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 25 : UIScreen.main.bounds.height / 15)
+		.padding(.vertical, 8)
 	}
 }
 
 struct NewOrderCollectionView_Previews: PreviewProvider {
     static var previews: some View {
 		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
-        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(dummyCalabresa))
+        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(ItemJSON(name: "Comida", price: 20, image: "LanchePlaceHolder")))
     }
 }

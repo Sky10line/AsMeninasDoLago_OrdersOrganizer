@@ -19,7 +19,8 @@ struct ContentView: View {
 	}
     
 	@State var selectedModal: Modals = .none
-    @State var detaislData: OrderJSON = OrderJSON(name: "Placeholder", totalValue: 0).self
+    @State var detaislData: OrderJSON = dummyOrder1
+
 	
 	enum Modals {
 		case homeOrderDetails
@@ -66,7 +67,7 @@ struct ContentView: View {
 					
 					switch selectedModal {
 					case .homeOrderDetails:
-						ModalDetailsView(testData: $detaislData, selectedModal: $selectedModal)
+                        ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
 							.transition(.move(edge: .bottom))
@@ -74,7 +75,7 @@ struct ContentView: View {
 							.edgesIgnoringSafeArea(.all)
 						
 					case .finishedOrderDetails:
-						ModalFinishedOrderDetailsView(testData: $detaislData, selectedModal: $selectedModal)
+                        ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
 							.transition(.move(edge: .bottom))

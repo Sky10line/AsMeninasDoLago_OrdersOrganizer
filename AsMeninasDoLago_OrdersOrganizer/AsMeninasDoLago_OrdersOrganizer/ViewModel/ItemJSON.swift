@@ -8,7 +8,9 @@
 import Foundation
 
 struct ItemJSON: Decodable, Hashable {
-	var name: String?
-	var price: Double?
-	var image: String?
+    var name: String
+    var price: Double
+    var image: String?
+    var category: String
+    var subcategory: String
 }

@@ -27,18 +27,20 @@ struct FinishedOrders: View {
 			SearchBar(searchText: $searchText)
 
 			Spacer()
-//			ScrollView {
+			
+			ScrollView {
 				FinishedOrdersCollectionView(data: finishedDates, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
 				
-//				Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
-//			}
+				Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
+			}
 		}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 		.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
     }
 }
 
-//struct FinishedOrders_Previews: PreviewProvider {
-//    static var previews: some View {
-//		FinishedOrders(selectedModal: , orderData: )
-//    }
-//}
+
+struct FinishedOrders_Previews: PreviewProvider {
+    static var previews: some View {
+        FinishedOrders(selectedModal: .constant(ContentView.Modals.finishedOrderDetails), orderData: .constant(dummyOrder1))
+    }
+}

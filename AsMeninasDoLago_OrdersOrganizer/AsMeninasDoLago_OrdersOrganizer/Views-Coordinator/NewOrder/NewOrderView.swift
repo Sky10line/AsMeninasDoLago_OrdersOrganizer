@@ -8,24 +8,31 @@
 import SwiftUI
 
 struct NewOrderView: View {
+    @ObservedObject var api = ApiRequest()
+    
 	@State private var name = ""
 	let categories = DebugHelper().createCategoryMock()
 	
 	@State private var selectedTab: String = ""
     
     @State var showItemNewOrder: Bool = false
-    @State var itemData: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
-	
+    @State var itemData: ItemJSON = dummyCalabresa
 	@State var offsetBottomView: CGFloat = 0
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
+    
+    @State private var showAlert = false
+    @State var alertMessage = ""
+    @Binding var isBeingPresented: Bool
 	
-	var data: [testData] = dataa
-	var totalValue: Double = 0.00
-	
-	#if os(iOS)
-		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
-	#endif
+	//var totalValue: Double = 0.00
+    
+    @State var order: OrderJSON = emptyOrder
+  
+  	#if os(iOS)
+		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	  #endif
+
 	
     var body: some View {
         ZStack {
@@ -61,7 +68,7 @@ struct NewOrderView: View {
 						.ignoresSafeArea()
 						.animation(.easeIn)
 					
-                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder)
+                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder, order: $order)
 						.cornerRadius(30)
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
 						.transition(.move(edge: .bottom))
@@ -100,7 +107,9 @@ struct NewOrderView: View {
 								
 								HStack {
 									Spacer()
-									Text(totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+
+                                    Text(order.totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+
 										.foregroundColor(.white)
 										.fontWeight(.regular)
 										.font(.body)
@@ -115,22 +124,36 @@ struct NewOrderView: View {
 							
 							ScrollView {
 								LazyVStack {
-									ForEach(data, id: \.self) { el in
-										TableCell(item: el)
+                                    ForEach(order.items, id: \.self) { item in
+                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
-								.background(Color.white)
+                .background(Color.white)
+                
 							}
 							
 							BigButton(text: "Enviar comanda") {
-								
+                                if order.items.isEmpty {
+                                    alertMessage = "Por favor, insira itens na comanda."
+                                    showAlert = true
+                                }
+                                else if name == "" || name == " " {
+                                    alertMessage = "Por favor, insira o nome do cliente"
+                                    showAlert = true
+                                }
+                                else {
+                                    order.name = name
+                                    api.postNewOrder(order: order)
+                                    isBeingPresented = false
+                                }
+                                
 							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							.padding()
 							.padding(.bottom, UIScreen.main.bounds.height / 5).background(Color.white)
 							
 							
-						}
-						.frame(maxHeight: .infinity, alignment: .top)
+							
+						}.frame(maxHeight: .infinity, alignment: .top)
 					}.cornerRadius(20)
 					.offset(y: height - 80)
 					.offset(y: -offsetBottomView > 0 ? -offsetBottomView <= (height - 80) ? offsetBottomView : -(height - 80) : 0)
@@ -151,7 +174,11 @@ struct NewOrderView: View {
 						lastOffsetBottomView = offsetBottomView
 					}))
 				)
-			}.ignoresSafeArea(.all, edges: .bottom)
+			}
+			.ignoresSafeArea(.all, edges: .bottom)
+            .alert(isPresented: $showAlert, content: {
+                Alert(title: Text("Atenção"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            })
 		}
 	}
 	
@@ -166,4 +193,13 @@ struct NewOrderView: View {
 
 		return Double(progress)
 	}
+	
+	func getBackShadow() -> Double {
+		let progress = -offsetBottomView / (UIScreen.main.bounds.height - 80)
+
+
+struct NewOrderView_Previews: PreviewProvider {
+    static var previews: some View {
+        NewOrderView(isBeingPresented: .constant(true))
+    }
 }

@@ -14,6 +14,7 @@ struct Subcategories {
 		case sucosDetox
 	}
 	
+
 	enum Lanches {
 		case sanduiches
 		case hotdogs

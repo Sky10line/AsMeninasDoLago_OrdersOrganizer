@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct MenuView: View {
+    @ObservedObject var api = ApiRequest()
+    
 	@State var searchText = ""
-	let categories = DebugHelper().createCategoryMock()
+	@State var categories = DebugHelper().createCategoryMock()
+    //@State var categories: [CategoryJSON] = []
 	@State private var selectedTab: String = ""
 	
-	@State var data: ItemJSON = ItemJSON(name: nil, price: nil, image: nil)
+	@State var data: ItemJSON = dummyCalabresa
+	
+	@Binding var selectedModal: ContentView.Modals
 	
 	@Binding var selectedModal: ContentView.Modals
 	@Binding var orderData: OrderJSON
@@ -42,7 +47,7 @@ struct MenuView: View {
 				ScrollView {
 					MenuCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], selectedModal: $selectedModal, dataToBeShown: $data, searchText: $searchText)
 
-					Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
+						Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
 				}
 				VStack {
 					BigButton(text: "Adicionar item") {
@@ -54,5 +59,19 @@ struct MenuView: View {
 			}
 		}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 		.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
+        .onAppear() {
+            api.getMenu() {
+                // Deixei só pra printar por enquanto, mas aqui pra fazer a requisição, vc faria algo tipo:
+                // variavelDaViewQueRecebeMenu = api.menu
+                print(api.menu as Any)
+            }
+        }
+    }
+}
+
+struct MenuView_Previews: PreviewProvider {
+    static var previews: some View {
+        MenuView(searchText: "", data: dummyCalabresa, selectedModal: .constant(ContentView.Modals.editMenuItem))
+
     }
 }
