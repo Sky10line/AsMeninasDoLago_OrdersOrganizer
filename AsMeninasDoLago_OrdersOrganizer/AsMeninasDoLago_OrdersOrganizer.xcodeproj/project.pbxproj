@@ -39,10 +39,13 @@
 		BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */; };
 		BDAFEEC5271B93E30000CE8C /* OrderJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */; };
 		BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */; };
+		BDC2D93A273F7647006EFCEE /* ModalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105969622719DED700510399 /* ModalDetailsView.swift */; };
+		BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */; };
 		BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */; };
 		BDC2D94027401F33006EFCEE /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93F27401F33006EFCEE /* NameTextField.swift */; };
 		BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D94127406A97006EFCEE /* CustomStepper.swift */; };
 		BDC2D9442741E38B006EFCEE /* Subcategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D9432741E38B006EFCEE /* Subcategories.swift */; };
+		BDE2978E2747033A00E3A7CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDE2978D2747033A00E3A7CA /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,7 @@
 		108A75AD2744318900E5993A /* OrderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionCell.swift; sourceTree = "<group>"; };
 		10ADC1472746D2120090601E /* Cardapio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardapio.swift; sourceTree = "<group>"; };
 		10B412A0274584F0001FE57C /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		105969622719DED700510399 /* ModalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDetailsView.swift; sourceTree = "<group>"; };
 		BD284914271B9DB600A8FD46 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		BD2FF14F2720EFC400768CEE /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		BD3050652722347500A0E0EA /* NewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderView.swift; sourceTree = "<group>"; };
@@ -71,7 +75,7 @@
 		BD30508B273346B100A0E0EA /* FinishedDatesJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedDatesJSON.swift; sourceTree = "<group>"; };
 		BD3050902735C17500A0E0EA /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		BD3050922735C29E00A0E0EA /* MenuCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionView.swift; sourceTree = "<group>"; };
-		BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsMeninasDoLago_OrdersOrganizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsMeninasDoLago.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAFEEAB270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsMeninasDoLago_OrdersOrganizerApp.swift; sourceTree = "<group>"; };
 		BDAFEEAD270FAA850000CE8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDAFEEAF270FAA850000CE8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,10 +84,12 @@
 		BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOrdersCollectionView.swift; sourceTree = "<group>"; };
 		BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderJSON.swift; sourceTree = "<group>"; };
+		BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalFinishedOrderDetailsView.swift; sourceTree = "<group>"; };
 		BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalMenuItem.swift; sourceTree = "<group>"; };
 		BDC2D93F27401F33006EFCEE /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
 		BDC2D94127406A97006EFCEE /* CustomStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStepper.swift; sourceTree = "<group>"; };
 		BDC2D9432741E38B006EFCEE /* Subcategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategories.swift; sourceTree = "<group>"; };
+		BDE2978D2747033A00E3A7CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 			children = (
 				BD305087273217F600A0E0EA /* FinishedOrders.swift */,
 				BD3050892733465E00A0E0EA /* FinishedOrdersCollectionView.swift */,
+				BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */,
 			);
 			path = FinishedOrders;
 			sourceTree = "<group>";
@@ -155,7 +162,7 @@
 		BDAFEEA9270FAA850000CE8C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer.app */,
+				BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +179,7 @@
 				BDAFEEAF270FAA850000CE8C /* Assets.xcassets */,
 				BDAFEEB4270FAA850000CE8C /* Info.plist */,
 				BDAFEEB1270FAA850000CE8C /* Preview Content */,
+				BDE2978D2747033A00E3A7CA /* Launch Screen.storyboard */,
 			);
 			path = AsMeninasDoLago_OrdersOrganizer;
 			sourceTree = "<group>";
@@ -233,6 +241,7 @@
 			children = (
 				BD30507A2731F59900A0E0EA /* HomeView.swift */,
 				BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */,
+				105969622719DED700510399 /* ModalDetailsView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -240,9 +249,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BDAFEEA7270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer */ = {
+		BDAFEEA7270FAA850000CE8C /* AsMeninasDoLago */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BDAFEEB7270FAA850000CE8C /* Build configuration list for PBXNativeTarget "AsMeninasDoLago_OrdersOrganizer" */;
+			buildConfigurationList = BDAFEEB7270FAA850000CE8C /* Build configuration list for PBXNativeTarget "AsMeninasDoLago" */;
 			buildPhases = (
 				BDAFEEA4270FAA850000CE8C /* Sources */,
 				BDAFEEA5270FAA850000CE8C /* Frameworks */,
@@ -252,9 +261,9 @@
 			);
 			dependencies = (
 			);
-			name = AsMeninasDoLago_OrdersOrganizer;
+			name = AsMeninasDoLago;
 			productName = AsMeninasDoLago_OrdersOrganizer;
-			productReference = BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer.app */;
+			productReference = BDAFEEA8270FAA850000CE8C /* AsMeninasDoLago.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +293,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BDAFEEA7270FAA850000CE8C /* AsMeninasDoLago_OrdersOrganizer */,
+				BDAFEEA7270FAA850000CE8C /* AsMeninasDoLago */,
 			);
 		};
 /* End PBXProject section */
@@ -294,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE2978E2747033A00E3A7CA /* Launch Screen.storyboard in Resources */,
 				BDAFEEB3270FAA850000CE8C /* Preview Assets.xcassets in Resources */,
 				BDAFEEB0270FAA850000CE8C /* Assets.xcassets in Resources */,
 			);
@@ -309,6 +319,10 @@
 				108A75AC27442DD900E5993A /* ModalOrder.swift in Sources */,
 				BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */,
 				BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */,
+				BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */,
+				BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */,
+				BDC2D93A273F7647006EFCEE /* ModalDetailsView.swift in Sources */,
+				10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */,
 				10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */,
 				BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */,
 				108A75AE2744318900E5993A /* OrderCollectionCell.swift in Sources */,
@@ -336,6 +350,7 @@
 				BD30508A2733465E00A0E0EA /* FinishedOrdersCollectionView.swift in Sources */,
 				10ADC1482746D2120090601E /* Cardapio.swift in Sources */,
 				BD3050932735C29E00A0E0EA /* MenuCollectionView.swift in Sources */,
+				BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */,
 				BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */,
 				BD30506E27264E7A00A0E0EA /* ItemJSON.swift in Sources */,
 				BD30507B2731F59900A0E0EA /* HomeView.swift in Sources */,
@@ -518,7 +533,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BDAFEEB7270FAA850000CE8C /* Build configuration list for PBXNativeTarget "AsMeninasDoLago_OrdersOrganizer" */ = {
+		BDAFEEB7270FAA850000CE8C /* Build configuration list for PBXNativeTarget "AsMeninasDoLago" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BDAFEEB8270FAA850000CE8C /* Debug */,

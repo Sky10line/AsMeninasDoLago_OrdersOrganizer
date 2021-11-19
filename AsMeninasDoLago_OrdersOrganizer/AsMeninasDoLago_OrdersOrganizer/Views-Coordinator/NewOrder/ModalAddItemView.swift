@@ -10,11 +10,18 @@ import SwiftUI
 struct ModalAddItemView: View {
     @State private var obsText = "Observações"
     @State private var qtdItem = 0
+
     @State private var showAlert = false
+    
+    @State var value: CGFloat = 0
     
     @Binding var data: ItemJSON
     @Binding var isShowing: Bool
     
+  #if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+  
     @Binding var order: OrderJSON
     
     
@@ -26,11 +33,12 @@ struct ModalAddItemView: View {
                 
                 // Imagem do produto
                 Image(data.image ?? "LanchePlaceHolder")
-                    .renderingMode(.original)
+					.renderingMode(.original)
                     .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
+					.scaledToFill()
+					.frame(maxWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height / 4.5)
                     .ignoresSafeArea()
+					.clipped()
                 
                 // Pilha vertical de nome, observações e ações
                 VStack {
@@ -43,6 +51,7 @@ struct ModalAddItemView: View {
                     Spacer()
                     
                     // TextField para as observações
+
                     TextEditor(text: $obsText)
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.primary, lineWidth: 1))
@@ -55,6 +64,7 @@ struct ModalAddItemView: View {
                     
                     // Pilha horizontal com o Stepper e o botão
                     HStack {
+
                         
 						CustomStepper(value: $qtdItem)
 							.shadow(radius: 20)
@@ -87,20 +97,24 @@ struct ModalAddItemView: View {
                     .foregroundColor(Color.primary)
 					.opacity(0.5)
                     .font(.largeTitle)
-            }
+            }.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
             .padding()
             
         } // Fecha ZStack
+        .offset(y: -self.value)
         .animation(.spring())
         .alert(isPresented: $showAlert, content: {
             Alert(title: Text("Atenção"), message: Text("Você não pode adicionar zero de um item a um pedido."), dismissButton: .default(Text("OK")))
         })
+
     } // Fecha body
 } // Fecha struct
 
 struct ModalAddItemView_Previews: PreviewProvider {
     static var previews: some View {
+
         ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true), order: .constant(emptyOrder))
         
+
     }
 }

@@ -15,7 +15,7 @@ struct NameTextField: View {
 		HStack {
 			TextField(placeholder, text: $name)
 				.padding()
-		}.background(Color.white)
+		}.background(Color.white.cornerRadius(20))
 		.overlay(
 			RoundedRectangle(cornerRadius: 20)
 				.stroke(Color.black, lineWidth: 1)

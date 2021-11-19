@@ -28,6 +28,11 @@ struct NewOrderView: View {
 	//var totalValue: Double = 0.00
     
     @State var order: OrderJSON = emptyOrder
+  
+  	#if os(iOS)
+		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	  #endif
+
 	
     var body: some View {
         ZStack {
@@ -51,10 +56,12 @@ struct NewOrderView: View {
                     
                 }.background(Color.white.ignoresSafeArea())
                 .navigationBarTitle("Nova comanda", displayMode: .inline)
-            }
+            }.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+			.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
             
             ZStack {
                 if showItemNewOrder {
+                    
 					Rectangle()
 						.foregroundColor(Color.black)
 						.opacity(showItemNewOrder ? 0.6 : 0)
@@ -100,7 +107,9 @@ struct NewOrderView: View {
 								
 								HStack {
 									Spacer()
+
                                     Text(order.totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+
 										.foregroundColor(.white)
 										.fontWeight(.regular)
 										.font(.body)
@@ -108,6 +117,7 @@ struct NewOrderView: View {
 								}
 							}.padding(.vertical, 10)
 							.padding(.bottom, 25)
+							.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							
 							Spacer()
 							
@@ -117,7 +127,9 @@ struct NewOrderView: View {
                                     ForEach(order.items, id: \.self) { item in
                                         OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
 									}
-								}.background(Color.white)
+								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+                .background(Color.white)
+                
 							}
 							
 							BigButton(text: "Enviar comanda") {
@@ -135,8 +147,9 @@ struct NewOrderView: View {
                                     isBeingPresented = false
                                 }
                                 
-							}.padding()
-							.padding(.bottom, 200).background(Color.white)
+							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+							.padding()
+							.padding(.bottom, UIScreen.main.bounds.height / 5).background(Color.white)
 							
 							
 							
@@ -180,7 +193,10 @@ struct NewOrderView: View {
 
 		return Double(progress)
 	}
-}
+	
+	func getBackShadow() -> Double {
+		let progress = -offsetBottomView / (UIScreen.main.bounds.height - 80)
+
 
 struct NewOrderView_Previews: PreviewProvider {
     static var previews: some View {

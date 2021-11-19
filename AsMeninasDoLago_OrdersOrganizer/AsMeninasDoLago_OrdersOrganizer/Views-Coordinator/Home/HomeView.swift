@@ -17,7 +17,11 @@ struct HomeView: View {
     @Binding var orderData: OrderJSON
 	
     @State var orders: [OrderJSON] = []
-	
+  
+    #if os(iOS)
+		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	  #endif
+
     init(selectedModal: Binding<ContentView.Modals>, orderData: Binding<OrderJSON>) {
 		UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 				  UINavigationBar.appearance().shadowImage = UIImage()
@@ -40,7 +44,7 @@ struct HomeView: View {
 					ScrollView {
 						HomeOrdersCollectionView(data: orders, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
 						
-						Spacer(minLength: 280)
+						Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
 					}
 					
 					NavigationLink(
@@ -53,10 +57,11 @@ struct HomeView: View {
 							isShowingNewOrderView = true
 						}.padding()
 						.background(Color.clear)
-						Rectangle().opacity(0).frame(height: 150)
+						Rectangle().opacity(0).frame(height: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 8 : UIScreen.main.bounds.height / 6)
 					}
 				}
-			}
+			}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+			.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
 			.background(Color.white.ignoresSafeArea())
 			.navigationBarHidden(true)
 			.navigationTitle("Comandas")

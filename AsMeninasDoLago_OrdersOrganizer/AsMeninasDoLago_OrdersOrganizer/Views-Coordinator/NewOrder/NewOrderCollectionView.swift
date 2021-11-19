@@ -120,7 +120,8 @@ struct NewOrderCollectionView: View {
 				}
 			}
 		}.padding(.horizontal)
-		.padding(.vertical, 8)
+		.padding(.top, 8)
+		.padding(.bottom,  horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 25 : UIScreen.main.bounds.height / 15)
 	}
 }
 
