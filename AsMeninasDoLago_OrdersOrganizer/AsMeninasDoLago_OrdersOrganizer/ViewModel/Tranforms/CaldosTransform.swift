@@ -11,7 +11,7 @@ struct CaldosTransform {
 	var entity: CategoryJSON
 	
 	init(json: Caldos) {
-		let sub = SubcategoriesJSON(name: "", items: [ItemJSON(name: "Diversos sabores", price: json.diversosSabores, image: "")])
+		let sub = SubcategoriesJSON(name: "", items: [ItemJSON(name: "Diversos sabores", price: json.diversosSabores, image: "DiversosSabores")])
 		
 		entity = CategoryJSON(name: "Caldos", subcategories: [sub])
 	}

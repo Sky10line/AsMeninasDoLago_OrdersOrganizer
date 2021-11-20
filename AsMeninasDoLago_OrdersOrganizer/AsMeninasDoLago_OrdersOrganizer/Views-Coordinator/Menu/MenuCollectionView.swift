@@ -93,6 +93,10 @@ struct MenuCollectionViewCell: View {
 	let editAction: (() -> Void)?
 	@State private var tap: Bool = false
 	
+	#if os(iOS)
+		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
 	var body: some View {
 //		Button(action: {
 //			tap = true
@@ -108,7 +112,8 @@ struct MenuCollectionViewCell: View {
 					Image(image)
 						.resizable()
 						.scaledToFill()
-						.frame(width: (UIScreen.main.bounds.width / 2) - 16)
+						.frame(width: horizontalSizeClass == .regular ? (UIScreen.main.bounds.width / 3) - 32 : (UIScreen.main.bounds.width / 2) - 16, height: 150)
+						.clipped()
 						.overlay(
 							VStack {
 								if let name = item.name {

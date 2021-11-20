@@ -25,9 +25,9 @@ struct EmpadasTransform {
 	
 	init(json: Empadas) {
 		entity = SubcategoriesJSON(name: "Empadas", items: [
-			ItemJSON(name: "Camarão", price: json.camarao, image: ""),
-			ItemJSON(name: "Frango", price: json.frango, image: ""),
-			ItemJSON(name: "Palmito", price: json.palmito, image: "")
+			ItemJSON(name: "Camarão", price: json.camarao, image: "EmpadaDeCamarao"),
+			ItemJSON(name: "Frango", price: json.frango, image: "EmpadaDeFrango"),
+			ItemJSON(name: "Palmito", price: json.palmito, image: "EmpadaDePalmito")
 		])
 	}
 }
@@ -37,10 +37,10 @@ struct TortasTransform {
 	
 	init(json: Tortas) {
 		entity = SubcategoriesJSON(name: "Tortas", items: [
-			ItemJSON(name: "Alho-poró com catupiry", price: json.alhoPoroCOMCatupiry, image: ""),
-			ItemJSON(name: "Camarão", price: json.camarao, image: ""),
-			ItemJSON(name: "Frango com palmito", price: json.frangoCOMPalmito, image: ""),
-			ItemJSON(name: "Palmito", price: json.palmito, image: "")
+			ItemJSON(name: "Alho-poró com catupiry", price: json.alhoPoroCOMCatupiry, image: "TortaDeAlhoPoroComCatupiry"),
+			ItemJSON(name: "Camarão", price: json.camarao, image: "TortaDeCamarao"),
+			ItemJSON(name: "Frango com palmito", price: json.frangoCOMPalmito, image: "TortaDeFrangoComPalmito"),
+			ItemJSON(name: "Palmito", price: json.palmito, image: "TortaDePalmito")
 		])
 	}
 }

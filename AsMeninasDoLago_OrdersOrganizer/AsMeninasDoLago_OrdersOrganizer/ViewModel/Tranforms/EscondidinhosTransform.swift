@@ -12,9 +12,9 @@ struct EscondidinhosTransform {
 	
 	init(json: Escondidinhos) {
 		let sub = SubcategoriesJSON(name: "", items: [
-			ItemJSON(name: "Bacon com champignon", price: json.baconCOMChampignon, image: ""),
-			ItemJSON(name: "Camarão", price: json.camarao, image: ""),
-			ItemJSON(name: "Estrogonoff de frango", price: json.estrogonofeDeFrango, image: "")
+			ItemJSON(name: "Bacon com champignon", price: json.baconCOMChampignon, image: "EscondidinhoDeBaconComChampignon"),
+			ItemJSON(name: "Camarão", price: json.camarao, image: "EscondidinhoDeCamarao"),
+			ItemJSON(name: "Estrogonofe de frango", price: json.estrogonofeDeFrango, image: "EscondidinhoDeEstrogonofeDeFrango")
 		])
 		
 		entity = CategoryJSON(name: "Escondidinhos", subcategories: [sub])
