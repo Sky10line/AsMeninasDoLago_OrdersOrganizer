@@ -54,18 +54,19 @@ struct MenuCollectionView: View {
     private func createSubcategoriesHeader(name: String, items: [ItemJSON]) -> some View {
         Group {
             if !items.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).isEmpty || searchText.isEmpty {
-                HStack {
-                    Text(name)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(UIColor.appGreen))
-                        .padding(.vertical)
-                    VStack{
-                        Divider()
-                            .background(Color(UIColor.appGreen))
-                    }
-                }.transition(.opacity.combined(with: .slide).animation(.easeInOut))
-                .animation(.easeInOut(duration: 0.5))
+				if name != "" {
+					HStack {
+						Text(name)
+							.font(.title2)
+							.fontWeight(.bold)
+							.foregroundColor(Color(UIColor.appGreen))
+							.padding(.vertical)
+						VStack{
+							Divider()
+								.background(Color(UIColor.appGreen))
+						}
+					}.transition(.opacity.combined(with: .slide).animation(.easeInOut(duration: 0.5)))
+				}
             }
         }
     }
@@ -80,8 +81,7 @@ struct MenuCollectionView: View {
                 }, editAction: {
                     print("cliquei no edit")
                 }
-                ).transition(.opacity.combined(with: .slide).animation(.easeInOut))
-                .animation(.easeInOut(duration: 0.5))
+				).transition(.opacity.combined(with: .slide).animation(.easeInOut(duration: 0.5)))
             }
         }
     }
@@ -94,20 +94,21 @@ struct MenuCollectionViewCell: View {
 	@State private var tap: Bool = false
 	
 	var body: some View {
-		Button(action: {
-			tap = true
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-				tap = false
-			}
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-				action?()
-			}
-		}, label: {
+//		Button(action: {
+//			tap = true
+//			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//				tap = false
+//			}
+//			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//				action?()
+//			}
+//		}, label: {
 			VStack {
 				if let image = item.image {
 					Image(image)
 						.resizable()
 						.scaledToFill()
+						.frame(width: (UIScreen.main.bounds.width / 2) - 16)
 						.overlay(
 							VStack {
 								if let name = item.name {
@@ -135,13 +136,13 @@ struct MenuCollectionViewCell: View {
 											
 										Spacer()
 										
-										Button(action: {
-											editAction?()
-										}, label: {
-											Image("PencilIcon")
-												.foregroundColor(Color(UIColor.appGreen))
-												.padding()
-										})
+//										Button(action: {
+//											editAction?()
+//										}, label: {
+//											Image("PencilIcon")
+//												.foregroundColor(Color(UIColor.appGreen))
+//												.padding()
+//										})
 									}.background(Color(UIColor.appBrown))
 								}
 							}.padding(.bottom)
@@ -154,7 +155,7 @@ struct MenuCollectionViewCell: View {
 			.zIndex(1)
 			.cornerRadius(20)
 			.shadow(radius: 4)
-		}).scaleEffect(tap ? 0.95 : 1)
-		.animation(.spring(response: 0.6, dampingFraction: 1))
+//		}).scaleEffect(tap ? 0.95 : 1)
+//		.animation(.spring(response: 0.6, dampingFraction: 1))
 	}
 }

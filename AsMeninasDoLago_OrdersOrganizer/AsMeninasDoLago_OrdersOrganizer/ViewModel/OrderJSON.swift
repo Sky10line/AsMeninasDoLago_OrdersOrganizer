@@ -52,9 +52,13 @@ struct OrderItem: Decodable, Hashable {
 
 // MARK: - Dummy Data
 
-let dummyCalabresa = ItemJSON(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
-let dummyCarneLouca = ItemJSON(name: "Carne Louca", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
-let dummyBolinha = ItemJSON(name: "Bolinhos de 3 queijos do porpeta", price: 26, image: "LanchePlaceHolder", category: "sanduiche", subcategory: "Lanches")
+//let dummyCalabresa = ItemJSON(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
+//let dummyCarneLouca = ItemJSON(name: "Carne Louca", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
+//let dummyBolinha = ItemJSON(name: "Bolinhos de 3 queijos do porpeta", price: 26, image: "LanchePlaceHolder", category: "sanduiche", subcategory: "Lanches")
+
+let dummyCalabresa = ItemJSON(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder")
+let dummyCarneLouca = ItemJSON(name: "Carne Louca", price: 26, image: "LanchePlaceHolder")
+let dummyBolinha = ItemJSON(name: "Bolinhos de 3 queijos do porpeta", price: 26, image: "LanchePlaceHolder")
 
 let dummyItens1 = [OrderItem(item: dummyCarneLouca, quantity: 2, comments: "Sem ketchup"), OrderItem(item: dummyCalabresa, quantity: 1, comments: nil)]
 let dummyOrder1 = OrderJSON(name: "Carol", items: dummyItens1, totalValue: 26)

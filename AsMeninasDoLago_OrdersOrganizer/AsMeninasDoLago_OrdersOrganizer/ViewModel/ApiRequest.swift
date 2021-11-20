@@ -9,7 +9,7 @@ import Foundation
 
 class ApiRequest: ObservableObject {
     @Published var openOrders: [OrderJSON2] = []
-    @Published var menu: Cardapio? = nil
+    @Published var menu: [CategoryJSON] = []
     @Published var orderByName: OrderJSON = emptyOrder
     @Published var finishedOrders: [FinishedDatesJSON] = []
     
@@ -89,7 +89,7 @@ class ApiRequest: ObservableObject {
                 guard let data = data else { return }
                 do {
                     let decodedResponse = try self.decoder.decode(Cardapio.self, from: data)
-                    self.menu = decodedResponse
+					self.menu = CardapioTransform(json: decodedResponse).entity
                     
                     DispatchQueue.main.async {
                         completion()
