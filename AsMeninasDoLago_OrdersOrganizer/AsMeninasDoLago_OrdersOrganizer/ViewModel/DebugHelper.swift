@@ -9,29 +9,24 @@ import Foundation
 
 class DebugHelper {
 	func createCategoryMock() -> [CategoryJSON] {
-		let items = [dummyCarneLouca,
-					dummyCalabresa,
-					ItemJSON(name: "Pernil", price: 27.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
-		 ]
+//		let items = [dummyCarneLouca,
+//					dummyCalabresa,
+//					ItemJSON(name: "Pernil", price: 27.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
+//		 ]
+//
+//		let items2 = [ItemJSON(name: "Cachorro quente", price: 13.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Lanches"),
+//					ItemJSON(name: "Queijo quente", price: 24.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Mais Lanches"),
+//					ItemJSON(name: "Pernil", price: 27.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Mais Lanches")
+//		 ]
+//
+//		let sub = [SubcategoriesJSON(name: "Sanduiches", items: items),
+//				   SubcategoriesJSON(name: "Mais Lanches", items: items2)
+//		]
+//
+//		let itemsDrinks = [ItemJSON(name: "Refrigerante", price: 5.00, image: "LanchePlaceHolder", category: "Bebidas", subcategory: "Mais Drinks"),
+//						   ItemJSON(name: "Cerveja", price: 24.00, image: "LanchePlaceHolder", category: "Bebidas", subcategory: "Drinks")]
 		
-		let items2 = [ItemJSON(name: "Cachorro quente", price: 13.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Lanches"),
-					ItemJSON(name: "Queijo quente", price: 24.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Mais Lanches"),
-					ItemJSON(name: "Pernil", price: 27.00, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Mais Lanches")
-		 ]
-		
-		let sub = [SubcategoriesJSON(name: "Sanduiches", items: items),
-				   SubcategoriesJSON(name: "Mais Lanches", items: items2)
-		]
-		
-		let itemsDrinks = [ItemJSON(name: "Refrigerante", price: 5.00, image: "LanchePlaceHolder", category: "Bebidas", subcategory: "Mais Drinks"),
-						   ItemJSON(name: "Cerveja", price: 24.00, image: "LanchePlaceHolder", category: "Bebidas", subcategory: "Drinks")]
-		
-		let subDrinks = [SubcategoriesJSON(name: "Drinks", items: itemsDrinks),
-				   SubcategoriesJSON(name: "Mais Drinks", items: itemsDrinks)
-		]
-		
-		let mock = [CategoryJSON(name: "Lanches", subcategories: sub),
-					CategoryJSON(name: "Bebidas", subcategories: subDrinks)]
+		let mock = [CategoryJSON(name: "Bebidas", subcategories: [])]
 		
 		return mock
 	}

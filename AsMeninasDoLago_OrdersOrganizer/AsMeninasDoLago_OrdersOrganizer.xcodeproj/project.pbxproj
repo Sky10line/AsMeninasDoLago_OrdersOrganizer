@@ -46,16 +46,24 @@
 		BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D94127406A97006EFCEE /* CustomStepper.swift */; };
 		BDC2D9442741E38B006EFCEE /* Subcategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D9432741E38B006EFCEE /* Subcategories.swift */; };
 		BDE2978E2747033A00E3A7CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDE2978D2747033A00E3A7CA /* Launch Screen.storyboard */; };
+		BDE297902748739800E3A7CA /* CardapioTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2978F2748739800E3A7CA /* CardapioTransform.swift */; };
+		BDE29793274875E500E3A7CA /* BebidasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE29792274875E500E3A7CA /* BebidasTransform.swift */; };
+		BDE2979527487DFB00E3A7CA /* CaldosTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979427487DFB00E3A7CA /* CaldosTransform.swift */; };
+		BDE2979727487F8D00E3A7CA /* EscondidinhosTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979627487F8D00E3A7CA /* EscondidinhosTransform.swift */; };
+		BDE297992748804600E3A7CA /* LanchesTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE297982748804600E3A7CA /* LanchesTransform.swift */; };
+		BDE2979B2748854E00E3A7CA /* PorcoesTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979A2748854E00E3A7CA /* PorcoesTransform.swift */; };
+		BDE2979D2748869300E3A7CA /* SalgadosTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979C2748869300E3A7CA /* SalgadosTransform.swift */; };
+		BDE2979F2748880300E3A7CA /* TapiocasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10105ECE272851D100B9B1F2 /* BigButtonVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonVariant.swift; sourceTree = "<group>"; };
 		10105ED2272869E400B9B1F2 /* ModalAddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddItemView.swift; sourceTree = "<group>"; };
+		105969622719DED700510399 /* ModalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDetailsView.swift; sourceTree = "<group>"; };
 		108A75AB27442DD900E5993A /* ModalOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalOrder.swift; sourceTree = "<group>"; };
 		108A75AD2744318900E5993A /* OrderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionCell.swift; sourceTree = "<group>"; };
 		10ADC1472746D2120090601E /* Cardapio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardapio.swift; sourceTree = "<group>"; };
 		10B412A0274584F0001FE57C /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
-		105969622719DED700510399 /* ModalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDetailsView.swift; sourceTree = "<group>"; };
 		BD284914271B9DB600A8FD46 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		BD2FF14F2720EFC400768CEE /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		BD3050652722347500A0E0EA /* NewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderView.swift; sourceTree = "<group>"; };
@@ -90,6 +98,14 @@
 		BDC2D94127406A97006EFCEE /* CustomStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStepper.swift; sourceTree = "<group>"; };
 		BDC2D9432741E38B006EFCEE /* Subcategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategories.swift; sourceTree = "<group>"; };
 		BDE2978D2747033A00E3A7CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		BDE2978F2748739800E3A7CA /* CardapioTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardapioTransform.swift; sourceTree = "<group>"; };
+		BDE29792274875E500E3A7CA /* BebidasTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BebidasTransform.swift; sourceTree = "<group>"; };
+		BDE2979427487DFB00E3A7CA /* CaldosTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaldosTransform.swift; sourceTree = "<group>"; };
+		BDE2979627487F8D00E3A7CA /* EscondidinhosTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscondidinhosTransform.swift; sourceTree = "<group>"; };
+		BDE297982748804600E3A7CA /* LanchesTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanchesTransform.swift; sourceTree = "<group>"; };
+		BDE2979A2748854E00E3A7CA /* PorcoesTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorcoesTransform.swift; sourceTree = "<group>"; };
+		BDE2979C2748869300E3A7CA /* SalgadosTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalgadosTransform.swift; sourceTree = "<group>"; };
+		BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapiocasTransform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +225,7 @@
 		BDAFEEBB270FAD650000CE8C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				BDE29791274875C200E3A7CA /* Tranforms */,
 				BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */,
 				BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */,
 				BD284914271B9DB600A8FD46 /* FoundationExtension.swift */,
@@ -244,6 +261,21 @@
 				105969622719DED700510399 /* ModalDetailsView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		BDE29791274875C200E3A7CA /* Tranforms */ = {
+			isa = PBXGroup;
+			children = (
+				BDE2978F2748739800E3A7CA /* CardapioTransform.swift */,
+				BDE29792274875E500E3A7CA /* BebidasTransform.swift */,
+				BDE2979427487DFB00E3A7CA /* CaldosTransform.swift */,
+				BDE2979627487F8D00E3A7CA /* EscondidinhosTransform.swift */,
+				BDE297982748804600E3A7CA /* LanchesTransform.swift */,
+				BDE2979A2748854E00E3A7CA /* PorcoesTransform.swift */,
+				BDE2979C2748869300E3A7CA /* SalgadosTransform.swift */,
+				BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */,
+			);
+			path = Tranforms;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,12 +350,16 @@
 			files = (
 				108A75AC27442DD900E5993A /* ModalOrder.swift in Sources */,
 				BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */,
+				BDE2979527487DFB00E3A7CA /* CaldosTransform.swift in Sources */,
+				BDE2979727487F8D00E3A7CA /* EscondidinhosTransform.swift in Sources */,
+				BDE297902748739800E3A7CA /* CardapioTransform.swift in Sources */,
 				BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */,
 				BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */,
 				BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */,
 				BDC2D93A273F7647006EFCEE /* ModalDetailsView.swift in Sources */,
-				10105ED1272859C300B9B1F2 /* TableCell.swift in Sources */,
+				BDE29793274875E500E3A7CA /* BebidasTransform.swift in Sources */,
 				10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */,
+				BDE2979D2748869300E3A7CA /* SalgadosTransform.swift in Sources */,
 				BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */,
 				108A75AE2744318900E5993A /* OrderCollectionCell.swift in Sources */,
 				BDAFEEAE270FAA850000CE8C /* ContentView.swift in Sources */,
@@ -333,6 +369,7 @@
 				BD3050842732176500A0E0EA /* SearchBar.swift in Sources */,
 				BD3050702728D67200A0E0EA /* CategoryJSON.swift in Sources */,
 				BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */,
+				BDE2979B2748854E00E3A7CA /* PorcoesTransform.swift in Sources */,
 				BD305088273217F600A0E0EA /* FinishedOrders.swift in Sources */,
 				BD3050722728D6EE00A0E0EA /* SubcategoriesJSON.swift in Sources */,
 				10105ECF272851D100B9B1F2 /* BigButtonVariant.swift in Sources */,
@@ -347,11 +384,13 @@
 				BDC2D9442741E38B006EFCEE /* Subcategories.swift in Sources */,
 				BDC2D94027401F33006EFCEE /* NameTextField.swift in Sources */,
 				BD30506A2723772500A0E0EA /* TabMenu.swift in Sources */,
+				BDE297992748804600E3A7CA /* LanchesTransform.swift in Sources */,
 				BD30508A2733465E00A0E0EA /* FinishedOrdersCollectionView.swift in Sources */,
 				10ADC1482746D2120090601E /* Cardapio.swift in Sources */,
 				BD3050932735C29E00A0E0EA /* MenuCollectionView.swift in Sources */,
 				BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */,
 				BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */,
+				BDE2979F2748880300E3A7CA /* TapiocasTransform.swift in Sources */,
 				BD30506E27264E7A00A0E0EA /* ItemJSON.swift in Sources */,
 				BD30507B2731F59900A0E0EA /* HomeView.swift in Sources */,
 				BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */,

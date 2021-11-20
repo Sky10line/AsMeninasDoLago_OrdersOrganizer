@@ -48,20 +48,20 @@ struct MenuView: View {
 
 						Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
 				}
-				VStack {
-					BigButton(text: "Adicionar item") {
-						selectedModal = .addMenuItem
-					}.padding()
-					.background(Color.clear)
-					Rectangle().opacity(0).frame(height: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 8 : UIScreen.main.bounds.height / 6)
-				}
+//				VStack {
+//					BigButton(text: "Adicionar item") {
+//						selectedModal = .addMenuItem
+//					}.padding()
+//					.background(Color.clear)
+//					Rectangle().opacity(0).frame(height: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 8 : UIScreen.main.bounds.height / 6)
+//				}
 			}
 		}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 		.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
         .onAppear() {
             api.getMenu() {
                 // Deixei só pra printar por enquanto, mas aqui pra fazer a requisição, vc faria algo tipo:
-                // variavelDaViewQueRecebeMenu = api.menu
+                 categories = api.menu
                 print(api.menu as Any)
             }
         }

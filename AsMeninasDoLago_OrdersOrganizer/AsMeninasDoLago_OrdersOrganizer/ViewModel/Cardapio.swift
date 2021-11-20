@@ -13,7 +13,7 @@ struct Cardapio: Codable {
     let caldos: Caldos
     let escondidinhos: Escondidinhos
     let lanches: Lanches
-    let porcoes: [String: Int]
+    let porcoes: Porcoes
     let salgados: Salgados
     let tapiocas: Tapiocas
 
@@ -43,8 +43,8 @@ struct Bebidas: Codable {
 
 // MARK: - Alcoolico
 struct Alcoolico: Codable {
-    let doseGin, doseVodka, doseCachaça, gt: Int
-    let lata, longNeck: Int
+    let doseGin, doseVodka, doseCachaça, gt: Double
+    let lata, longNeck: Double
 
     enum CodingKeys: String, CodingKey {
         case doseGin = "Dose Gin"
@@ -58,21 +58,21 @@ struct Alcoolico: Codable {
 
 // MARK: - NaoAlcoolico
 struct NaoAlcoolico: Codable {
-    let cháGelado, redBull, refrigerante, água: Int
-    let águaTônica: Int
+    let chaGelado, redBull, refrigerante, agua: Double
+    let aguaTonica: Double
 
     enum CodingKeys: String, CodingKey {
-        case cháGelado = "Chá gelado"
+        case chaGelado = "Chá gelado"
         case redBull = "Red Bull"
         case refrigerante = "Refrigerante"
-        case água = "Água"
-        case águaTônica = "Água tônica"
+        case agua = "Água"
+        case aguaTonica = "Água tônica"
     }
 }
 
 // MARK: - SucosDetox
 struct SucosDetox: Codable {
-    let polpaBranca, polpaVerde, polpaVermelha: Int
+    let polpaBranca, polpaVerde, polpaVermelha: Double
 
     enum CodingKeys: String, CodingKey {
         case polpaBranca = "Polpa branca"
@@ -83,7 +83,7 @@ struct SucosDetox: Codable {
 
 // MARK: - Caldos
 struct Caldos: Codable {
-    let diversosSabores: Int
+    let diversosSabores: Double
 
     enum CodingKeys: String, CodingKey {
         case diversosSabores = "Diversos sabores"
@@ -92,13 +92,31 @@ struct Caldos: Codable {
 
 // MARK: - Escondidinhos
 struct Escondidinhos: Codable {
-    let baconCOMChampignon, camarão, estrogonofeDeFrango: Int
+    let baconCOMChampignon, camarao, estrogonofeDeFrango: Double
 
     enum CodingKeys: String, CodingKey {
         case baconCOMChampignon = "Bacon com champignon"
-        case camarão = "Camarão"
+        case camarao = "Camarão"
         case estrogonofeDeFrango = "Estrogonofe de frango"
     }
+}
+
+// MARK: - Escondidinhos
+struct Porcoes: Codable {
+	let bolinhasDeQueijoDaJoice, bolinhosDe3QueijosDoPorpe, bolinhosDeCarneDoPorpeta, camaraoCream,
+		coxinhasDaJoice, croquetesDaDorinha, dadinhosDeTapiocaDeCibele, mandiocaCream, porcaoDeFrios: Double
+
+	enum CodingKeys: String, CodingKey {
+		case bolinhasDeQueijoDaJoice = "Bolinhas de queijo da Joice"
+		case bolinhosDe3QueijosDoPorpe = "Bolinhos de 3 queijos do porpe"
+		case bolinhosDeCarneDoPorpeta = "Bolinhos de carne do porpeta"
+		case camaraoCream = "Camarão Cream"
+		case coxinhasDaJoice = "Coxinhas da joice"
+		case croquetesDaDorinha = "Croquetes da Dorinha"
+		case dadinhosDeTapiocaDeCibele = "Dadinhos de tapioca de Cibele"
+		case mandiocaCream = "Mandioca Cream"
+		case porcaoDeFrios = "Porção de Frios"
+	}
 }
 
 // MARK: - Lanches
@@ -114,7 +132,7 @@ struct Lanches: Codable {
 
 // MARK: - HotDog
 struct HotDog: Codable {
-    let cheddarBaconCOM1Salsicha, cheddarBaconCOM2Salsichas, completoCOM1Salsicha, completoCOM2Salsichas: Int
+    let cheddarBaconCOM1Salsicha, cheddarBaconCOM2Salsichas, completoCOM1Salsicha, completoCOM2Salsichas: Double
 
     enum CodingKeys: String, CodingKey {
         case cheddarBaconCOM1Salsicha = "Cheddar bacon com 1 salsicha"
@@ -126,7 +144,7 @@ struct HotDog: Codable {
 
 // MARK: - Sanduiches
 struct Sanduiches: Codable {
-    let calabresaCOMQueijoEVinagre, carneLouca, pernil: Int
+    let calabresaCOMQueijoEVinagre, carneLouca, pernil: Double
 
     enum CodingKeys: String, CodingKey {
         case calabresaCOMQueijoEVinagre = "Calabresa com queijo e vinagre"
@@ -148,10 +166,10 @@ struct Salgados: Codable {
 
 // MARK: - Empadas
 struct Empadas: Codable {
-    let camarão, frango, palmito: Double
+    let camarao, frango, palmito: Double
 
     enum CodingKeys: String, CodingKey {
-        case camarão = "Camarão"
+        case camarao = "Camarão"
         case frango = "Frango"
         case palmito = "Palmito"
     }
@@ -159,11 +177,11 @@ struct Empadas: Codable {
 
 // MARK: - Tortas
 struct Tortas: Codable {
-    let alhoPoróCOMCatupiry, camarão, frangoCOMPalmito, palmito: Int
+    let alhoPoroCOMCatupiry, camarao, frangoCOMPalmito, palmito: Double
 
     enum CodingKeys: String, CodingKey {
-        case alhoPoróCOMCatupiry = "Alho poró com catupiry"
-        case camarão = "Camarão"
+        case alhoPoroCOMCatupiry = "Alho poró com catupiry"
+        case camarao = "Camarão"
         case frangoCOMPalmito = "Frango com palmito"
         case palmito = "Palmito"
     }
@@ -182,8 +200,8 @@ struct Tapiocas: Codable {
 
 // MARK: - Doces
 struct Doces: Codable {
-    let doceDeLeite, leiteCondensadoCOMCoco, nutellaCOMBanana, nutellaCOMMorango: Int
-    let romeuEJulieta: Int
+    let doceDeLeite, leiteCondensadoCOMCoco, nutellaCOMBanana, nutellaCOMMorango: Double
+    let romeuEJulieta: Double
 
     enum CodingKeys: String, CodingKey {
         case doceDeLeite = "Doce de leite"
@@ -196,7 +214,7 @@ struct Doces: Codable {
 
 // MARK: - Salgadas
 struct Salgadas: Codable {
-    let carneSeca, frango, peitoDePeru, presuntoCOMQueijo: Int
+    let carneSeca, frango, peitoDePeru, presuntoCOMQueijo: Double
 
     enum CodingKeys: String, CodingKey {
         case carneSeca = "Carne seca"
