@@ -68,7 +68,7 @@ struct HomeView: View {
             .edgesIgnoringSafeArea(.all)
             .onAppear() {
                 api.getOpenOrders() {
-//                    orders = api.openOrders
+                    orders = api.openOrders
                 }
                 
             }

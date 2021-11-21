@@ -15,7 +15,7 @@ struct MenuView: View {
     //@State var categories: [CategoryJSON] = []
 	@State private var selectedTab: String = ""
 	
-	@State var data: ItemJSON = dummyCalabresa
+	@State var data: ItemJSON = ItemJSON(name: "", price: 0, image: nil)
 	
 	@Binding var selectedModal: ContentView.Modals
 	

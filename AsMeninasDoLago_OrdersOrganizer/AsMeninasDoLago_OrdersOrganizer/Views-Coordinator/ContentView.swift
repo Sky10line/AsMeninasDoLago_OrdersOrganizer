@@ -19,7 +19,7 @@ struct ContentView: View {
 	}
     
 	@State var selectedModal: Modals = .none
-    @State var detaislData: OrderJSON = dummyOrder1
+    @State var detaislData: OrderJSON = OrderJSON(name: "", items: [], totalValue: 0)
 
 	
 	enum Modals {

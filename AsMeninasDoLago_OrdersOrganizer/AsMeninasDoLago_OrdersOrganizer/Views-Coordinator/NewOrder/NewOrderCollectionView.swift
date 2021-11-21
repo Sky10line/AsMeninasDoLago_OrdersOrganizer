@@ -125,9 +125,9 @@ struct NewOrderCollectionView: View {
 	}
 }
 
-struct NewOrderCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
-        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(dummyCalabresa))
-    }
-}
+//struct NewOrderCollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
+//        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(dummyCalabresa))
+//    }
+//}

@@ -96,9 +96,9 @@ struct HomeOrdersCollectionView: View {
     }
 }
 
-struct HomeOrdersCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeOrdersCollectionView(data: dummyCollection, selectedModal: .constant(ContentView.Modals.homeOrderDetails), dataToBeShown: .constant(dummyOrder1), searchText: .constant(""))
-
-    }
-}
+//struct HomeOrdersCollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeOrdersCollectionView(data: dummyCollection, selectedModal: .constant(ContentView.Modals.homeOrderDetails), dataToBeShown: .constant(dummyOrder1), searchText: .constant(""))
+//
+//    }
+//}

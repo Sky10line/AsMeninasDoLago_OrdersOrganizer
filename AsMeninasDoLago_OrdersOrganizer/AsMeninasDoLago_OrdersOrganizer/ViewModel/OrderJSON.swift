@@ -9,37 +9,44 @@ import Foundation
 
 struct OrderJSON: Decodable, Hashable {
     var name: String
-    var items: [OrderItem]
+    var items: [Itemn]
     var totalValue: Double
 }
 
+struct Itemn: Decodable, Hashable {
+    var nome: String
+    var quantidade: Int
+    var preco: Double
+    var observacoes: String
+}
 
-// MARK: - OrderJSON2
-struct OrderJSON2: Codable {
+
+struct OrderJSON2Element: Codable {
+    let itens: [Iten]
     let nome: String
     let total: Int
-    let items: [Itemm]
 
     enum CodingKeys: String, CodingKey {
+        case itens = "Itens"
         case nome = "Nome"
         case total = "Total"
-        case items = "Items"
     }
 }
 
-// MARK: - Item
-struct Itemm: Codable {
-    let nome: String
-    let quantidade, preco: Int
-    let observacoes: String
+// MARK: - Iten
+struct Iten: Codable {
+    let nome, observacoes: String
+    let preco, quantidade: Int
 
     enum CodingKeys: String, CodingKey {
         case nome = "Nome"
-        case quantidade = "Quantidade"
-        case preco = "Preco"
         case observacoes = "Observacoes"
+        case preco = "Preco"
+        case quantidade = "Quantidade"
     }
 }
+
+typealias OrderJSON2 = [OrderJSON2Element]
 
 
 
@@ -55,20 +62,20 @@ struct OrderItem: Decodable, Hashable {
 //let dummyCalabresa = ItemJSON(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
 //let dummyCarneLouca = ItemJSON(name: "Carne Louca", price: 26, image: "LanchePlaceHolder", category: "Lanches", subcategory: "Sanduiches")
 //let dummyBolinha = ItemJSON(name: "Bolinhos de 3 queijos do porpeta", price: 26, image: "LanchePlaceHolder", category: "sanduiche", subcategory: "Lanches")
-
-let dummyCalabresa = ItemJSON(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder")
-let dummyCarneLouca = ItemJSON(name: "Carne Louca", price: 26, image: "LanchePlaceHolder")
-let dummyBolinha = ItemJSON(name: "Bolinhos de 3 queijos do porpeta", price: 26, image: "LanchePlaceHolder")
-
-let dummyItens1 = [OrderItem(item: dummyCarneLouca, quantity: 2, comments: "Sem ketchup"), OrderItem(item: dummyCalabresa, quantity: 1, comments: nil)]
-let dummyOrder1 = OrderJSON(name: "Carol", items: dummyItens1, totalValue: 26)
-
-
-let dummyItens2 = [OrderItem(item: dummyCarneLouca, quantity: 2, comments: "Sem ketchup"), OrderItem(item: dummyCalabresa, quantity: 1, comments: nil), OrderItem(item: dummyBolinha, quantity: 5, comments: nil)]
-let dummyOrder2 = OrderJSON(name: "Rodrigo", items: dummyItens2, totalValue: 26)
-
-
-let dummyCollection = [dummyOrder1, dummyOrder2]
+//Itemn(nome: <#T##String#>, quantidade: <#T##Int#>, preco: <#T##Double#>, observacoes: <#T##String#>)
+//let dummyCalabresa = ItemJSON(name: "Calabresa com queijo e vinagrete", price: 26, image: "LanchePlaceHolder")
+//let dummyCarneLouca = ItemJSON(name: "Carne Louca", price: 26, image: "LanchePlaceHolder")
+//let dummyBolinha = ItemJSON(name: "Bolinhos de 3 queijos do porpeta", price: 26, image: "LanchePlaceHolder")
+//
+//let dummyItens1 = [OrderItem(item: dummyCarneLouca, quantity: 2, comments: "Sem ketchup"), OrderItem(item: dummyCalabresa, quantity: 1, comments: nil)]
+//let dummyOrder1 = OrderJSON(name: "Carol", items: dummyItens1, totalValue: 26)
+//
+//
+//let dummyItens2 = [OrderItem(item: dummyCarneLouca, quantity: 2, comments: "Sem ketchup"), OrderItem(item: dummyCalabresa, quantity: 1, comments: nil), OrderItem(item: dummyBolinha, quantity: 5, comments: nil)]
+//let dummyOrder2 = OrderJSON(name: "Rodrigo", items: dummyItens2, totalValue: 26)
+//
+//
+//let dummyCollection = [dummyOrder1, dummyOrder2]
 
 
 let emptyOrder = OrderJSON(name: "", items: [], totalValue: 0)

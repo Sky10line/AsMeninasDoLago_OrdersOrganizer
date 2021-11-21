@@ -118,8 +118,8 @@ struct FinishedOrdersCollectionView: View {
     }
 }
 
-struct FinishedOrdersCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        FinishedOrdersCollectionView(data: DebugHelper().createFinishedDateMock(), selectedModal: .constant(ContentView.Modals.finishedOrderDetails), dataToBeShown: .constant(dummyOrder1), searchText: .constant(""))
-    }
-}
+//struct FinishedOrdersCollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FinishedOrdersCollectionView(data: DebugHelper().createFinishedDateMock(), selectedModal: .constant(ContentView.Modals.finishedOrderDetails), dataToBeShown: .constant(dummyOrder1), searchText: .constant(""))
+//    }
+//}

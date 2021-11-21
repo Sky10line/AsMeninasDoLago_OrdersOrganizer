@@ -8,7 +8,7 @@
 import Foundation
 
 class ApiRequest: ObservableObject {
-    @Published var openOrders: [OrderJSON2] = []
+    @Published var openOrders: [OrderJSON] = []
     @Published var menu: [CategoryJSON] = []
     @Published var orderByName: OrderJSON = emptyOrder
     @Published var finishedOrders: [FinishedDatesJSON] = []
@@ -18,6 +18,8 @@ class ApiRequest: ObservableObject {
     let decoder = JSONDecoder()
     
     private func createRequest(endpoint: String) -> URLRequest? {
+        let endpoint = endpoint.replacingOccurrences(of: " ", with: "%20")
+        print(endpoint)
         guard let url = URL(string: self.baseURL + endpoint) else {
             print("Erro: URL inválida")
             return nil
@@ -48,13 +50,21 @@ class ApiRequest: ObservableObject {
             DispatchQueue.main.async {
                 guard let data = data else { return }
                 do {
-                    let decodedResponse = try self.decoder.decode([OrderJSON2].self, from: data)
+                    let decodedResponse = try self.decoder.decode(OrderJSON2.self, from: data)
                     
                     // Linha de testes, por favor não apagar
-                    //self.openOrders = dummyCollection
-                    
-                    self.openOrders = decodedResponse
-                    
+                    //print(decodedResponse)
+                    var converted: [OrderJSON] = []
+                    for pedido in decodedResponse {
+                        var b: [Itemn] = []
+                        for item in pedido.itens {
+                            b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
+                        }
+                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
+                        converted.append(a)
+                    }
+                    self.openOrders = converted
+                    //print(converted)
                     DispatchQueue.main.async {
                         completion()
                     }
@@ -172,7 +182,7 @@ class ApiRequest: ObservableObject {
     // MARK: getFinishOrder
     // Em teoria, não retorna nada
     /// Faz chamada GET para Finaliza/{nome}
-    func getFinishOrder(for name: String, completion: @escaping () -> Void) {
+    func getEndOrder(for name: String, completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "Finaliza/\(name)") else {
             print("Erro ao criar request")
             return
@@ -204,8 +214,9 @@ class ApiRequest: ObservableObject {
     // MARK: getRemoveItemOpenOrder
     // Em teoria, não retorna nada
     /// Faz chamada GET para RemoveDaComanda/{nome}/{item}
-    func getRemoveItemOpenOrder(for name: String, item: ItemJSON, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "RemoveDaComanda/\(name)/\(item.name)") else {
+    func getRemoveItemOpenOrder(for name: String, item: Itemn, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "RemoveDaComanda/\(name)/\(item.nome)") else {
+            //print("RemoveDaComanda/\(name)/\(item.nome)")
             print("Erro ao criar request")
             return
         }
@@ -216,24 +227,49 @@ class ApiRequest: ObservableObject {
                 return
             }
             DispatchQueue.main.async {
-//                guard let data = data else { return }
-//                do {
-//                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
-//                    self.finishedOrders = decodedResponse
-                    
-//                    DispatchQueue.main.async {
-                        completion()
+                guard let data = data else { return }
+                do {
+                    let decodedResponse = try self.decoder.decode(OrderJSON2Element.self, from: data)
+                    print(data)
+//
+//
+//                    var b: [Itemn] = []
+//                    for item in decodedResponse.itens {
+//                        b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
 //                    }
-//                }
-//                catch {
-//                    print("Erro: \(error.localizedDescription)")
-//                }
+//                    let conv = OrderJSON(name: decodedResponse.nome, items: b, totalValue: Double(decodedResponse.total))
+//
+//                    for pedido in self.openOrders {
+//                        if pedido.name == conv.name{
+//                            pedido.items = conv.items
+//                        }
+//                    }
+                    
+                    
+                    // Linha de testes, por favor não apagar
+                    //print(decodedResponse)
+//                    var converted: [OrderJSON] = []
+//                    for pedido in decodedResponse {
+//                        var b: [Itemn] = []
+//                        for item in pedido.itens {
+//                            b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
+//                        }
+//                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
+//                        converted.append(a)
+                    
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                }
+                catch {
+                    print("Erro: \(error.localizedDescription)")
+                }
             }
             
         }.resume()
     }
     
-    // MARK: getRemoveItemOpenOrder
+    // MARK: getRemoveItemMenu
     // Em teoria, não retorna nada
     /// Faz chamada GET para RemoveDoCardapio/{item}
     func getRemoveItemMenu(item: ItemJSON, completion: @escaping () -> Void) {
@@ -324,10 +360,10 @@ class ApiRequest: ObservableObject {
         
         order.items.forEach({
             let dict: [String: Any] = [
-                "Nome": $0.item.name,
-                "Quantidade": $0.quantity,
-                "Preco": $0.item.price,
-                "Observacoes": $0.comments == "Observações" || $0.comments == "" || $0.comments == " " ? "Nenhuma Observação" : $0.comments!
+                "Nome": $0.nome,
+                "Quantidade": $0.quantidade,
+                "Preco": $0.preco,
+                "Observacoes": $0.observacoes == "Observações" || $0.observacoes == "" || $0.observacoes == " " ? "Nenhuma Observação" : $0.observacoes
             ]
             itens.append(dict)
         })
@@ -389,7 +425,7 @@ class ApiRequest: ObservableObject {
     // MARK: postAddItemToMenu
     // Retorna resposta HTTP
     /// Faz chamada POST para AddNoCardapio
-    func postAddItemToMenu(for name: ItemJSON) {
+//    func postAddItemToMenu(for name: ItemJSON) {
 //        guard var request = createRequest(endpoint: "AddNoCardapio") else {
 //            print("Erro ao criar request")
 //            return
@@ -432,7 +468,7 @@ class ApiRequest: ObservableObject {
 //            print("Erro: \(error.localizedDescription)")
 //        }
 //
-    }
+//    }
     
     
     

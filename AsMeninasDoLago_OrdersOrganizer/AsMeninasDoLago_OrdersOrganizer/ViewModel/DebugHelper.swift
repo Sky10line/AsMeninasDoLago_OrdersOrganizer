@@ -32,7 +32,7 @@ class DebugHelper {
 	}
 	
 	func createFinishedDateMock() -> [FinishedDatesJSON] {
-		let orders = dummyCollection
+//		let orders = dummyCollection
 //            [
 //			OrderJSON(name: "Rodrigo", totalValue: 10.00),
 //			OrderJSON(name: "Rafael", totalValue: 50.00),
@@ -57,7 +57,7 @@ class DebugHelper {
 //		]
 		
 		let finishedDates = [
-			FinishedDatesJSON(dateTitle: "2 de out. 2021", finishedOrders: orders),
+			FinishedDatesJSON(dateTitle: "2 de out. 2021", finishedOrders: [OrderJSON(name: "", items: [], totalValue: 0)]),
 //			FinishedDatesJSON(dateTitle: "15 de nov. 2021", finishedOrders: orders1),
 //			FinishedDatesJSON(dateTitle: "30 de dez. 2021", finishedOrders: orders2)
 		]

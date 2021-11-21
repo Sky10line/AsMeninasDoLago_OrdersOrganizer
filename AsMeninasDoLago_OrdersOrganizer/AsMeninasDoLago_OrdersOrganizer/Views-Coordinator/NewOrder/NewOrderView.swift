@@ -11,18 +11,21 @@ struct NewOrderView: View {
     @ObservedObject var api = ApiRequest()
     
 	@State private var name = ""
-	let categories = DebugHelper().createCategoryMock()
+    @State var categories = DebugHelper().createCategoryMock()
 	
 	@State private var selectedTab: String = ""
     
     @State var showItemNewOrder: Bool = false
-    @State var itemData: ItemJSON = dummyCalabresa
+    @State var itemData: ItemJSON = ItemJSON(name: "", price: 0, image: nil)
 	@State var offsetBottomView: CGFloat = 0
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
     
     @State private var showAlert = false
     @State var alertMessage = ""
+    @State var isAlertDestructive = false
+    @State var itemToRemove: Itemn? = nil
+    
     @Binding var isBeingPresented: Bool
 	
 	//var totalValue: Double = 0.00
@@ -125,7 +128,13 @@ struct NewOrderView: View {
 							ScrollView {
 								LazyVStack {
                                     ForEach(order.items, id: \.self) { item in
-                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
+                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, deleteAction: {
+                                            alertMessage = "Deseja mesmo excluir esse item?"
+                                            isAlertDestructive = true
+                                            showAlert = true
+                                            itemToRemove = item
+                                            
+                                        })
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
                 .background(Color.white)
@@ -133,19 +142,8 @@ struct NewOrderView: View {
 							}
 							
 							BigButton(text: "Enviar comanda") {
-                                if order.items.isEmpty {
-                                    alertMessage = "Por favor, insira itens na comanda."
-                                    showAlert = true
-                                }
-                                else if name == "" || name == " " {
-                                    alertMessage = "Por favor, insira o nome do cliente"
-                                    showAlert = true
-                                }
-                                else {
-                                    order.name = name
-                                    api.postNewOrder(order: order)
-                                    isBeingPresented = false
-                                }
+                               
+                                sendOrder()
                                 
 							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							.padding()
@@ -177,9 +175,23 @@ struct NewOrderView: View {
 			}
 			.ignoresSafeArea(.all, edges: .bottom)
             .alert(isPresented: $showAlert, content: {
-                Alert(title: Text("Atenção"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                if !isAlertDestructive {
+                    return Alert(title: Text("Atenção"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
+                else {
+                    return Alert(title: Text("Deseja mesmo excluir esse item?"), primaryButton: .cancel(Text("Voltar")), secondaryButton: .destructive(Text("Deletar"), action: {
+                        order.items = order.items.filter { $0 != itemToRemove }
+                       
+                    }))
+                }
             })
-		}
+        }
+        .onAppear() {
+            api.getMenu() {
+                categories = api.menu
+                print(api.menu as Any)
+            }
+        }
 	}
 	
 	func onBottomViewChange() {
@@ -193,6 +205,22 @@ struct NewOrderView: View {
 
 		return Double(progress)
 	}
+    
+    func sendOrder(){
+        if order.items.isEmpty {
+            alertMessage = "Por favor, insira itens na comanda."
+            showAlert = true
+        }
+        else if name == "" || name == " " {
+            alertMessage = "Por favor, insira o nome do cliente"
+            showAlert = true
+        }
+        else {
+            order.name = name
+            api.postNewOrder(order: order)
+            isBeingPresented = false
+        }
+    }
 	
 }
 
