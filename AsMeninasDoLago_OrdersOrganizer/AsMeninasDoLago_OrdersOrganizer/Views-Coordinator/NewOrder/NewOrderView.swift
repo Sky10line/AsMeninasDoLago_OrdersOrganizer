@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NewOrderView: View {
-    @ObservedObject var api = ApiRequest()
-    
+	@ObservedObject var api = ApiRequest()
+	
 	@State private var name = ""
     @State var categories = DebugHelper().createCategoryMock()
 	
@@ -37,36 +37,42 @@ struct NewOrderView: View {
   	#if os(iOS)
 		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	  #endif
-
 	
-    var body: some View {
-        ZStack {
-            VStack {
-                NameTextField(placeholder: "Nome do cliente", name: $name)
-                    .padding(.top)
-                
-                Divider()
-                    .padding(.horizontal)
-                    .padding(.top, 8)
-                
-                TabMenu(tabs: categories, selectedTab: $selectedTab)
-                
-                Divider()
-                    .padding(.horizontal)
-                
-                Spacer()
-                ScrollView {
-                    NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
-                        .animation(.spring(response: 1, dampingFraction: 1))
-                    
-                }.background(Color.white.ignoresSafeArea())
-                .navigationBarTitle("Nova comanda", displayMode: .inline)
-            }.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+	@State var order: OrderJSON = emptyOrder
+	
+	#if os(iOS)
+	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	#endif
+	
+	
+	var body: some View {
+		ZStack {
+			VStack {
+				NameTextField(placeholder: "Nome do cliente", name: $name)
+					.padding(.top)
+				
+				Divider()
+					.padding(.horizontal)
+					.padding(.top, 8)
+				
+				TabMenu(tabs: categories, selectedTab: $selectedTab)
+				
+				Divider()
+					.padding(.horizontal)
+				
+				Spacer()
+				ScrollView {
+					NewOrderCollectionView(data: categories.first(where: { $0.name == selectedTab})?.subcategories ?? [], isModalToBeShown: $showItemNewOrder, dataToBeShown: $itemData)
+						.animation(.spring(response: 1, dampingFraction: 1))
+					
+				}.background(Color.white.ignoresSafeArea())
+				.navigationBarTitle("Nova comanda", displayMode: .inline)
+			}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 			.padding(.top, horizontalSizeClass == .regular ? 32 : 0)
-            
-            ZStack {
-                if showItemNewOrder {
-                    
+			
+			ZStack {
+				if showItemNewOrder {
+					
 					Rectangle()
 						.foregroundColor(Color.black)
 						.opacity(showItemNewOrder ? 0.6 : 0)
@@ -79,9 +85,9 @@ struct NewOrderView: View {
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
 						.transition(.move(edge: .bottom))
 						.animation(.spring(response: 0.6, dampingFraction: 1))
-                        .edgesIgnoringSafeArea(.all)
-            
-                }
+						.edgesIgnoringSafeArea(.all)
+					
+				}
 			}.zIndex(2)
 			.animation(.easeInOut)
 			
@@ -96,26 +102,31 @@ struct NewOrderView: View {
 				
 				return AnyView(
 					ZStack{
-						Color(UIColor.appGreen)
+						Color(UIColor.white)
 						
 						VStack(spacing: 0) {
-							Capsule()
-								.fill(Color.white)
-								.frame(width: 60, height: 4)
-								.padding(.top, 5)
+							HStack {
+								Spacer()
+								Capsule()
+									.fill(Color.white)
+									.frame(width: 60, height: 4)
+									.padding(.top, 5)
+								Spacer()
+							}.frame(width: .infinity)
+							.background(Color(UIColor.appGreen))
 							
 							ZStack {
-							Text("Comanda")
-								.fontWeight(.bold)
-								.font(.title2)
-								.foregroundColor(.white)
+								Text("Comanda")
+									.fontWeight(.bold)
+									.font(.title2)
+									.foregroundColor(.white)
 								
 								
 								HStack {
 									Spacer()
-
-                                    Text(order.totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
-
+									
+									Text(order.totalValue.asCurrencyBR() ?? 0.00.asCurrencyBR()!)
+										
 										.foregroundColor(.white)
 										.fontWeight(.regular)
 										.font(.body)
@@ -124,6 +135,7 @@ struct NewOrderView: View {
 							}.padding(.vertical, 10)
 							.padding(.bottom, 25)
 							.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
+							.background(Color(UIColor.appGreen))
 							
 							Spacer()
 							
@@ -140,14 +152,13 @@ struct NewOrderView: View {
                                         })
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
-                .background(Color.white)
-                
+								.background(Color.white)
+								
 							}
 							
 							BigButton(text: "Enviar comanda") {
                                
                                 sendOrder()
-                                
 							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							.padding()
 							.padding(.bottom, UIScreen.main.bounds.height / 5).background(Color.white)
@@ -155,7 +166,7 @@ struct NewOrderView: View {
 							
 							
 						}.frame(maxHeight: .infinity, alignment: .top)
-					}.cornerRadius(20)
+					)}.cornerRadius(20)
 					.offset(y: height - 80)
 					.offset(y: -offsetBottomView > 0 ? -offsetBottomView <= (height - 80) ? offsetBottomView : -(height - 80) : 0)
 					.gesture(DragGesture().updating($gestureOffset, body: { value, out, _ in
@@ -174,7 +185,7 @@ struct NewOrderView: View {
 						}
 						lastOffsetBottomView = offsetBottomView
 					}))
-				)
+				
 			}
 			.ignoresSafeArea(.all, edges: .bottom)
             .alert(isPresented: $showAlert, content: {
@@ -204,7 +215,7 @@ struct NewOrderView: View {
 	
 	func getBackShadow() -> Double {
 		let progress = -offsetBottomView / (UIScreen.main.bounds.height - 80)
-
+		
 		return Double(progress)
 	}
     
@@ -228,7 +239,7 @@ struct NewOrderView: View {
 
 
 struct NewOrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewOrderView(isBeingPresented: .constant(true))
-    }
+	static var previews: some View {
+		NewOrderView(isBeingPresented: .constant(true))
+	}
 }
