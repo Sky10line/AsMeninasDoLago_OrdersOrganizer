@@ -23,12 +23,14 @@ struct OrderFromJSON: Codable {
 struct ItemFromJSON: Codable {
     let nome, observacoes: String
     let preco, quantidade: Int
+    let nomeImagem: String?
 
     enum CodingKeys: String, CodingKey {
         case nome = "Nome"
         case observacoes = "Observacoes"
         case preco = "Preco"
         case quantidade = "Quantidade"
+        case nomeImagem = "Nome Imagem"
     }
 }
 

@@ -26,7 +26,7 @@ struct OrderCollectionCell: View {
                     + Text("x")
                     .fontWeight(.light)
                 
-                Image(itemImg[item.nome] ?? "LanchePlaceHolder")
+                Image(item.nomeImagem )
                     .resizable()
                     .scaledToFill()
                     .frame(minWidth: 50, idealWidth: 75, maxWidth: 75, minHeight: 50, idealHeight: 75, maxHeight: 75)
@@ -47,16 +47,16 @@ struct OrderCollectionCell: View {
                 
                 if selectedModal == ContentView.Modals.homeOrderDetails {
                     HStack {
-                        Button(action: {
-                            print("Editar")
-                        }) {
-                            Image(systemName: "pencil")
-                                .renderingMode(.template)
-                                .foregroundColor(.black)
-                                .font(.title)
-                                
-                        }
-                        .padding(3)
+//                        Button(action: {
+//                            print("Editar")
+//                        }) {
+//                            Image(systemName: "pencil")
+//                                .renderingMode(.template)
+//                                .foregroundColor(.black)
+//                                .font(.title)
+//
+//                        }
+//                        .padding(3)
                         
                         Button(action: {
                             deleteAction?()

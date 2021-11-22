@@ -60,7 +60,7 @@ class ApiRequest: ObservableObject {
                     for pedido in decodedResponse {
                         var b: [ItemInfo] = []
                         for item in pedido.itens {
-                            b.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
+                            b.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes, nomeImagem: item.nomeImagem ?? ""))
                         }
                         let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
                         converted.append(a)
@@ -172,8 +172,23 @@ class ApiRequest: ObservableObject {
             DispatchQueue.main.async {
                 guard let data = data else { return }
                 do {
-                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
-                    self.finishedOrders = decodedResponse
+                    let decodedResponse = try self.decoder.decode(FinishedOrderFromJSON.self, from: data)
+                    var datess: [String: [OrderJSON]] = [:]
+                    for order in decodedResponse {
+                        var itens: [ItemInfo] = []
+                        for item in order.itens {
+                            itens.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.valor), observacoes: "", nomeImagem: item.nomeImagem))
+                        }
+                        let oJ = OrderJSON(name: order.nome, items: itens, totalValue: Double(order.total))
+                        datess[order.data] = []
+                        datess[order.data]?.append(oJ)
+                    }
+                    var sendableData: [FinishedDatesJSON] = []
+                    for (key, value) in datess {
+                        sendableData.append(FinishedDatesJSON(dateTitle: key, finishedOrders: value))
+                    }
+                    
+                    self.finishedOrders = sendableData
                     
                     DispatchQueue.main.async {
                         completion()
@@ -381,7 +396,8 @@ class ApiRequest: ObservableObject {
                 "Nome": $0.nome,
                 "Quantidade": $0.quantidade,
                 "Preco": $0.preco,
-                "Observacoes": $0.observacoes == "Observações" || $0.observacoes == "" || $0.observacoes == " " ? "Nenhuma Observação" : $0.observacoes
+                "Observacoes": $0.observacoes == "Observações" || $0.observacoes == "" || $0.observacoes == " " ? "Nenhuma Observação" : $0.observacoes,
+                "Nome Imagem": $0.nomeImagem
             ]
             itens.append(dict)
         })

@@ -74,7 +74,7 @@ struct ModalAddItemView: View {
 						BigButton(text: "Adicionar Item", action: {
                             if qtdItem > 0 {
 //                                let item = OrderItem(item: data, quantity: qtdItem, comments: obsText)
-                                let item = ItemInfo(nome: data.name, quantidade: qtdItem, preco: data.price, observacoes: obsText)
+                                let item = ItemInfo(nome: data.name, quantidade: qtdItem, preco: data.price, observacoes: obsText, nomeImagem: data.image!)
                                 //order.items.append(item)
                                 order.items.append(item)
                                 order.totalValue += (data.price * Double(qtdItem))

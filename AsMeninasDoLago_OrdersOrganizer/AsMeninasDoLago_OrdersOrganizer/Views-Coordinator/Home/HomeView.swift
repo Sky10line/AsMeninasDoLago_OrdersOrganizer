@@ -81,7 +81,7 @@ struct HomeView: View {
             }
             else {
                 attempt += 1
-                if attempt >= 20 { orders = [] ; return }
+                if attempt >= 20 { orders = [] ; attempt = 0 ; return }
                 asyncRepeat()
             }
         }

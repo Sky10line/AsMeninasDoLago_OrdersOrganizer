@@ -192,7 +192,6 @@ struct NewOrderView: View {
         .onAppear() {
             api.getMenu() {
                 categories = api.menu
-                print(api.menu as Any)
             }
         }
 	}

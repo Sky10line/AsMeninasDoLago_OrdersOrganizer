@@ -49,9 +49,9 @@ struct ModalOrder: View {
                         }
                             
                         // Botão de adicionar mais itens
-                        if selectedModal == ContentView.Modals.homeOrderDetails {
-                            BigButtonVariant(text: "Adicionar mais itens", action: { print(fullOrder) })
-                        }
+//                        if selectedModal == ContentView.Modals.homeOrderDetails {
+//                            BigButtonVariant(text: "Adicionar mais itens", action: { print(fullOrder) })
+//                        }
                     } // Fecha LazyVStack
                 } // Fecha ScrollView
                     

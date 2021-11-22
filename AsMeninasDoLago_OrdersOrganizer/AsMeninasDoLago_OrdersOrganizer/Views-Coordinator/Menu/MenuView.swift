@@ -62,7 +62,7 @@ struct MenuView: View {
             api.getMenu() {
                 // Deixei só pra printar por enquanto, mas aqui pra fazer a requisição, vc faria algo tipo:
                  categories = api.menu
-                print(api.menu as Any)
+                
             }
         }
     }

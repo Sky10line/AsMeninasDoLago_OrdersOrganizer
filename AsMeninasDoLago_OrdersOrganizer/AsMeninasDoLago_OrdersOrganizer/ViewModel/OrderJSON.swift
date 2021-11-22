@@ -18,6 +18,7 @@ struct ItemInfo: Decodable, Hashable {
     var quantidade: Int
     var preco: Double
     var observacoes: String
+    var nomeImagem: String
 }
 
 struct OrderItem: Decodable, Hashable {

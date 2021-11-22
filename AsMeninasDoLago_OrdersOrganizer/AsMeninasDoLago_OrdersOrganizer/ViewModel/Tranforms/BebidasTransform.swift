@@ -26,7 +26,7 @@ struct AlcoolicoTransform {
 	
 	init(json: Alcoolico) {
 		entity = SubcategoriesJSON(name: "Alcoólicos", items: [
-			ItemJSON(name: "Dose cachaça", price: json.doseCachaça, image: "DoseCachaca"),
+			ItemJSON(name: "Dose cachaça", price: json.doseCachaça, image: "Dose cachaça"),
 			ItemJSON(name: "Dose gin", price: json.doseGin, image: "DoseGin"),
 			ItemJSON(name: "Dose vodka", price: json.doseVodka, image: "DoseVodka"),
 			ItemJSON(name: "GT", price: json.gt, image: "GT"),
