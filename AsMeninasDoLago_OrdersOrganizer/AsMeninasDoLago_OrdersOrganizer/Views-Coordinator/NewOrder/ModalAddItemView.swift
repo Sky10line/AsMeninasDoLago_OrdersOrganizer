@@ -16,6 +16,7 @@ struct ModalAddItemView: View {
     @State var value: CGFloat = 0
     
     @Binding var data: ItemJSON
+    @Binding var itemImg: [String:String]
     @Binding var isShowing: Bool
     
   #if os(iOS)
@@ -72,9 +73,12 @@ struct ModalAddItemView: View {
                         // Botão de adicionar item
 						BigButton(text: "Adicionar Item", action: {
                             if qtdItem > 0 {
-                                let item = OrderItem(item: data, quantity: qtdItem, comments: obsText)
+//                                let item = OrderItem(item: data, quantity: qtdItem, comments: obsText)
+                                let item = ItemInfo(nome: data.name, quantidade: qtdItem, preco: data.price, observacoes: obsText, nomeImagem: data.image!)
+                                //order.items.append(item)
                                 order.items.append(item)
                                 order.totalValue += (data.price * Double(qtdItem))
+                                itemImg[data.name] = data.image!
                                 isShowing = false
                             }
                             else {
@@ -110,11 +114,11 @@ struct ModalAddItemView: View {
     } // Fecha body
 } // Fecha struct
 
-struct ModalAddItemView_Previews: PreviewProvider {
-    static var previews: some View {
-
-        ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true), order: .constant(emptyOrder))
-        
-
-    }
-}
+//struct ModalAddItemView_Previews: PreviewProvider {
+//    static var previews: some View {
+//
+//        ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true), order: .constant(emptyOrder))
+//
+//
+//    }
+//}

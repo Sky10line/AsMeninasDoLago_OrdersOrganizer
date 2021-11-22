@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ModalOrder: View {
+    @ObservedObject var api = ApiRequest()
     
     @Binding var fullOrder: OrderJSON
     @Binding var selectedModal: ContentView.Modals
+    
+    @State var showAlert = false
+    @State var itemToRemove: ItemInfo? = nil
+    var ih: [String: String] = [:]
     
     var body: some View {
                 
@@ -37,13 +42,16 @@ struct ModalOrder: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(fullOrder.items, id: \.self) { item in
-                            OrderCollectionCell(selectedModal: $selectedModal, item: item)
+                            OrderCollectionCell(selectedModal: $selectedModal, item: item, itemImg: ih, deleteAction: {
+                                showAlert = true
+                                itemToRemove = item
+                            })
                         }
                             
                         // Botão de adicionar mais itens
-                        if selectedModal == ContentView.Modals.homeOrderDetails {
-                            BigButtonVariant(text: "Adicionar mais itens", action: { print(fullOrder) })
-                        }
+//                        if selectedModal == ContentView.Modals.homeOrderDetails {
+//                            BigButtonVariant(text: "Adicionar mais itens", action: { print(fullOrder) })
+//                        }
                     } // Fecha LazyVStack
                 } // Fecha ScrollView
                     
@@ -62,7 +70,9 @@ struct ModalOrder: View {
                         
                     if selectedModal == ContentView.Modals.homeOrderDetails {
                         // Botão de Finalizar comanda
-                        BigButton(text: "Finalizar comanda", action: nil)
+                        BigButton(text: "Finalizar comanda", action: {
+                            api.getEndOrder(for: fullOrder.name) {}
+                        })
                             .padding()
                             .padding(.bottom, 25)
                     }
@@ -71,13 +81,20 @@ struct ModalOrder: View {
 
                 } // Fecha VStack geral
                 .background(Color.white)
+                    .alert(isPresented: $showAlert, content: {
+                        Alert(title: Text("Deseja mesmo excluir esse item? Essa ação não poderá ser desfeita"), primaryButton: .cancel(Text("Voltar")), secondaryButton: .destructive(Text("Excluir"), action: {
+                            api.getRemoveItemOpenOrder(for: fullOrder.name, item: itemToRemove!){
+                                api.getOpenOrders {}
+                            }
+                        }))
+                    })
         
     } // Fecha body
 } // Fecha struct
 
 
-struct ModalOrder_Previews: PreviewProvider {
-    static var previews: some View {
-        ModalOrder(fullOrder: .constant(dummyOrder1), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
-    }
-}
+//struct ModalOrder_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ModalOrder(fullOrder: .constant(dummyOrder1), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
+//    }
+//}

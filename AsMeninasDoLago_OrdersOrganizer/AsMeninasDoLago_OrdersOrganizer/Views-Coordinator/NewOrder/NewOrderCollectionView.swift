@@ -11,6 +11,10 @@ struct NewOrderCollectionViewCell: View {
 	let item: ItemJSON
 	let action: (() -> Void)?
 	@State private var tap: Bool = false
+    
+    #if os(iOS)
+        @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
 	
 	var body: some View {
 		Button(action: {
@@ -27,6 +31,8 @@ struct NewOrderCollectionViewCell: View {
 					Image(image)
 						.resizable()
 						.scaledToFill()
+                        .frame(width: horizontalSizeClass == .regular ? (UIScreen.main.bounds.width / 3) - 32 : (UIScreen.main.bounds.width / 2) - 16, height: 150)
+                        .clipped()
 						.overlay(
 							VStack {
 								if let name = item.name {
@@ -125,9 +131,9 @@ struct NewOrderCollectionView: View {
 	}
 }
 
-struct NewOrderCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
-        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(dummyCalabresa))
-    }
-}
+//struct NewOrderCollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//		let subcategories = (DebugHelper().createCategoryMock().first?.subcategories)!
+//        NewOrderCollectionView(data: subcategories, isModalToBeShown: .constant(true), dataToBeShown: .constant(dummyCalabresa))
+//    }
+//}

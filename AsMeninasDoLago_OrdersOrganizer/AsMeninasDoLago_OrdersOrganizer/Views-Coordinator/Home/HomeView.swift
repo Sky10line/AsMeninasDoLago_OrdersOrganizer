@@ -17,6 +17,7 @@ struct HomeView: View {
     @Binding var orderData: OrderJSON
 	
     @State var orders: [OrderJSON] = []
+    @State var attempt = 0
   
     #if os(iOS)
 		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -67,11 +68,23 @@ struct HomeView: View {
 			.navigationTitle("Comandas")
             .edgesIgnoringSafeArea(.all)
             .onAppear() {
-                api.getOpenOrders() {
-//                    orders = api.openOrders
-                }
-                
+                asyncRepeat()
             }
             
+            
 	}
+    
+    func asyncRepeat() {
+        api.getOpenOrders() {
+            if !api.openOrders.isEmpty {
+                orders = api.openOrders
+                return
+            }
+            else {
+                attempt += 1
+                if attempt >= 5 { orders = [] ; attempt = 0 ; return }
+                asyncRepeat()
+            }
+        }
+    }
 }

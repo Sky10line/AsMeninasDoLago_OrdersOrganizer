@@ -11,27 +11,32 @@ struct NewOrderView: View {
 	@ObservedObject var api = ApiRequest()
 	
 	@State private var name = ""
-	let categories = DebugHelper().createCategoryMock()
+    @State var categories = DebugHelper().createCategoryMock()
 	
 	@State private var selectedTab: String = ""
-	
-	@State var showItemNewOrder: Bool = false
-	@State var itemData: ItemJSON = dummyCalabresa
+    
+    @State var showItemNewOrder: Bool = false
+    @State var itemData: ItemJSON = ItemJSON(name: "", price: 0, image: nil)
 	@State var offsetBottomView: CGFloat = 0
 	@State var lastOffsetBottomView: CGFloat = 0
 	@GestureState var gestureOffset: CGFloat = 0
-	
-	@State private var showAlert = false
-	@State var alertMessage = ""
-	@Binding var isBeingPresented: Bool
+    
+    @State private var showAlert = false
+    @State var alertMessage = ""
+    @State var isAlertDestructive = false
+    @State var itemToRemove: ItemInfo? = nil
+    
+    @Binding var isBeingPresented: Bool
 	
 	//var totalValue: Double = 0.00
-	
-	@State var order: OrderJSON = emptyOrder
-	
-	#if os(iOS)
-	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
-	#endif
+    
+    @State var order: OrderJSON = emptyOrder
+    @State var orderImgs: [String:String] = [:]
+    
+  
+  	#if os(iOS)
+		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+	  #endif
 	
 	
 	var body: some View {
@@ -68,14 +73,15 @@ struct NewOrderView: View {
 						.ignoresSafeArea()
 						.animation(.easeIn)
 					
-					ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder, order: $order)
+//                    ModalAddItemView(value: $itemData, data: $showItemNewOrder, itemImg: $orderImgs, isShowing: $order)
+                    ModalAddItemView(data: $itemData, itemImg: $orderImgs, isShowing: $showItemNewOrder, order: $order)
 						.cornerRadius(30)
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
 						.transition(.move(edge: .bottom))
 						.animation(.spring(response: 0.6, dampingFraction: 1))
 						.edgesIgnoringSafeArea(.all)
 					
-				}
+                }
 			}.zIndex(2)
 			.animation(.easeInOut)
 			
@@ -100,7 +106,7 @@ struct NewOrderView: View {
 									.frame(width: 60, height: 4)
 									.padding(.top, 5)
 								Spacer()
-							}.frame(width: .infinity)
+							}
 							.background(Color(UIColor.appGreen))
 							
 							ZStack {
@@ -130,8 +136,14 @@ struct NewOrderView: View {
 							
 							ScrollView {
 								LazyVStack {
-									ForEach(order.items, id: \.self) { item in
-										OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item)
+                                    ForEach(order.items, id: \.self) { item in
+                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, itemImg: orderImgs, deleteAction: {
+                                            alertMessage = "Deseja mesmo excluir esse item?"
+                                            isAlertDestructive = true
+                                            showAlert = true
+                                            itemToRemove = item
+                                            
+                                        })
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 								.background(Color.white)
@@ -139,20 +151,8 @@ struct NewOrderView: View {
 							}
 							
 							BigButton(text: "Enviar comanda") {
-								if order.items.isEmpty {
-									alertMessage = "Por favor, insira itens na comanda."
-									showAlert = true
-								}
-								else if name == "" || name == " " {
-									alertMessage = "Por favor, insira o nome do cliente"
-									showAlert = true
-								}
-								else {
-									order.name = name
-									api.postNewOrder(order: order)
-									isBeingPresented = false
-								}
-								
+                               
+                                sendOrder()
 							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							.padding()
 							.padding(.bottom, UIScreen.main.bounds.height / 5).background(Color.white)
@@ -179,13 +179,26 @@ struct NewOrderView: View {
 						}
 						lastOffsetBottomView = offsetBottomView
 					}))
-				)
+			)
 			}
 			.ignoresSafeArea(.all, edges: .bottom)
-			.alert(isPresented: $showAlert, content: {
-				Alert(title: Text("Atenção"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-			})
-		}
+            .alert(isPresented: $showAlert, content: {
+                if !isAlertDestructive {
+                    return Alert(title: Text("Atenção"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
+                else {
+                    return Alert(title: Text("Deseja mesmo excluir esse item?"), primaryButton: .cancel(Text("Voltar")), secondaryButton: .destructive(Text("Deletar"), action: {
+                        order.items = order.items.filter { $0 != itemToRemove }
+                       
+                    }))
+                }
+            })
+        }
+        .onAppear() {
+            api.getMenu() {
+                categories = api.menu
+            }
+        }
 	}
 	
 	func onBottomViewChange() {
@@ -199,6 +212,22 @@ struct NewOrderView: View {
 		
 		return Double(progress)
 	}
+    
+    func sendOrder(){
+        if order.items.isEmpty {
+            alertMessage = "Por favor, insira itens na comanda."
+            showAlert = true
+        }
+        else if name == "" || name == " " {
+            alertMessage = "Por favor, insira o nome do cliente"
+            showAlert = true
+        }
+        else {
+            order.name = name
+            api.postNewOrder(order: order)
+            isBeingPresented = false
+        }
+    }
 	
 }
 
