@@ -27,11 +27,11 @@ struct AlcoolicoTransform {
 	init(json: Alcoolico) {
 		entity = SubcategoriesJSON(name: "Alcoólicos", items: [
 			ItemJSON(name: "Dose cachaça", price: json.doseCachaça, image: "Dose cachaça"),
-			ItemJSON(name: "Dose gin", price: json.doseGin, image: "DoseGin"),
-			ItemJSON(name: "Dose vodka", price: json.doseVodka, image: "DoseVodka"),
+			ItemJSON(name: "Dose Gin", price: json.doseGin, image: "DoseGin"),
+			ItemJSON(name: "Dose Vodka", price: json.doseVodka, image: "DoseVodka"),
 			ItemJSON(name: "GT", price: json.gt, image: "GT"),
-			ItemJSON(name: "Cerveja lata", price: json.lata, image: "Lata"),
-			ItemJSON(name: "Long neck", price: json.longNeck, image: "LongNeck")
+			ItemJSON(name: "Lata", price: json.lata, image: "Lata"),
+			ItemJSON(name: "Long Neck", price: json.longNeck, image: "LongNeck")
 		])
 	}
 }
@@ -44,7 +44,7 @@ struct NaoAlcoolicoTransform {
 			ItemJSON(name: "Água", price: json.agua, image: "Agua"),
 			ItemJSON(name: "Água tônica", price: json.aguaTonica, image: "AguaTonica"),
 			ItemJSON(name: "Chá gelado", price: json.chaGelado, image: "ChaGelado"),
-			ItemJSON(name: "Red bull", price: json.redBull, image: "RedBull"),
+			ItemJSON(name: "Red Bull", price: json.redBull, image: "RedBull"),
 			ItemJSON(name: "Refrigerante", price: json.refrigerante, image: "Refrigerantes")
 		])
 	}

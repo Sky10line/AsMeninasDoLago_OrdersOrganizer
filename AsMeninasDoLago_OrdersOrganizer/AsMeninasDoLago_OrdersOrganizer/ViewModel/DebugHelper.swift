@@ -57,7 +57,7 @@ class DebugHelper {
 //		]
 		
 		let finishedDates = [
-			FinishedDatesJSON(dateTitle: "2 de out. 2021", finishedOrders: [OrderJSON(name: "", items: [], totalValue: 0)]),
+			FinishedDatesJSON(dateTitle: "", finishedOrders: []),
 //			FinishedDatesJSON(dateTitle: "15 de nov. 2021", finishedOrders: orders1),
 //			FinishedDatesJSON(dateTitle: "30 de dez. 2021", finishedOrders: orders2)
 		]

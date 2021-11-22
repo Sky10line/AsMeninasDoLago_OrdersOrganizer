@@ -157,7 +157,7 @@ class ApiRequest: ObservableObject {
     // Retorna um array com as comandas finalizadas
     /// Faz chamada GET para MostraFinalizadas
     
-    // MARK: Em processameto
+    // MARK: Tá funcionando
     func getFinishedOrders(completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "MostraFinalizadas") else {
             print("Erro ao criar request")
@@ -175,14 +175,21 @@ class ApiRequest: ObservableObject {
                     let decodedResponse = try self.decoder.decode(FinishedOrderFromJSON.self, from: data)
                     var datess: [String: [OrderJSON]] = [:]
                     for order in decodedResponse {
+                        if datess[order.data] == nil {
+                            datess[order.data] = []
+                        }
                         var itens: [ItemInfo] = []
                         for item in order.itens {
                             itens.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.valor), observacoes: "", nomeImagem: item.nomeImagem))
                         }
                         let oJ = OrderJSON(name: order.nome, items: itens, totalValue: Double(order.total))
-                        datess[order.data] = []
-                        datess[order.data]?.append(oJ)
+                        var alreadyAppended = datess[order.data]
+                        alreadyAppended?.append(oJ)
+                        datess[order.data] = alreadyAppended
+                        
                     }
+                    
+                    print(datess)
                     var sendableData: [FinishedDatesJSON] = []
                     for (key, value) in datess {
                         sendableData.append(FinishedDatesJSON(dateTitle: key, finishedOrders: value))
@@ -206,8 +213,8 @@ class ApiRequest: ObservableObject {
     // Em teoria, não retorna nada
     /// Faz chamada GET para Finaliza/{nome}
     
-    // MARK: Em processameto
-    func getEndOrder(for name: String, completion: @escaping () -> Void) {
+    // MARK: Tá funcionando
+    func getEndOrder(for name: String, completion: @escaping (HTTPURLResponse) -> Void) {
         guard let request = createRequest(endpoint: "Finaliza/\(name)") else {
             print("Erro ao criar request")
             return
@@ -218,14 +225,22 @@ class ApiRequest: ObservableObject {
                 print("Erro: \(erro.localizedDescription)")
                 return
             }
+            
+            
+            
             DispatchQueue.main.async {
+                if let httpResponse = respose as? HTTPURLResponse {
+                    print(httpResponse.statusCode as Any)
+                    completion(httpResponse)
+                }
+                
 //                guard let data = data else { return }
 //                do {
 //                    let decodedResponse = try self.decoder.decode([FinishedDatesJSON].self, from: data)
 //                    self.finishedOrders = decodedResponse
                     
 //                    DispatchQueue.main.async {
-                        completion()
+                        
 //                    }
 //                }
 //                catch {
