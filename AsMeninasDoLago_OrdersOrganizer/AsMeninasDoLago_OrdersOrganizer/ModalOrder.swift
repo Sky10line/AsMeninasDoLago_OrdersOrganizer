@@ -17,6 +17,8 @@ struct ModalOrder: View {
     @State var itemToRemove: ItemInfo? = nil
     var ih: [String: String] = [:]
     
+    @State var attempt = 0
+    
     var body: some View {
                 
         VStack (alignment: .leading) {
@@ -71,7 +73,7 @@ struct ModalOrder: View {
                     if selectedModal == ContentView.Modals.homeOrderDetails {
                         // Botão de Finalizar comanda
                         BigButton(text: "Finalizar comanda", action: {
-                            api.getEndOrder(for: fullOrder.name) {}
+                            asyncRepeat()
                         })
                             .padding()
                             .padding(.bottom, 25)
@@ -90,6 +92,34 @@ struct ModalOrder: View {
                     })
         
     } // Fecha body
+    
+    func asyncRepeat() {
+        api.getEndOrder(for: fullOrder.name) { http in
+            print(fullOrder.items[0].nome)
+            if http.statusCode == 500 {
+                attempt += 1
+                if attempt >= 10 { print("Tentei demais") ; attempt = 0 ; return }
+                asyncRepeat()
+            }
+            else {
+                api.getOpenOrders {}
+                api.getFinishedOrders {}
+                selectedModal = .none
+            }
+        }
+        
+//        api.getOpenOrders() {
+//            if !api.openOrders.isEmpty {
+//                orders = api.openOrders
+//                return
+//            }
+//            else {
+//                attempt += 1
+//                if attempt >= 5 { orders = [] ; attempt = 0 ; return }
+//                asyncRepeat()
+//            }
+//        }
+    }
 } // Fecha struct
 
 

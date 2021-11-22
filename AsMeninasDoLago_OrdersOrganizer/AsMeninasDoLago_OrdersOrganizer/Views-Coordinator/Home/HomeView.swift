@@ -70,6 +70,17 @@ struct HomeView: View {
             .onAppear() {
                 asyncRepeat()
             }
+            .onChange(of: selectedModal, perform: { op in
+                if op == .none {
+                    if !api.openOrders.isEmpty {
+                        orders = api.openOrders
+                    }
+                    else {
+                        asyncRepeat()
+                    }
+                }
+                
+            })
             
             
 	}
