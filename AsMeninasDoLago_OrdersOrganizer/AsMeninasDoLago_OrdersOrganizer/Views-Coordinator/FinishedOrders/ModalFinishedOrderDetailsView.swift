@@ -26,7 +26,7 @@ struct ModalFinishedOrderDetailsView: View {
 			VStack (alignment: .leading) {
 				ZStack (alignment: .leading) {
 					
-					Text(testData.name ?? "Cliente")
+					Text(testData.name)
 						.fontWeight(.semibold)
 						.frame(maxWidth: .infinity, alignment: .center)
 					
@@ -53,7 +53,7 @@ struct ModalFinishedOrderDetailsView: View {
 				VStack {
 					Divider()
 					
-					Text("Total: " + ((testData.totalValue ?? 0).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
+					Text("Total: " + ((testData.totalValue ).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
 						.font(.title3)
 						.fontWeight(.bold)
 						.frame(maxWidth: .infinity, alignment: .trailing)

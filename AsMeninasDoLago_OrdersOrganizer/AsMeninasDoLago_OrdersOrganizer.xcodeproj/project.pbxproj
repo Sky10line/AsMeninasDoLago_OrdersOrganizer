@@ -38,10 +38,8 @@
 		BDAFEEB3270FAA850000CE8C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDAFEEB2270FAA850000CE8C /* Preview Assets.xcassets */; };
 		BDAFEEC32717AFFB0000CE8C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEC22717AFFB0000CE8C /* ColorExtension.swift */; };
 		BDAFEEC5271B93E30000CE8C /* OrderJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEC4271B93E30000CE8C /* OrderJSON.swift */; };
-		BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */; };
 		BDC2D93A273F7647006EFCEE /* ModalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105969622719DED700510399 /* ModalDetailsView.swift */; };
 		BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93B273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift */; };
-		BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */; };
 		BDC2D94027401F33006EFCEE /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93F27401F33006EFCEE /* NameTextField.swift */; };
 		BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D94127406A97006EFCEE /* CustomStepper.swift */; };
 		BDC2D9442741E38B006EFCEE /* Subcategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D9432741E38B006EFCEE /* Subcategories.swift */; };
@@ -54,6 +52,8 @@
 		BDE2979B2748854E00E3A7CA /* PorcoesTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979A2748854E00E3A7CA /* PorcoesTransform.swift */; };
 		BDE2979D2748869300E3A7CA /* SalgadosTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979C2748869300E3A7CA /* SalgadosTransform.swift */; };
 		BDE2979F2748880300E3A7CA /* TapiocasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */; };
+		BDE297A0274B50BC00E3A7CA /* HomeOrdersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */; };
+		BDE297A1274B50BC00E3A7CA /* ModalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -348,14 +348,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE297A0274B50BC00E3A7CA /* HomeOrdersCollectionView.swift in Sources */,
+				BDE297A1274B50BC00E3A7CA /* ModalMenuItem.swift in Sources */,
 				108A75AC27442DD900E5993A /* ModalOrder.swift in Sources */,
-				BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */,
 				BDE2979527487DFB00E3A7CA /* CaldosTransform.swift in Sources */,
 				BDE2979727487F8D00E3A7CA /* EscondidinhosTransform.swift in Sources */,
 				BDE297902748739800E3A7CA /* CardapioTransform.swift in Sources */,
-				BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */,
-				BDC2D939273F7647006EFCEE /* HomeOrdersCollectionView.swift in Sources */,
-				BDC2D93E27401BA6006EFCEE /* ModalMenuItem.swift in Sources */,
 				BDC2D93A273F7647006EFCEE /* ModalDetailsView.swift in Sources */,
 				BDE29793274875E500E3A7CA /* BebidasTransform.swift in Sources */,
 				10105ED3272869E400B9B1F2 /* ModalAddItemView.swift in Sources */,

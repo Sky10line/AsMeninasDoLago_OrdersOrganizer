@@ -36,7 +36,7 @@ struct ModalDetailsView: View {
                     // Cabeçalho com nome e botão de fechar
                     ZStack (alignment: .leading) {
                         // Nome do cliente
-                        Text(testData.name ?? "Cliente")
+						Text(testData.name)
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .center)
                         
@@ -73,7 +73,7 @@ struct ModalDetailsView: View {
                         Divider()
                         
                         // Valor da comanda
-                        Text("Total: " + ((testData.totalValue ?? 0).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
+						Text("Total: " + ((testData.totalValue).asCurrencyBR() ?? 0.00.asCurrencyBR()!))
                             .font(.title3)
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity, alignment: .trailing)
