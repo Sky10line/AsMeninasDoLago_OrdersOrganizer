@@ -71,6 +71,7 @@ struct HomeView: View {
                 asyncRepeat()
             }
             
+            
 	}
     
     func asyncRepeat() {
@@ -81,7 +82,7 @@ struct HomeView: View {
             }
             else {
                 attempt += 1
-                if attempt >= 20 { orders = [] ; attempt = 0 ; return }
+                if attempt >= 5 { orders = [] ; attempt = 0 ; return }
                 asyncRepeat()
             }
         }

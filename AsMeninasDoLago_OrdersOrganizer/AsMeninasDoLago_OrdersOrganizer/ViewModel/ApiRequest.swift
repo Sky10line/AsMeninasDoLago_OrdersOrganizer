@@ -54,8 +54,7 @@ class ApiRequest: ObservableObject {
                 do {
                     let decodedResponse = try self.decoder.decode(OrdersFromJSON.self, from: data)
                     
-                    // Linha de testes, por favor não apagar
-                    //print(decodedResponse)
+                    
                     var converted: [OrderJSON] = []
                     for pedido in decodedResponse {
                         var b: [ItemInfo] = []
@@ -65,8 +64,9 @@ class ApiRequest: ObservableObject {
                         let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
                         converted.append(a)
                     }
+                    if converted.isEmpty {
+                    }
                     self.openOrders = converted
-                    //print(converted)
                     DispatchQueue.main.async {
                         completion()
                     }

@@ -38,12 +38,6 @@ struct NewOrderView: View {
 		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 	  #endif
 	
-	@State var order: OrderJSON = emptyOrder
-	
-	#if os(iOS)
-	@Environment(\.horizontalSizeClass) private var horizontalSizeClass
-	#endif
-	
 	
 	var body: some View {
 		ZStack {
@@ -87,7 +81,7 @@ struct NewOrderView: View {
 						.animation(.spring(response: 0.6, dampingFraction: 1))
 						.edgesIgnoringSafeArea(.all)
 					
-				}
+                }
 			}.zIndex(2)
 			.animation(.easeInOut)
 			
@@ -112,7 +106,7 @@ struct NewOrderView: View {
 									.frame(width: 60, height: 4)
 									.padding(.top, 5)
 								Spacer()
-							}.frame(width: .infinity)
+							}
 							.background(Color(UIColor.appGreen))
 							
 							ZStack {
@@ -166,7 +160,7 @@ struct NewOrderView: View {
 							
 							
 						}.frame(maxHeight: .infinity, alignment: .top)
-					)}.cornerRadius(20)
+					}.cornerRadius(20)
 					.offset(y: height - 80)
 					.offset(y: -offsetBottomView > 0 ? -offsetBottomView <= (height - 80) ? offsetBottomView : -(height - 80) : 0)
 					.gesture(DragGesture().updating($gestureOffset, body: { value, out, _ in
@@ -185,7 +179,7 @@ struct NewOrderView: View {
 						}
 						lastOffsetBottomView = offsetBottomView
 					}))
-				
+			)
 			}
 			.ignoresSafeArea(.all, edges: .bottom)
             .alert(isPresented: $showAlert, content: {
