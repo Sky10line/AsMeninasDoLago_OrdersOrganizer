@@ -14,7 +14,8 @@ struct ModalOrder: View {
     @Binding var selectedModal: ContentView.Modals
     
     @State var showAlert = false
-    @State var itemToRemove: Itemn? = nil
+    @State var itemToRemove: ItemInfo? = nil
+    var ih: [String: String] = [:]
     
     var body: some View {
                 
@@ -41,7 +42,7 @@ struct ModalOrder: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(fullOrder.items, id: \.self) { item in
-                            OrderCollectionCell(selectedModal: $selectedModal, item: item, deleteAction: {
+                            OrderCollectionCell(selectedModal: $selectedModal, item: item, itemImg: ih, deleteAction: {
                                 showAlert = true
                                 itemToRemove = item
                             })

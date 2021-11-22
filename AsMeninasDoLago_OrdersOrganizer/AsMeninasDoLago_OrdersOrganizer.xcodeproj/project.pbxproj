@@ -13,6 +13,7 @@
 		108A75AE2744318900E5993A /* OrderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108A75AD2744318900E5993A /* OrderCollectionCell.swift */; };
 		10ADC1482746D2120090601E /* Cardapio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ADC1472746D2120090601E /* Cardapio.swift */; };
 		10B412A1274584F0001FE57C /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B412A0274584F0001FE57C /* ApiRequest.swift */; };
+		10F30EE2274B28DD006BE0D1 /* OrdersFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F30EE1274B28DD006BE0D1 /* OrdersFromJSON.swift */; };
 		BD284915271B9DB600A8FD46 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD284914271B9DB600A8FD46 /* FoundationExtension.swift */; };
 		BD2FF1502720EFC400768CEE /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2FF14F2720EFC400768CEE /* BigButton.swift */; };
 		BD3050662722347500A0E0EA /* NewOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3050652722347500A0E0EA /* NewOrderView.swift */; };
@@ -64,6 +65,7 @@
 		108A75AD2744318900E5993A /* OrderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionCell.swift; sourceTree = "<group>"; };
 		10ADC1472746D2120090601E /* Cardapio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardapio.swift; sourceTree = "<group>"; };
 		10B412A0274584F0001FE57C /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		10F30EE1274B28DD006BE0D1 /* OrdersFromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersFromJSON.swift; sourceTree = "<group>"; };
 		BD284914271B9DB600A8FD46 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		BD2FF14F2720EFC400768CEE /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		BD3050652722347500A0E0EA /* NewOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderView.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				BDC2D9432741E38B006EFCEE /* Subcategories.swift */,
 				10B412A0274584F0001FE57C /* ApiRequest.swift */,
 				10ADC1472746D2120090601E /* Cardapio.swift */,
+				10F30EE1274B28DD006BE0D1 /* OrdersFromJSON.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				BD30506A2723772500A0E0EA /* TabMenu.swift in Sources */,
 				BDE297992748804600E3A7CA /* LanchesTransform.swift in Sources */,
 				BD30508A2733465E00A0E0EA /* FinishedOrdersCollectionView.swift in Sources */,
+				10F30EE2274B28DD006BE0D1 /* OrdersFromJSON.swift in Sources */,
 				10ADC1482746D2120090601E /* Cardapio.swift in Sources */,
 				BD3050932735C29E00A0E0EA /* MenuCollectionView.swift in Sources */,
 				BDC2D93C273F76D2006EFCEE /* ModalFinishedOrderDetailsView.swift in Sources */,

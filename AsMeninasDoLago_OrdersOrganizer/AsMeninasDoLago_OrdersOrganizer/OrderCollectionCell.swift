@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OrderCollectionCell: View {
     @Binding var selectedModal: ContentView.Modals
-    var item: Itemn
+    var item: ItemInfo
+    var itemImg: [String:String]
     //@Binding var clientName: String
     //@Binding var modalType: String
     let deleteAction: (() -> Void)?
@@ -25,10 +26,13 @@ struct OrderCollectionCell: View {
                     + Text("x")
                     .fontWeight(.light)
                 
-                Image("LanchePlaceHolder")
+                Image(itemImg[item.nome] ?? "LanchePlaceHolder")
                     .resizable()
-                    .scaledToFit()
-                    .frame(minHeight: 50, idealHeight: 75, maxHeight: 75)
+                    .scaledToFill()
+                    .frame(minWidth: 50, idealWidth: 75, maxWidth: 75, minHeight: 50, idealHeight: 75, maxHeight: 75)
+                    .clipped()
+                    
+                    
                 
                 VStack (alignment: .leading, spacing: 5) {
                     Text(item.nome)
@@ -88,6 +92,21 @@ struct OrderCollectionCell: View {
         }
         .padding(.horizontal, 20)
         
+    }
+    
+    func treatString(str: String) -> String {
+        var newString: String = ""
+        for character in str {
+            switch character {
+            case "ç":
+                newString += "c"
+            case "ã":
+                newString += "a"
+            default:
+                newString += String(character)
+            }
+        }
+        return newString
     }
     
 }

@@ -35,6 +35,8 @@ class ApiRequest: ObservableObject {
     // MARK: getOpenOrders
     // Retorna um array com todas as comandas abertas
     /// Faz chamada GET para MostraComandasAbertas
+    
+    // MARK: Tá funcionando
     func getOpenOrders(completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "MostraComandasAbertas") else {
             print("Erro ao criar request")
@@ -50,15 +52,15 @@ class ApiRequest: ObservableObject {
             DispatchQueue.main.async {
                 guard let data = data else { return }
                 do {
-                    let decodedResponse = try self.decoder.decode(OrderJSON2.self, from: data)
+                    let decodedResponse = try self.decoder.decode(OrdersFromJSON.self, from: data)
                     
                     // Linha de testes, por favor não apagar
                     //print(decodedResponse)
                     var converted: [OrderJSON] = []
                     for pedido in decodedResponse {
-                        var b: [Itemn] = []
+                        var b: [ItemInfo] = []
                         for item in pedido.itens {
-                            b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
+                            b.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
                         }
                         let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
                         converted.append(a)
@@ -84,6 +86,8 @@ class ApiRequest: ObservableObject {
     // MARK: getMenu
     // Retorna o cardápio
     /// Faz chamada GET para MostraCardapio
+    
+    // MARK: Tá funcionando
     func getMenu(completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "MostraCardapio") else {
             print("Erro ao criar request")
@@ -118,6 +122,8 @@ class ApiRequest: ObservableObject {
     // MARK: getOrderByName
     // Retorna um pedido específico puxado pelo nome
     /// Faz chamada GET para MostraComandaPorNome/{nome}
+    
+    // MARK: N é chamada, mas funciona
     func getOrderByName(name: String, completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "MostraComandaPorNome/\(name)") else {
             print("Erro ao criar request")
@@ -150,6 +156,8 @@ class ApiRequest: ObservableObject {
     // MARK: getFinishedOrders
     // Retorna um array com as comandas finalizadas
     /// Faz chamada GET para MostraFinalizadas
+    
+    // MARK: Em processameto
     func getFinishedOrders(completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "MostraFinalizadas") else {
             print("Erro ao criar request")
@@ -179,9 +187,11 @@ class ApiRequest: ObservableObject {
         }.resume()
     }
     
-    // MARK: getFinishOrder
+    // MARK: getEndOrder
     // Em teoria, não retorna nada
     /// Faz chamada GET para Finaliza/{nome}
+    
+    // MARK: Em processameto
     func getEndOrder(for name: String, completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "Finaliza/\(name)") else {
             print("Erro ao criar request")
@@ -214,7 +224,9 @@ class ApiRequest: ObservableObject {
     // MARK: getRemoveItemOpenOrder
     // Em teoria, não retorna nada
     /// Faz chamada GET para RemoveDaComanda/{nome}/{item}
-    func getRemoveItemOpenOrder(for name: String, item: Itemn, completion: @escaping () -> Void) {
+    
+    // MARK: Tá funcionando
+    func getRemoveItemOpenOrder(for name: String, item: ItemInfo, completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "RemoveDaComanda/\(name)/\(item.nome)") else {
             //print("RemoveDaComanda/\(name)/\(item.nome)")
             print("Erro ao criar request")
@@ -226,11 +238,11 @@ class ApiRequest: ObservableObject {
                 print("Erro: \(erro.localizedDescription)")
                 return
             }
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                do {
-                    let decodedResponse = try self.decoder.decode(OrderJSON2Element.self, from: data)
-                    print(data)
+//            DispatchQueue.main.async {
+//                guard let data = data else { return }
+//                do {
+//                    let decodedResponse = try self.decoder.decode(OrderJSON2Element.self, from: data)
+//                    print(data)
 //
 //
 //                    var b: [Itemn] = []
@@ -257,14 +269,14 @@ class ApiRequest: ObservableObject {
 //                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
 //                        converted.append(a)
                     
-                    DispatchQueue.main.async {
+//                    DispatchQueue.main.async {
                         completion()
-                    }
-                }
-                catch {
-                    print("Erro: \(error.localizedDescription)")
-                }
-            }
+//                    }
+//                }
+//                catch {
+//                    print("Erro: \(error.localizedDescription)")
+//                }
+//            }
             
         }.resume()
     }
@@ -272,6 +284,8 @@ class ApiRequest: ObservableObject {
     // MARK: getRemoveItemMenu
     // Em teoria, não retorna nada
     /// Faz chamada GET para RemoveDoCardapio/{item}
+    
+    // MARK: Nunca é chamada
     func getRemoveItemMenu(item: ItemJSON, completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "RemoveDoCardapio/\(item.name)") else {
             print("Erro ao criar request")
@@ -304,6 +318,8 @@ class ApiRequest: ObservableObject {
     // MARK: getCancelOrder
     // Em teoria, não retorna nada
     /// Faz chamada GET para LimparComanda/{nome}
+    
+    // MARK: Nunca é chamada
     func getCancelOrder(for name: String, completion: @escaping () -> Void) {
         guard let request = createRequest(endpoint: "LimparComanda/\(name)") else {
             print("Erro ao criar request")
@@ -341,6 +357,8 @@ class ApiRequest: ObservableObject {
     // MARK: postNewOrder
     // Retorna resposta HTTP
     /// Faz chamada POST para Pedido
+    
+    // MARK: Tá funcionando
     func postNewOrder(order: OrderJSON) {
         guard var request = createRequest(endpoint: "Pedido") else {
             print("Erro ao criar request")
@@ -389,6 +407,8 @@ class ApiRequest: ObservableObject {
     // MARK: postChangeOpenOrderByName
     // Retorna resposta HTTP
     /// Faz chamada POST para AddNaComanda/{nome}
+    
+    // MARK: Não existe onde chamar
     func postChangeOpenOrderByName(for name: String, item: OrderItem) {
         guard var request = createRequest(endpoint: "AddNaComanda/\(name)") else {
             print("Erro ao criar request")
@@ -396,8 +416,6 @@ class ApiRequest: ObservableObject {
         }
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-
 
         let orderForPost: [String : Any] = [
             "Nome": item.item.name,
@@ -425,6 +443,8 @@ class ApiRequest: ObservableObject {
     // MARK: postAddItemToMenu
     // Retorna resposta HTTP
     /// Faz chamada POST para AddNoCardapio
+    
+    // MARK: Não foi criada
 //    func postAddItemToMenu(for name: ItemJSON) {
 //        guard var request = createRequest(endpoint: "AddNoCardapio") else {
 //            print("Erro ao criar request")

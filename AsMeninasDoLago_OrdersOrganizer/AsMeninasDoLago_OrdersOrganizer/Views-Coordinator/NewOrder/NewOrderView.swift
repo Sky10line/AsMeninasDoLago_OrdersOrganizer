@@ -24,13 +24,15 @@ struct NewOrderView: View {
     @State private var showAlert = false
     @State var alertMessage = ""
     @State var isAlertDestructive = false
-    @State var itemToRemove: Itemn? = nil
+    @State var itemToRemove: ItemInfo? = nil
     
     @Binding var isBeingPresented: Bool
 	
 	//var totalValue: Double = 0.00
     
     @State var order: OrderJSON = emptyOrder
+    @State var orderImgs: [String:String] = [:]
+    
   
   	#if os(iOS)
 		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -71,7 +73,8 @@ struct NewOrderView: View {
 						.ignoresSafeArea()
 						.animation(.easeIn)
 					
-                    ModalAddItemView(data: $itemData, isShowing: $showItemNewOrder, order: $order)
+//                    ModalAddItemView(value: $itemData, data: $showItemNewOrder, itemImg: $orderImgs, isShowing: $order)
+                    ModalAddItemView(data: $itemData, itemImg: $orderImgs, isShowing: $showItemNewOrder, order: $order)
 						.cornerRadius(30)
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
 						.transition(.move(edge: .bottom))
@@ -128,7 +131,7 @@ struct NewOrderView: View {
 							ScrollView {
 								LazyVStack {
                                     ForEach(order.items, id: \.self) { item in
-                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, deleteAction: {
+                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, itemImg: orderImgs, deleteAction: {
                                             alertMessage = "Deseja mesmo excluir esse item?"
                                             isAlertDestructive = true
                                             showAlert = true
