@@ -45,6 +45,9 @@ struct MenuCollectionView: View {
 						ForEach(items, id: \.self) { item in
 							populateCollection(item: item)
 						}
+						if items.count % 2 != 0 {
+							Spacer()
+						}
 					}
 				}
 			}
