@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ModalAddItemView: View {
     @State private var obsText = "Observações"
-    @State private var qtdItem = 0
+    @State private var qtdItem = 1
 
     @State private var showAlert = false
     
@@ -18,6 +18,8 @@ struct ModalAddItemView: View {
     @Binding var data: ItemJSON
     @Binding var itemImg: [String:String]
     @Binding var isShowing: Bool
+    
+    
     
   #if os(iOS)
 		@Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -29,6 +31,9 @@ struct ModalAddItemView: View {
     var body: some View {
         ZStack (alignment: .topLeading) {
             Color.white
+                .onTapGesture {
+                    closeKeyboard()
+                }
             
             VStack (alignment: .leading, spacing: 0) {
                 
@@ -49,6 +54,9 @@ struct ModalAddItemView: View {
                     Text(data.name)
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                        .onTapGesture {
+                            closeKeyboard()
+                        }
                     Spacer()
                     
                     // TextField para as observações
@@ -62,6 +70,25 @@ struct ModalAddItemView: View {
                             }
                         }
                         .frame(maxHeight: 400)
+                        .onAppear() {
+                            // Configurar o rolê com o teclado
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notif in
+                                let value = notif.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                let height = value.height
+                                
+                                if UIDevice.current.model == "iPad" {
+                                    self.value = height / 1.5
+                                }
+                                else {
+                                    self.value = height / 1.5
+                                }
+                                                                   
+                            }
+                                                               
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { notif in
+                                self.value = 0
+                            }
+                        }
                     
                     // Pilha horizontal com o Stepper e o botão
                     HStack {
@@ -73,9 +100,7 @@ struct ModalAddItemView: View {
                         // Botão de adicionar item
 						BigButton(text: "Adicionar Item", action: {
                             if qtdItem > 0 {
-//                                let item = OrderItem(item: data, quantity: qtdItem, comments: obsText)
                                 let item = ItemInfo(nome: data.name, quantidade: qtdItem, preco: data.price, observacoes: obsText, nomeImagem: data.image!)
-                                //order.items.append(item)
                                 order.items.append(item)
                                 order.totalValue += (data.price * Double(qtdItem))
                                 itemImg[data.name] = data.image!
@@ -93,6 +118,9 @@ struct ModalAddItemView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity,alignment:.bottom)
                 .padding()
             } // Fecha VStack geral
+            .onTapGesture {
+                closeKeyboard()
+            }
             
             // Botão de fechar no topo
             Button(action: { isShowing = false }){
@@ -112,13 +140,16 @@ struct ModalAddItemView: View {
         })
 
     } // Fecha body
+    
+    private func closeKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 } // Fecha struct
 
-//struct ModalAddItemView_Previews: PreviewProvider {
-//    static var previews: some View {
-//
-//        ModalAddItemView(data: .constant(dummyCalabresa), isShowing: .constant(true), order: .constant(emptyOrder))
-//
-//
-//    }
-//}
+struct ModalAddItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        ModalAddItemView(data: .constant(ItemJSON(name: "Comida", price: 10, image: "LanchePlaceHolder")), itemImg: .constant(["a":"LanchePlaceHolder"]), isShowing: .constant(true), order: .constant(OrderJSON(name: "", items: [], totalValue: 20)))
+
+
+    }
+}
