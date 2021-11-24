@@ -175,17 +175,18 @@ class ApiRequest: ObservableObject {
                     let decodedResponse = try self.decoder.decode(FinishedOrderFromJSON.self, from: data)
                     var datess: [String: [OrderJSON]] = [:]
                     for order in decodedResponse {
-                        if datess[order.data] == nil {
-                            datess[order.data] = []
+                        let data = self.treatMonth(date: order.data)
+                        if datess[data] == nil {
+                            datess[data] = []
                         }
                         var itens: [ItemInfo] = []
                         for item in order.itens {
                             itens.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.valor), observacoes: "", nomeImagem: item.nomeImagem))
                         }
                         let oJ = OrderJSON(name: order.nome, items: itens, totalValue: Double(order.total))
-                        var alreadyAppended = datess[order.data]
+                        var alreadyAppended = datess[data]
                         alreadyAppended?.append(oJ)
-                        datess[order.data] = alreadyAppended
+                        datess[data] = alreadyAppended
                         
                     }
                     
@@ -207,6 +208,41 @@ class ApiRequest: ObservableObject {
             }
             
         }.resume()
+    }
+    
+    private func treatMonth(date: String) -> String {
+        let month = date.components(separatedBy: "/")
+        var monthName = ""
+        switch month[1] {
+        case "1", "01":
+            monthName = "Jan."
+        case "2", "02":
+            monthName = "Fev."
+        case "3", "03":
+            monthName = "Mar."
+        case "4", "04":
+            monthName = "Abr."
+        case "5", "05":
+            monthName = "Mai."
+        case "6", "06":
+            monthName = "Jun."
+        case "7", "07":
+            monthName = "Jul."
+        case "8", "08":
+            monthName = "Ago."
+        case "9", "09":
+            monthName = "Set."
+        case "10":
+            monthName = "Out."
+        case "11":
+            monthName = "Nov."
+        case "12":
+            monthName = "Dez."
+        default:
+            break
+        }
+        
+        return "\(month[0]) de \(monthName) \(month[2])"
     }
     
     // MARK: getEndOrder
