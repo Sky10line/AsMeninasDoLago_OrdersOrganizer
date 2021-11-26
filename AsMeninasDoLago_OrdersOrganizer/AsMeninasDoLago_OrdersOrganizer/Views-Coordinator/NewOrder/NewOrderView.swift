@@ -232,8 +232,8 @@ struct NewOrderView: View {
 }
 
 
-struct NewOrderView_Previews: PreviewProvider {
-	static var previews: some View {
-		NewOrderView(isBeingPresented: .constant(true))
-	}
-}
+//struct NewOrderView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		NewOrderView(isBeingPresented: .constant(true))
+//	}
+//}

@@ -20,7 +20,7 @@ struct ContentView: View {
     
 	@State var selectedModal: Modals = .none
     @State var detaislData: OrderJSON = OrderJSON(name: "", items: [], totalValue: 0)
-
+	@State var changedTab: Bool = false
 	
 	enum Modals {
 		case homeOrderDetails
@@ -51,11 +51,12 @@ struct ContentView: View {
                         .tag(CustomTabBar.Tabs.menu)
                         .gesture(DragGesture())
                     
-                }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-				.ignoresSafeArea()
+				}
+				.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+				.ignoresSafeArea(edges: .bottom)
 				.blur(radius: selectedModal != .none ? 25 : 0)
 				
-                CustomTabBar(selectedTab: $selectedTab).padding(.bottom, horizontalSizeClass == .regular ? 32 : (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 1 > 0 ? 0 : 16))
+				CustomTabBar(selectedTab: $selectedTab, changed: $changedTab).padding(.bottom, horizontalSizeClass == .regular ? 32 : (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 1 > 0 ? 0 : 16))
 				//					.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
                 
 				ZStack(alignment: .bottom) {
@@ -102,22 +103,10 @@ struct ContentView: View {
 						EmptyView()
 					}
                                                 
-				}.ignoresSafeArea()
+				}.ignoresSafeArea(edges: .bottom)
 				.animation(.easeInOut)
 			}.ignoresSafeArea(.keyboard, edges: .bottom)
 		}.navigationViewStyle(StackNavigationViewStyle())
 		.accentColor(Color(UIColor.appGreen))
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-					.previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-					.previewDisplayName("iPhone 11")
-
-				ContentView()
-					.previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-					.previewDisplayName("iPhone 8")
-	}
 }

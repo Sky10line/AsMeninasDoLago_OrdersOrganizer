@@ -17,36 +17,3 @@ extension UIColor {
 	static var gray3 = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1)
 	static var defaultPlaceholder = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
 }
-
-extension ScrollView {
-	
-	public func fixFlickering() -> some View {
-		
-		return self.fixFlickering { (scrollView) in
-			
-			return scrollView
-		}
-	}
-	
-	public func fixFlickering<T: View>(@ViewBuilder configurator: @escaping (ScrollView<AnyView>) -> T) -> some View {
-		
-		GeometryReader { geometryWithSafeArea in
-			GeometryReader { geometry in
-				configurator(
-				ScrollView<AnyView>(self.axes, showsIndicators: self.showsIndicators) {
-					AnyView(
-					VStack {
-						self.content
-					}
-					.padding(.top, geometryWithSafeArea.safeAreaInsets.top)
-					.padding(.bottom, geometryWithSafeArea.safeAreaInsets.bottom)
-					.padding(.leading, geometryWithSafeArea.safeAreaInsets.leading)
-					.padding(.trailing, geometryWithSafeArea.safeAreaInsets.trailing)
-					)
-				}
-				)
-			}
-			.edgesIgnoringSafeArea(.all)
-		}
-	}
-}
