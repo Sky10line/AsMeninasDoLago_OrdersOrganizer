@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FinishedOrdersCollectionView: View {
-	let data: [FinishedDatesJSON]
+	@Binding var data: [FinishedDatesJSON]
 	
 	let ordersLayout = [
 		GridItem(.flexible(), spacing: 8),

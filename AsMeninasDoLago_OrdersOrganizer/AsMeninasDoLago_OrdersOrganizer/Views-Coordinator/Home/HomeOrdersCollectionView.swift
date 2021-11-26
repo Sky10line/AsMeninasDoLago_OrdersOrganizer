@@ -52,14 +52,14 @@ struct HomeOrdersCollectionViewCell: View {
 				.background(Color(UIColor.gray3))
 				.cornerRadius(20)
 				.shadow(radius: 4)
-		})
+		}).onLongPressGesture { }
 		.scaleEffect(tap ? 0.95 : 1)
 		.animation(.spring(response: 0.6, dampingFraction: 1))
 	}
 }
 
 struct HomeOrdersCollectionView: View {
-	let data: Array<OrderJSON>
+	@Binding var data: Array<OrderJSON>
     @Binding var selectedModal: ContentView.Modals
     @Binding var dataToBeShown: OrderJSON
 	@Binding var searchText: String

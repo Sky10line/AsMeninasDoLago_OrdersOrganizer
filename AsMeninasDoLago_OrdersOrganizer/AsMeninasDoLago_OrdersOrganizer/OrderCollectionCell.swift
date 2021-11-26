@@ -31,6 +31,7 @@ struct OrderCollectionCell: View {
                     .scaledToFill()
                     .frame(minWidth: 50, idealWidth: 75, maxWidth: 75, minHeight: 50, idealHeight: 75, maxHeight: 75)
                     .clipped()
+					.cornerRadius(20)
                     
                     
                 
