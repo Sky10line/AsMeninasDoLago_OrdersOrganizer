@@ -61,7 +61,7 @@ class ApiRequest: ObservableObject {
                         for item in pedido.itens {
                             b.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes, nomeImagem: item.nomeImagem ?? ""))
                         }
-                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
+                        let a = OrderJSON(id: pedido.id, name: pedido.nome, items: b, totalValue: Double(pedido.total))
                         converted.append(a)
                     }
                     if converted.isEmpty {
@@ -505,6 +505,58 @@ class ApiRequest: ObservableObject {
             print("Erro: \(error.localizedDescription)")
         }
         
+    }
+    
+    func postAddToOpenOrder(oldOrder: OrderJSON, newOrder: OrderJSON) {
+        
+        print(newOrder)
+        guard var request = createRequest(endpoint: "AddNaComanda/\(newOrder.id!)") else {
+            print("Erro ao criar request")
+            return
+        }
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let oldOrderItems = oldOrder.items.sorted(by: {$0.nome < $1.nome})
+        let newOrderItems = newOrder.items.sorted(by: {$0.nome < $1.nome})
+        
+    
+        var allItems: [String : Any] = [:]
+        
+        allItems["Nome"] = newOrder.name
+        
+        var itens: [[String: Any]] = []
+        
+        for item in newOrderItems {
+            if !oldOrderItems.contains(item) {
+                let itemForPost: [String : Any] = [
+                    "Nome": item.nome,
+                    "Quantidade": item.quantidade,
+                    "Preco": item.preco,
+                    "Observacoes": item.observacoes == "Observações" || item.observacoes == "" || item.observacoes == " " ? "Nenhuma Observação" : item.observacoes
+                ]
+                
+                var alreadyAppended = itens
+                alreadyAppended.append(itemForPost)
+                itens = alreadyAppended
+
+                
+            }
+        }
+        allItems["Itens"] = itens
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: allItems, options: [])
+            session.uploadTask(with: request, from: jsonData) { data, response, error in
+                if let data = data, let httpResponse = response {
+                    print(data as Any)
+                    print(httpResponse as Any)
+                }
+            }.resume()
+        }
+        catch {
+            print("Erro: \(error.localizedDescription)")
+        }
     }
     
     // MARK: postAddItemToMenu

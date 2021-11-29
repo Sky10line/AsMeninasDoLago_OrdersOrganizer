@@ -8,6 +8,7 @@
 import Foundation
 
 struct OrderJSON: Decodable, Hashable {
+    var id: Int?
     var name: String
     var items: [ItemInfo]
     var totalValue: Double

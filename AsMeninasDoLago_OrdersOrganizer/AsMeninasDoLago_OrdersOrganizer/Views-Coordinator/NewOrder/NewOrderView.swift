@@ -32,6 +32,8 @@ struct NewOrderView: View {
     
     @State var order: OrderJSON = emptyOrder
     @State var orderImgs: [String:String] = [:]
+    @State var isDisabled = false
+    @State var oldOrder = emptyOrder
     
   
   	#if os(iOS)
@@ -44,6 +46,8 @@ struct NewOrderView: View {
 			VStack {
 				NameTextField(placeholder: "Nome do cliente", name: $name)
 					.padding(.top)
+                    .disabled(isDisabled)
+                    .foregroundColor(isDisabled ? .gray : .black)
 				
 				Divider()
 					.padding(.horizontal)
@@ -73,7 +77,6 @@ struct NewOrderView: View {
 						.ignoresSafeArea()
 						.animation(.easeIn)
 					
-//                    ModalAddItemView(value: $itemData, data: $showItemNewOrder, itemImg: $orderImgs, isShowing: $order)
                     ModalAddItemView(data: $itemData, itemImg: $orderImgs, isShowing: $showItemNewOrder, order: $order)
 						.cornerRadius(30)
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
@@ -151,7 +154,6 @@ struct NewOrderView: View {
 							}
 							
 							BigButton(text: "Enviar comanda") {
-                               
                                 sendOrder()
 							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							.padding()
@@ -198,6 +200,11 @@ struct NewOrderView: View {
             api.getMenu() {
                 categories = api.menu
             }
+            if order != emptyOrder {
+                name = order.name
+                isDisabled = true
+                oldOrder = order
+            }
         }
 	}
 	
@@ -221,6 +228,10 @@ struct NewOrderView: View {
         else if name == "" || name == " " {
             alertMessage = "Por favor, insira o nome do cliente"
             showAlert = true
+        }
+        else if isDisabled {
+            api.postAddToOpenOrder(oldOrder: oldOrder, newOrder: order)
+            isBeingPresented = false
         }
         else {
             order.name = name

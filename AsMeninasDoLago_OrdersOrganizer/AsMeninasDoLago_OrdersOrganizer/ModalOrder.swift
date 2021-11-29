@@ -19,6 +19,8 @@ struct ModalOrder: View {
     
     @State var attempt = 0
     
+    @State var isEditing = false
+    
     var body: some View {
                 
         VStack (alignment: .leading) {
@@ -51,9 +53,17 @@ struct ModalOrder: View {
                         }
                             
                         // Botão de adicionar mais itens
-//                        if selectedModal == ContentView.Modals.homeOrderDetails {
-//                            BigButtonVariant(text: "Adicionar mais itens", action: { print(fullOrder) })
-//                        }
+                        if selectedModal == ContentView.Modals.homeOrderDetails {
+                            BigButtonVariant(text: "Adicionar mais itens", action: {
+                                isEditing = true
+                                
+                            })
+                            
+                            NavigationLink(
+                                destination: NewOrderView(isBeingPresented: $isEditing, order: fullOrder),
+                                isActive: $isEditing,
+                                label: { EmptyView() })
+                        }
                     } // Fecha LazyVStack
                 } // Fecha ScrollView
                     
@@ -108,23 +118,12 @@ struct ModalOrder: View {
             }
         }
         
-//        api.getOpenOrders() {
-//            if !api.openOrders.isEmpty {
-//                orders = api.openOrders
-//                return
-//            }
-//            else {
-//                attempt += 1
-//                if attempt >= 5 { orders = [] ; attempt = 0 ; return }
-//                asyncRepeat()
-//            }
-//        }
     }
 } // Fecha struct
 
 
-//struct ModalOrder_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ModalOrder(fullOrder: .constant(dummyOrder1), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
-//    }
-//}
+struct ModalOrder_Previews: PreviewProvider {
+    static var previews: some View {
+        ModalOrder(fullOrder: .constant(OrderJSON(name: "Cliente", items: [ItemInfo(nome: "Lanche", quantidade: 1, preco: 2, observacoes: "", nomeImagem: "LanchePlaceHolder")], totalValue: 2)), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
+    }
+}
