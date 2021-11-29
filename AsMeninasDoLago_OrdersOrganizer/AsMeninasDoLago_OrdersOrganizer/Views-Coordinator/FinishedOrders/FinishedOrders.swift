@@ -30,10 +30,15 @@ struct FinishedOrders: View {
 
 			Spacer()
 			
-			ScrollView {
-				FinishedOrdersCollectionView(data: finishedDates, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
+			RefreshableScroll {
+				FinishedOrdersCollectionView(data: $finishedDates, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
 				
 				Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
+			} onRefresh: { control in
+				api.getFinishedOrders() {
+					finishedDates = api.finishedOrders
+					control.endRefreshing()
+				}
 			}
 		}
         .padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)

@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomTabBar: View {
 	@Binding var selectedTab: Tabs
 	@State var tabPoints: [CGFloat] = []
+	@Binding var changed: Bool
 	
 	enum Tabs: String {
 		case orders = "OrdersTabImg"
@@ -24,11 +25,11 @@ struct CustomTabBar: View {
     var body: some View {
 		ZStack {
 		HStack(spacing: 0) {
-			TabBarButton(image: Tabs.orders.rawValue, text: "Comandas", selectedTab: $selectedTab, tabPoints: $tabPoints)
+			TabBarButton(image: Tabs.orders.rawValue, text: "Comandas", selectedTab: $selectedTab, tabPoints: $tabPoints, pressed: $changed)
 			
-			TabBarButton(image: Tabs.finishedOrders.rawValue, text: "Pedidos finalizados", selectedTab: $selectedTab, tabPoints: $tabPoints)
+			TabBarButton(image: Tabs.finishedOrders.rawValue, text: "Pedidos finalizados", selectedTab: $selectedTab, tabPoints: $tabPoints, pressed: $changed)
 			
-			TabBarButton(image: Tabs.menu.rawValue, text: "Cardápio", selectedTab: $selectedTab, tabPoints: $tabPoints)
+			TabBarButton(image: Tabs.menu.rawValue, text: "Cardápio", selectedTab: $selectedTab, tabPoints: $tabPoints, pressed: $changed)
 		}.padding()
 		.background(
 			Color(UIColor.gray3)
@@ -72,6 +73,7 @@ struct TabBarButton: View {
 	var text: String
 	@Binding var selectedTab: CustomTabBar.Tabs
 	@Binding var tabPoints: [CGFloat]
+	@Binding var pressed: Bool
 	
 	var body: some View {
 		GeometryReader {reader -> AnyView in
@@ -86,6 +88,10 @@ struct TabBarButton: View {
 			
 			return AnyView (
 				Button(action: {
+					pressed = true
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+						pressed = false
+					}
 					withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.5, blendDuration: 0.5)) {
 						if let tab = CustomTabBar.Tabs(rawValue: image) {
 							selectedTab = tab

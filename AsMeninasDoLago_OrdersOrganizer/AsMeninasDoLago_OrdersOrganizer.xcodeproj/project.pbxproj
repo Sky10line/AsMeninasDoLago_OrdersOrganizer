@@ -56,6 +56,7 @@
 		BDE2979F2748880300E3A7CA /* TapiocasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */; };
 		BDE297A0274B50BC00E3A7CA /* HomeOrdersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */; };
 		BDE297A1274B50BC00E3A7CA /* ModalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */; };
+		BDE297A327518CD000E3A7CA /* RefreshableScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE297A227518CD000E3A7CA /* RefreshableScroll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		BDE2979A2748854E00E3A7CA /* PorcoesTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorcoesTransform.swift; sourceTree = "<group>"; };
 		BDE2979C2748869300E3A7CA /* SalgadosTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalgadosTransform.swift; sourceTree = "<group>"; };
 		BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapiocasTransform.swift; sourceTree = "<group>"; };
+		BDE297A227518CD000E3A7CA /* RefreshableScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScroll.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 				BD3050772731A70100A0E0EA /* TabBar */,
 				BDC2D93F27401F33006EFCEE /* NameTextField.swift */,
 				BDC2D94127406A97006EFCEE /* CustomStepper.swift */,
+				BDE297A227518CD000E3A7CA /* RefreshableScroll.swift */,
 			);
 			path = "Views-Components";
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				BD3050742728D74F00A0E0EA /* DebugHelper.swift in Sources */,
 				BD3050842732176500A0E0EA /* SearchBar.swift in Sources */,
 				BD3050702728D67200A0E0EA /* CategoryJSON.swift in Sources */,
+				BDE297A327518CD000E3A7CA /* RefreshableScroll.swift in Sources */,
 				BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */,
 				BDE2979B2748854E00E3A7CA /* PorcoesTransform.swift in Sources */,
 				BD305088273217F600A0E0EA /* FinishedOrders.swift in Sources */,

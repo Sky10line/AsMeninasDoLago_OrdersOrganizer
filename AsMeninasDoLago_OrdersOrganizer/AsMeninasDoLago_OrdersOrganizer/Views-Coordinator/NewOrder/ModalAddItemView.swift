@@ -45,6 +45,7 @@ struct ModalAddItemView: View {
 					.frame(maxWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height / 4.5)
                     .ignoresSafeArea()
 					.clipped()
+					.cornerRadius(20)
                 
                 // Pilha vertical de nome, observações e ações
                 VStack {

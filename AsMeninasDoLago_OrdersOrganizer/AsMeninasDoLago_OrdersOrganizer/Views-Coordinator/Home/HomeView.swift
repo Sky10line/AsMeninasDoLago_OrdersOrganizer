@@ -42,11 +42,16 @@ struct HomeView: View {
 					.padding(.horizontal)
 				
 				ZStack(alignment: .bottom) {
-					ScrollView {
-						HomeOrdersCollectionView(data: orders, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
+					RefreshableScroll {
+						HomeOrdersCollectionView(data: $orders, selectedModal: $selectedModal, dataToBeShown: $orderData, searchText: $searchText)
 						
 						Spacer(minLength: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 6 : UIScreen.main.bounds.height / 3.5)
+					} onRefresh: { control in
+						asyncRepeat(completion: {
+							control.endRefreshing()
+						})
 					}
+
 					
 					NavigationLink(
 						destination: NewOrderView(isBeingPresented: $isShowingNewOrderView),
@@ -58,7 +63,7 @@ struct HomeView: View {
 							isShowingNewOrderView = true
 						}.padding()
 						.background(Color.clear)
-						Rectangle().opacity(0).frame(height: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 8 : UIScreen.main.bounds.height / 6)
+						Rectangle().opacity(0).frame(height: horizontalSizeClass == .regular ? UIScreen.main.bounds.height / 8 : UIScreen.main.bounds.height / 8)
 					}
 				}
 			}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
@@ -68,7 +73,7 @@ struct HomeView: View {
 			.navigationTitle("Comandas")
             .edgesIgnoringSafeArea(.all)
             .onAppear() {
-                asyncRepeat()
+				asyncRepeat(completion: { })
             }
             .onChange(of: selectedModal, perform: { op in
                 if op == .none {
@@ -76,7 +81,7 @@ struct HomeView: View {
                         orders = api.openOrders
                     }
                     else {
-                        asyncRepeat()
+						asyncRepeat(completion: { })
                     }
                 }
                 
@@ -85,16 +90,17 @@ struct HomeView: View {
             
 	}
     
-    func asyncRepeat() {
+	func asyncRepeat(completion: @escaping () -> Void) {
         api.getOpenOrders() {
             if !api.openOrders.isEmpty {
                 orders = api.openOrders
+				completion()
                 return
             }
             else {
                 attempt += 1
                 if attempt >= 5 { orders = [] ; attempt = 0 ; return }
-                asyncRepeat()
+				asyncRepeat(completion: completion)
             }
         }
     }
