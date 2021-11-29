@@ -85,16 +85,21 @@ struct ModalOrder: View {
                 .background(Color.white)
                     .alert(isPresented: $showAlert, content: {
                         Alert(title: Text("Deseja mesmo excluir esse item? Essa ação não poderá ser desfeita"), primaryButton: .cancel(Text("Voltar")), secondaryButton: .destructive(Text("Excluir"), action: {
-                            api.getRemoveItemOpenOrder(for: fullOrder.name, item: itemToRemove!){
-                                api.getOpenOrders {}
-                            }
+							if let id = fullOrder.id {
+								api.getRemoveItemOpenOrder(for: id, item: itemToRemove!){
+									api.getOpenOrders {
+										self.fullOrder = api.openOrders.first(where: { $0.id == fullOrder.id }) ?? api.openOrders[0]
+									}
+								}
+							}
                         }))
                     })
         
     } // Fecha body
     
     func asyncRepeat() {
-        api.getEndOrder(for: fullOrder.name) { http in
+		if let id = fullOrder.id {
+        api.getEndOrder(for: id) { http in
             print(fullOrder.items[0].nome)
             if http.statusCode == 500 {
                 attempt += 1
@@ -107,6 +112,7 @@ struct ModalOrder: View {
                 selectedModal = .none
             }
         }
+	}
         
 //        api.getOpenOrders() {
 //            if !api.openOrders.isEmpty {

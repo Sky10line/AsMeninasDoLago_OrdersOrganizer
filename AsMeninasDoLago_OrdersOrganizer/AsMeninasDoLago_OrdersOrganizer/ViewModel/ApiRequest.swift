@@ -61,7 +61,7 @@ class ApiRequest: ObservableObject {
                         for item in pedido.itens {
                             b.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes, nomeImagem: item.nomeImagem ?? ""))
                         }
-                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
+						let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total), id: pedido.id)
                         converted.append(a)
                     }
                     if converted.isEmpty {
@@ -124,8 +124,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para MostraComandaPorNome/{nome}
     
     // MARK: N é chamada, mas funciona
-    func getOrderByName(name: String, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "MostraComandaPorNome/\(name)") else {
+    func getOrderById(id: Int, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "MostraComandaPorID/\(id)") else {
             print("Erro ao criar request")
             return
         }
@@ -250,8 +250,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para Finaliza/{nome}
     
     // MARK: Tá funcionando
-    func getEndOrder(for name: String, completion: @escaping (HTTPURLResponse) -> Void) {
-        guard let request = createRequest(endpoint: "Finaliza/\(name)") else {
+    func getEndOrder(for id: Int, completion: @escaping (HTTPURLResponse) -> Void) {
+        guard let request = createRequest(endpoint: "Finaliza/\(id)") else {
             print("Erro ao criar request")
             return
         }
@@ -292,8 +292,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para RemoveDaComanda/{nome}/{item}
     
     // MARK: Tá funcionando
-    func getRemoveItemOpenOrder(for name: String, item: ItemInfo, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "RemoveDaComanda/\(name)/\(item.nome)") else {
+	func getRemoveItemOpenOrder(for id: Int, item: ItemInfo, completion: @escaping () -> Void) {
+		guard let request = createRequest(endpoint: "RemoveDaComanda/\(id)/\(item.nome)/\(item.preco)") else {
             //print("RemoveDaComanda/\(name)/\(item.nome)")
             print("Erro ao criar request")
             return
@@ -386,8 +386,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para LimparComanda/{nome}
     
     // MARK: Nunca é chamada
-    func getCancelOrder(for name: String, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "LimparComanda/\(name)") else {
+    func getCancelOrder(for id: Int, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "LimparComanda/\(id)") else {
             print("Erro ao criar request")
             return
         }
