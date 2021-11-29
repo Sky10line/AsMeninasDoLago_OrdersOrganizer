@@ -15,11 +15,11 @@ struct CustomStepper: View {
 		HStack {
 			
 				Button(action: {
-					if value > 0 {
+					if value > 1 {
 						value -= 1
 					}
 				}, label: {
-					Text(value > 0 ? "-" : "  ")
+					Text(value > 1 ? "-" : "  ")
 						.fontWeight(.light)
 						.font(.title)
 						.foregroundColor(.black)
