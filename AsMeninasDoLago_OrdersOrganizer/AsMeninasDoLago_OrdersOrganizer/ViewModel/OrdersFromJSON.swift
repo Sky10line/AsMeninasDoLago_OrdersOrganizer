@@ -8,14 +8,12 @@
 import Foundation
 
 struct OrderFromJSON: Codable {
-    let id: Int?
     let itens: [ItemFromJSON]
     let nome: String
     let total: Int
 	let id: Int
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
         case itens = "Itens"
         case nome = "Nome"
         case total = "Total"

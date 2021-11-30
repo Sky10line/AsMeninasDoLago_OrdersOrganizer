@@ -93,6 +93,7 @@ struct NewOrderView: View {
 				.opacity(getBackShadow())
 				.ignoresSafeArea()
 				.animation(.easeIn)
+            
 			
 			GeometryReader{proxy -> AnyView in
 				let height = proxy.frame(in: .global).height
@@ -140,15 +141,13 @@ struct NewOrderView: View {
 							ScrollView {
 								LazyVStack {
                                     ForEach(order.items, id: \.self) { item in
-										OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, itemImg: orderImgs, isFinishedOrders: false, deleteAction: {
+										OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.editOpenOrderItem), item: item, itemImg: orderImgs, isFinishedOrders: false, deleteAction: {
                                             alertMessage = "Deseja mesmo excluir esse item?"
                                             isAlertDestructive = true
                                             showAlert = true
                                             itemToRemove = item
                                             
-										}, editAction: {
-											
-										})
+										}, editAction: nil)
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 								.background(Color.white)

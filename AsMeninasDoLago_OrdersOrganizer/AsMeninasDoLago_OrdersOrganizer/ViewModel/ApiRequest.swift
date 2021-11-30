@@ -197,7 +197,7 @@ class ApiRequest: ObservableObject {
                         sendableData.append(FinishedDatesJSON(dateTitle: key, finishedOrders: value))
                     }
                     
-                    self.finishedOrders = sendableData
+                    self.finishedOrders = sendableData.sorted(by: { $0.dateTitle! > $1.dateTitle! })
                     
                     DispatchQueue.main.async {
                         completion()
@@ -448,42 +448,6 @@ class ApiRequest: ObservableObject {
         }
         
     }
-    
-    // MARK: postChangeOpenOrderByName
-    // Retorna resposta HTTP
-    /// Faz chamada POST para AddNaComanda/{nome}
-    
-    // MARK: Não existe onde chamar
-    func postChangeOpenOrderByName(for name: String, item: OrderItem) {
-        guard var request = createRequest(endpoint: "AddNaComanda/\(name)") else {
-            print("Erro ao criar request")
-            return
-        }
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let orderForPost: [String : Any] = [
-            "Nome": item.item.name,
-            "Quantidade": item.quantity,
-            "Preco": item.item.price,
-            "Observacoes": item.comments == "Observações" || item.comments == "" || item.comments == " " ? "Nenhuma Observação" : item.comments!
-        ]
-
-
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: orderForPost, options: [])
-            session.uploadTask(with: request, from: jsonData) { data, response, error in
-                if let data = data, let httpResponse = response {
-                    print(data as Any)
-                    print(httpResponse as Any)
-                }
-            }.resume()
-        }
-        catch {
-            print("Erro: \(error.localizedDescription)")
-        }
-        
-    }
 	
 	// MARK: postEditItemOfOrder
 	// Retorna resposta HTTP
@@ -522,9 +486,10 @@ class ApiRequest: ObservableObject {
 		
 	}
     
+    // MARK: postAddToOpenOrder
+    // Retorna resposta HTTP
+    /// Faz chamada POST para AddNaComanda/{id}
     func postAddToOpenOrder(oldOrder: OrderJSON, newOrder: OrderJSON) {
-        
-        print(newOrder)
         guard var request = createRequest(endpoint: "AddNaComanda/\(newOrder.id!)") else {
             print("Erro ao criar request")
             return

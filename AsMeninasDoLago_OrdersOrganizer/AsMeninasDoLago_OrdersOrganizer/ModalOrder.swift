@@ -145,8 +145,8 @@ struct ModalOrder: View {
 } // Fecha struct
 
 
-struct ModalOrder_Previews: PreviewProvider {
-    static var previews: some View {
-        ModalOrder(fullOrder: .constant(OrderJSON(name: "Cliente", items: [ItemInfo(nome: "Lanche", quantidade: 1, preco: 2, observacoes: "", nomeImagem: "LanchePlaceHolder")], totalValue: 2)), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
-    }
-}
+//struct ModalOrder_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ModalOrder(fullOrder: .constant(OrderJSON(name: "Cliente", items: [ItemInfo(nome: "Lanche", quantidade: 1, preco: 2, observacoes: "", nomeImagem: "LanchePlaceHolder")], totalValue: 2)), selectedModal: .constant(ContentView.Modals.homeOrderDetails))
+//    }
+//}
