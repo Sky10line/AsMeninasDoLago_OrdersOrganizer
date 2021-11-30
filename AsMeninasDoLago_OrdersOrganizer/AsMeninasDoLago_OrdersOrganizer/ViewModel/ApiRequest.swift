@@ -506,6 +506,43 @@ class ApiRequest: ObservableObject {
         }
         
     }
+	
+	// MARK: postEditItemOfOrder
+	// Retorna resposta HTTP
+	/// Faz chamada POST para EditaItem/{id}
+	func postEditItemOfOrder(for id: Int, item: ItemInfo, completion: @escaping () -> Void) {
+		guard var request = createRequest(endpoint: "EditaItem/\(id)") else {
+			print("Erro ao criar request")
+			return
+		}
+		request.httpMethod = "POST"
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+		let itemForPost: [String : Any] = [
+			"Nome": item.nome,
+			"Quantidade": item.quantidade,
+			"Preco": item.preco,
+			"Observacoes": item.observacoes == "Observações" || item.observacoes == "" || item.observacoes == " " ? "Nenhuma Observação" : item.observacoes
+		]
+
+
+		do {
+			let jsonData = try JSONSerialization.data(withJSONObject: ["Itens": [itemForPost]], options: [])
+			session.uploadTask(with: request, from: jsonData) { data, response, error in
+				if let data = data, let httpResponse = response {
+					print(data as Any)
+					print(httpResponse as Any)
+				}
+				DispatchQueue.main.async {
+					completion()
+				}
+			}.resume()
+		}
+		catch {
+			print("Erro: \(error.localizedDescription)")
+		}
+		
+	}
     
     // MARK: postAddItemToMenu
     // Retorna resposta HTTP

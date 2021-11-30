@@ -22,11 +22,14 @@ struct ContentView: View {
     @State var detaislData: OrderJSON = OrderJSON(name: "", items: [], totalValue: 0)
 	@State var changedTab: Bool = false
 	
+	@State var itemToEdit: ItemInfo = ItemInfo(nome: "", quantidade: 0, preco: 0, observacoes: "", nomeImagem: "")
+	
 	enum Modals {
 		case homeOrderDetails
 		case finishedOrderDetails
 		case editMenuItem
 		case addMenuItem
+		case editOpenOrderItem
 		case none
 	}
 	
@@ -68,7 +71,7 @@ struct ContentView: View {
 					
 					switch selectedModal {
 					case .homeOrderDetails:
-                        ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal)
+						ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal, itemToEdit: $itemToEdit, isFinishedOrders: false)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
 							.transition(.move(edge: .bottom))
@@ -76,7 +79,7 @@ struct ContentView: View {
 							.edgesIgnoringSafeArea(.all)
 						
 					case .finishedOrderDetails:
-                        ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal)
+						ModalOrder(fullOrder: $detaislData, selectedModal: $selectedModal, itemToEdit: $itemToEdit, isFinishedOrders: true)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
 							.transition(.move(edge: .bottom))
@@ -95,6 +98,14 @@ struct ContentView: View {
 						ModalMenuItem(title: "Adicionar item", selectedModal: $selectedModal)
 							.cornerRadius(30)
 							.padding(.top,UIScreen.main.bounds.height / 8)
+							.transition(.move(edge: .bottom))
+							.animation(.spring(response: 0.6, dampingFraction: 1))
+							.edgesIgnoringSafeArea(.all)
+						
+					case .editOpenOrderItem:
+						EditItemOpenOrder(obsText: itemToEdit.observacoes, qtdItem: itemToEdit.quantidade, data: $itemToEdit, selectedModal: $selectedModal, order: $detaislData)
+							.cornerRadius(30)
+							.padding(.top,UIScreen.main.bounds.height / 2.5)
 							.transition(.move(edge: .bottom))
 							.animation(.spring(response: 0.6, dampingFraction: 1))
 							.edgesIgnoringSafeArea(.all)
