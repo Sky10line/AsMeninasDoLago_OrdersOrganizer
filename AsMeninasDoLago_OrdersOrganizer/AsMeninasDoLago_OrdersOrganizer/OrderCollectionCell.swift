@@ -48,20 +48,20 @@ struct OrderCollectionCell: View {
                 
                 Spacer()
                 
-                if selectedModal == ContentView.Modals.homeOrderDetails {
+                if selectedModal == ContentView.Modals.homeOrderDetails || selectedModal == .editOpenOrderItem {
                     HStack {
-						if !isFinishedOrders {
-							Button(action: {
-								editAction?()
-							}) {
-								Image(systemName: "pencil")
-									.renderingMode(.template)
-									.foregroundColor(.black)
-									.font(.title)
+                        if selectedModal == .homeOrderDetails && !isFinishedOrders {
+                                Button(action: {
+                                    editAction?()
+                                }) {
+                                    Image(systemName: "pencil")
+                                        .renderingMode(.template)
+                                        .foregroundColor(.black)
+                                        .font(.title)
 
-							}
-							.padding(3)
-						}
+                                }
+                                .padding(3)
+                        }
                         
                         Button(action: {
                             deleteAction?()
@@ -73,6 +73,7 @@ struct OrderCollectionCell: View {
                                 
                         }
                         .padding(3)
+                        
                         
                     } // Fecha HStack dos botões de ação
                 } // Fecha if

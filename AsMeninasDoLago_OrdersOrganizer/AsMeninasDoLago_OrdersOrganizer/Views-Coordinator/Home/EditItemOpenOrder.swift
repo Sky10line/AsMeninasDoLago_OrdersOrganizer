@@ -10,8 +10,6 @@ import SwiftUI
 struct EditItemOpenOrder: View {
 	@State var obsText = "Observações"
 	@State var qtdItem = 1
-
-	@State private var showAlert = false
 	
 	@State var value: CGFloat = 0
 	
@@ -98,17 +96,13 @@ struct EditItemOpenOrder: View {
 						
 						// Botão de adicionar item
 						BigButton(text: "Finalizar", action: {
-							if qtdItem > 0 {
 								data.quantidade = qtdItem
 								data.observacoes = obsText
 								
-								ApiRequest().postEditItemOfOrder(for: order.id ?? -1, item: data) {
+                                ApiRequest().postEditItemOfOrder(for: order.id ?? -1, item: data) {
 									selectedModal = .homeOrderDetails
 								}
-							}
-							else {
-								showAlert = true
-							}
+							
 						})
 						.padding(.vertical)
 							
@@ -135,9 +129,6 @@ struct EditItemOpenOrder: View {
 		} // Fecha ZStack
 		.offset(y: -self.value)
 		.animation(.spring())
-		.alert(isPresented: $showAlert, content: {
-			Alert(title: Text("Atenção"), message: Text("Você não pode adicionar zero de um item a um pedido."), dismissButton: .default(Text("OK")))
-		})
 
 	} // Fecha body
 	

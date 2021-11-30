@@ -32,6 +32,8 @@ struct NewOrderView: View {
     
     @State var order: OrderJSON = emptyOrder
     @State var orderImgs: [String:String] = [:]
+    @State var isDisabled = false
+    @State var oldOrder = emptyOrder
     
   
   	#if os(iOS)
@@ -44,6 +46,8 @@ struct NewOrderView: View {
 			VStack {
 				NameTextField(placeholder: "Nome do cliente", name: $name)
 					.padding(.top)
+                    .disabled(isDisabled)
+                    .foregroundColor(isDisabled ? .gray : .black)
 				
 				Divider()
 					.padding(.horizontal)
@@ -73,7 +77,6 @@ struct NewOrderView: View {
 						.ignoresSafeArea()
 						.animation(.easeIn)
 					
-//                    ModalAddItemView(value: $itemData, data: $showItemNewOrder, itemImg: $orderImgs, isShowing: $order)
                     ModalAddItemView(data: $itemData, itemImg: $orderImgs, isShowing: $showItemNewOrder, order: $order)
 						.cornerRadius(30)
 						.padding(.top,UIScreen.main.bounds.height / 2.5)
@@ -90,6 +93,7 @@ struct NewOrderView: View {
 				.opacity(getBackShadow())
 				.ignoresSafeArea()
 				.animation(.easeIn)
+            
 			
 			GeometryReader{proxy -> AnyView in
 				let height = proxy.frame(in: .global).height
@@ -137,15 +141,13 @@ struct NewOrderView: View {
 							ScrollView {
 								LazyVStack {
                                     ForEach(order.items, id: \.self) { item in
-										OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, itemImg: orderImgs, isFinishedOrders: false, deleteAction: {
+										OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.editOpenOrderItem), item: item, itemImg: orderImgs, isFinishedOrders: false, deleteAction: {
                                             alertMessage = "Deseja mesmo excluir esse item?"
                                             isAlertDestructive = true
                                             showAlert = true
                                             itemToRemove = item
                                             
-										}, editAction: {
-											
-										})
+										}, editAction: nil)
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 								.background(Color.white)
@@ -153,7 +155,6 @@ struct NewOrderView: View {
 							}
 							
 							BigButton(text: "Enviar comanda") {
-                               
                                 sendOrder()
 							}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 							.padding()
@@ -200,6 +201,11 @@ struct NewOrderView: View {
             api.getMenu() {
                 categories = api.menu
             }
+            if order != emptyOrder {
+                name = order.name
+                isDisabled = true
+                oldOrder = order
+            }
         }
 	}
 	
@@ -223,6 +229,10 @@ struct NewOrderView: View {
         else if name == "" || name == " " {
             alertMessage = "Por favor, insira o nome do cliente"
             showAlert = true
+        }
+        else if isDisabled {
+            api.postAddToOpenOrder(oldOrder: oldOrder, newOrder: order)
+            isBeingPresented = false
         }
         else {
             order.name = name
