@@ -121,6 +121,7 @@ struct ModalOrder: View {
                     })
 		.onAppear(perform: {
 //			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+			if !isFinishedOrders {
 				api.getOpenOrders {
 					if let order = api.openOrders.first(where: { $0.id == fullOrder.id }) {
 						self.fullOrder = order
@@ -128,6 +129,7 @@ struct ModalOrder: View {
 						self.fullOrder = order
 					}
 				}
+			}
 //			}
 		})
     } // Fecha body
