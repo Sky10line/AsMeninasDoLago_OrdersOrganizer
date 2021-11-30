@@ -293,58 +293,35 @@ class ApiRequest: ObservableObject {
     
     // MARK: Tá funcionando
 	func getRemoveItemOpenOrder(for id: Int, item: ItemInfo, completion: @escaping () -> Void) {
-		guard let request = createRequest(endpoint: "RemoveDaComanda/\(id)/\(item.nome)/\(item.preco)") else {
+		guard var request = createRequest(endpoint: "RemoveDaComanda/\(id)") else {
             //print("RemoveDaComanda/\(name)/\(item.nome)")
             print("Erro ao criar request")
             return
         }
-        session.dataTask(with: request) { data, respose, error in
-            
-            if let erro = error {
-                print("Erro: \(erro.localizedDescription)")
-                return
-            }
-//            DispatchQueue.main.async {
-//                guard let data = data else { return }
-//                do {
-//                    let decodedResponse = try self.decoder.decode(OrderJSON2Element.self, from: data)
-//                    print(data)
-//
-//
-//                    var b: [Itemn] = []
-//                    for item in decodedResponse.itens {
-//                        b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
-//                    }
-//                    let conv = OrderJSON(name: decodedResponse.nome, items: b, totalValue: Double(decodedResponse.total))
-//
-//                    for pedido in self.openOrders {
-//                        if pedido.name == conv.name{
-//                            pedido.items = conv.items
-//                        }
-//                    }
-                    
-                    
-                    // Linha de testes, por favor não apagar
-                    //print(decodedResponse)
-//                    var converted: [OrderJSON] = []
-//                    for pedido in decodedResponse {
-//                        var b: [Itemn] = []
-//                        for item in pedido.itens {
-//                            b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
-//                        }
-//                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
-//                        converted.append(a)
-                    
-//                    DispatchQueue.main.async {
-                        completion()
-//                    }
-//                }
-//                catch {
-//                    print("Erro: \(error.localizedDescription)")
-//                }
-//            }
-            
-        }.resume()
+		request.httpMethod = "POST"
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+		let itemForPost: [String : Any] = [
+			"Nome": item.nome,
+			"Preco": item.preco
+		]
+
+
+		do {
+			let jsonData = try JSONSerialization.data(withJSONObject: ["Itens": [itemForPost]], options: [])
+			session.uploadTask(with: request, from: jsonData) { data, response, error in
+				if let data = data, let httpResponse = response {
+					print(data as Any)
+					print(httpResponse as Any)
+				}
+				DispatchQueue.main.async {
+					completion()
+				}
+			}.resume()
+		}
+		catch {
+			print("Erro: \(error.localizedDescription)")
+		}
     }
     
     // MARK: getRemoveItemMenu
