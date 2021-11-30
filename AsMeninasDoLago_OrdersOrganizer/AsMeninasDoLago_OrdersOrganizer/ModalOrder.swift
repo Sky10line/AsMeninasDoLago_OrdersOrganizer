@@ -108,7 +108,11 @@ struct ModalOrder: View {
 								} else {
 									api.getRemoveItemOpenOrder(for: id, item: itemToRemove!){
 										api.getOpenOrders {
-											self.fullOrder = api.openOrders.first(where: { $0.id == fullOrder.id }) ?? api.openOrders[0]
+											if let order = api.openOrders.first(where: { $0.id == fullOrder.id }) {
+												self.fullOrder = order
+											} else if let order = api.openOrders.first {
+												self.fullOrder = order
+											}
 										}
 									}
 								}
@@ -118,7 +122,11 @@ struct ModalOrder: View {
 		.onAppear(perform: {
 //			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
 				api.getOpenOrders {
-					self.fullOrder = api.openOrders.first(where: { $0.id == fullOrder.id }) ?? api.openOrders[0]
+					if let order = api.openOrders.first(where: { $0.id == fullOrder.id }) {
+						self.fullOrder = order
+					} else if let order = api.openOrders.first {
+						self.fullOrder = order
+					}
 				}
 //			}
 		})
