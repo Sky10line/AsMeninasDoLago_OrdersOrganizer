@@ -11,9 +11,11 @@ struct OrderCollectionCell: View {
     @Binding var selectedModal: ContentView.Modals
     var item: ItemInfo
     var itemImg: [String:String]
+	var isFinishedOrders: Bool
     //@Binding var clientName: String
     //@Binding var modalType: String
     let deleteAction: (() -> Void)?
+	let editAction: (() -> Void)?
     
     //@State private var showAlert = false
     
@@ -48,16 +50,18 @@ struct OrderCollectionCell: View {
                 
                 if selectedModal == ContentView.Modals.homeOrderDetails {
                     HStack {
-//                        Button(action: {
-//                            print("Editar")
-//                        }) {
-//                            Image(systemName: "pencil")
-//                                .renderingMode(.template)
-//                                .foregroundColor(.black)
-//                                .font(.title)
-//
-//                        }
-//                        .padding(3)
+						if !isFinishedOrders {
+							Button(action: {
+								editAction?()
+							}) {
+								Image(systemName: "pencil")
+									.renderingMode(.template)
+									.foregroundColor(.black)
+									.font(.title)
+
+							}
+							.padding(3)
+						}
                         
                         Button(action: {
                             deleteAction?()

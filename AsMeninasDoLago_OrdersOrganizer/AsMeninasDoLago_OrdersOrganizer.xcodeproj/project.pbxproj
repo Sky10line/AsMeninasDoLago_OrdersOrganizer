@@ -57,6 +57,7 @@
 		BDE297A0274B50BC00E3A7CA /* HomeOrdersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */; };
 		BDE297A1274B50BC00E3A7CA /* ModalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC2D93D27401BA6006EFCEE /* ModalMenuItem.swift */; };
 		BDE297A327518CD000E3A7CA /* RefreshableScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE297A227518CD000E3A7CA /* RefreshableScroll.swift */; };
+		BDE297A527559C7700E3A7CA /* EditItemOpenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE297A427559C7700E3A7CA /* EditItemOpenOrder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		BDE2979C2748869300E3A7CA /* SalgadosTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalgadosTransform.swift; sourceTree = "<group>"; };
 		BDE2979E2748880300E3A7CA /* TapiocasTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapiocasTransform.swift; sourceTree = "<group>"; };
 		BDE297A227518CD000E3A7CA /* RefreshableScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScroll.swift; sourceTree = "<group>"; };
+		BDE297A427559C7700E3A7CA /* EditItemOpenOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemOpenOrder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +266,7 @@
 			children = (
 				BD30507A2731F59900A0E0EA /* HomeView.swift */,
 				BDAFEEBD270FAE140000CE8C /* HomeOrdersCollectionView.swift */,
+				BDE297A427559C7700E3A7CA /* EditItemOpenOrder.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				BD3050792731A71200A0E0EA /* TabCurve.swift in Sources */,
 				BD3050742728D74F00A0E0EA /* DebugHelper.swift in Sources */,
 				BD3050842732176500A0E0EA /* SearchBar.swift in Sources */,
+				BDE297A527559C7700E3A7CA /* EditItemOpenOrder.swift in Sources */,
 				BD3050702728D67200A0E0EA /* CategoryJSON.swift in Sources */,
 				BDE297A327518CD000E3A7CA /* RefreshableScroll.swift in Sources */,
 				BDC2D94227406A97006EFCEE /* CustomStepper.swift in Sources */,
