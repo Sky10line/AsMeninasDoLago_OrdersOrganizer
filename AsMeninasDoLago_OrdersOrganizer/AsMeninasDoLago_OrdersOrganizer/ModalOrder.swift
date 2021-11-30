@@ -12,10 +12,12 @@ struct ModalOrder: View {
     
     @Binding var fullOrder: OrderJSON
     @Binding var selectedModal: ContentView.Modals
-    
+	@Binding var itemToEdit: ItemInfo
+	
     @State var showAlert = false
     @State var itemToRemove: ItemInfo? = nil
     var ih: [String: String] = [:]
+	var isFinishedOrders: Bool
     
     @State var attempt = 0
     
@@ -44,10 +46,13 @@ struct ModalOrder: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(fullOrder.items, id: \.self) { item in
-                            OrderCollectionCell(selectedModal: $selectedModal, item: item, itemImg: ih, deleteAction: {
+							OrderCollectionCell(selectedModal: $selectedModal, item: item, itemImg: ih, isFinishedOrders: isFinishedOrders, deleteAction: {
                                 showAlert = true
                                 itemToRemove = item
-                            })
+							}, editAction: {
+								itemToEdit = item
+								selectedModal = .editOpenOrderItem
+							})
                         }
                             
                         // Botão de adicionar mais itens
@@ -85,16 +90,33 @@ struct ModalOrder: View {
                 .background(Color.white)
                     .alert(isPresented: $showAlert, content: {
                         Alert(title: Text("Deseja mesmo excluir esse item? Essa ação não poderá ser desfeita"), primaryButton: .cancel(Text("Voltar")), secondaryButton: .destructive(Text("Excluir"), action: {
-                            api.getRemoveItemOpenOrder(for: fullOrder.name, item: itemToRemove!){
-                                api.getOpenOrders {}
-                            }
+							if let id = fullOrder.id {
+								if fullOrder.items.count == 1 {
+									api.getCancelOrder(for: id) {
+										selectedModal = .none
+									}
+								} else {
+									api.getRemoveItemOpenOrder(for: id, item: itemToRemove!){
+										api.getOpenOrders {
+											self.fullOrder = api.openOrders.first(where: { $0.id == fullOrder.id }) ?? api.openOrders[0]
+										}
+									}
+								}
+							}
                         }))
                     })
-        
+		.onAppear(perform: {
+//			DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+				api.getOpenOrders {
+					self.fullOrder = api.openOrders.first(where: { $0.id == fullOrder.id }) ?? api.openOrders[0]
+				}
+//			}
+		})
     } // Fecha body
     
     func asyncRepeat() {
-        api.getEndOrder(for: fullOrder.name) { http in
+		if let id = fullOrder.id {
+        api.getEndOrder(for: id) { http in
             print(fullOrder.items[0].nome)
             if http.statusCode == 500 {
                 attempt += 1
@@ -107,6 +129,7 @@ struct ModalOrder: View {
                 selectedModal = .none
             }
         }
+	}
         
 //        api.getOpenOrders() {
 //            if !api.openOrders.isEmpty {

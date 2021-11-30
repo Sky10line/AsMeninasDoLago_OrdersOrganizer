@@ -137,13 +137,15 @@ struct NewOrderView: View {
 							ScrollView {
 								LazyVStack {
                                     ForEach(order.items, id: \.self) { item in
-                                        OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, itemImg: orderImgs, deleteAction: {
+										OrderCollectionCell(selectedModal: Binding.constant(ContentView.Modals.homeOrderDetails), item: item, itemImg: orderImgs, isFinishedOrders: false, deleteAction: {
                                             alertMessage = "Deseja mesmo excluir esse item?"
                                             isAlertDestructive = true
                                             showAlert = true
                                             itemToRemove = item
                                             
-                                        })
+										}, editAction: {
+											
+										})
 									}
 								}.padding(.horizontal, horizontalSizeClass == .regular ? 32 : 0)
 								.background(Color.white)

@@ -11,6 +11,7 @@ struct OrderJSON: Decodable, Hashable {
     var name: String
     var items: [ItemInfo]
     var totalValue: Double
+	var id: Int?
 }
 
 struct ItemInfo: Decodable, Hashable {

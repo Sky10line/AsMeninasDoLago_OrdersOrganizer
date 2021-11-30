@@ -18,6 +18,11 @@ struct HomeView: View {
 	
     @State var orders: [OrderJSON] = []
     @State var attempt = 0
+	
+	@State var showItemNewOrder: Bool = true
+	@State var itemData: ItemJSON = ItemJSON(name: "", price: 0, image: nil)
+	@State var order: OrderJSON = emptyOrder
+	@State var orderImgs: [String:String] = [:]
   
     #if os(iOS)
 		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -54,7 +59,9 @@ struct HomeView: View {
 
 					
 					NavigationLink(
-						destination: NewOrderView(isBeingPresented: $isShowingNewOrderView),
+						destination: NewOrderView(isBeingPresented: $isShowingNewOrderView).onDisappear(perform: {
+							asyncRepeat(completion: { })
+						}),
 						isActive: $isShowingNewOrderView,
 						label: { EmptyView() })
 					

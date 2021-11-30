@@ -11,11 +11,13 @@ struct OrderFromJSON: Codable {
     let itens: [ItemFromJSON]
     let nome: String
     let total: Int
+	let id: Int
 
     enum CodingKeys: String, CodingKey {
         case itens = "Itens"
         case nome = "Nome"
         case total = "Total"
+		case id = "id"
     }
 }
 

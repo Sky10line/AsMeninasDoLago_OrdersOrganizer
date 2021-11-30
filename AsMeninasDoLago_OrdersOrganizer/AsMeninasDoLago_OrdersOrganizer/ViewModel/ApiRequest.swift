@@ -61,7 +61,7 @@ class ApiRequest: ObservableObject {
                         for item in pedido.itens {
                             b.append(ItemInfo(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes, nomeImagem: item.nomeImagem ?? ""))
                         }
-                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
+						let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total), id: pedido.id)
                         converted.append(a)
                     }
                     if converted.isEmpty {
@@ -124,8 +124,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para MostraComandaPorNome/{nome}
     
     // MARK: N é chamada, mas funciona
-    func getOrderByName(name: String, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "MostraComandaPorNome/\(name)") else {
+    func getOrderById(id: Int, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "MostraComandaPorID/\(id)") else {
             print("Erro ao criar request")
             return
         }
@@ -250,8 +250,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para Finaliza/{nome}
     
     // MARK: Tá funcionando
-    func getEndOrder(for name: String, completion: @escaping (HTTPURLResponse) -> Void) {
-        guard let request = createRequest(endpoint: "Finaliza/\(name)") else {
+    func getEndOrder(for id: Int, completion: @escaping (HTTPURLResponse) -> Void) {
+        guard let request = createRequest(endpoint: "Finaliza/\(id)") else {
             print("Erro ao criar request")
             return
         }
@@ -292,59 +292,36 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para RemoveDaComanda/{nome}/{item}
     
     // MARK: Tá funcionando
-    func getRemoveItemOpenOrder(for name: String, item: ItemInfo, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "RemoveDaComanda/\(name)/\(item.nome)") else {
+	func getRemoveItemOpenOrder(for id: Int, item: ItemInfo, completion: @escaping () -> Void) {
+		guard var request = createRequest(endpoint: "RemoveDaComanda/\(id)") else {
             //print("RemoveDaComanda/\(name)/\(item.nome)")
             print("Erro ao criar request")
             return
         }
-        session.dataTask(with: request) { data, respose, error in
-            
-            if let erro = error {
-                print("Erro: \(erro.localizedDescription)")
-                return
-            }
-//            DispatchQueue.main.async {
-//                guard let data = data else { return }
-//                do {
-//                    let decodedResponse = try self.decoder.decode(OrderJSON2Element.self, from: data)
-//                    print(data)
-//
-//
-//                    var b: [Itemn] = []
-//                    for item in decodedResponse.itens {
-//                        b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
-//                    }
-//                    let conv = OrderJSON(name: decodedResponse.nome, items: b, totalValue: Double(decodedResponse.total))
-//
-//                    for pedido in self.openOrders {
-//                        if pedido.name == conv.name{
-//                            pedido.items = conv.items
-//                        }
-//                    }
-                    
-                    
-                    // Linha de testes, por favor não apagar
-                    //print(decodedResponse)
-//                    var converted: [OrderJSON] = []
-//                    for pedido in decodedResponse {
-//                        var b: [Itemn] = []
-//                        for item in pedido.itens {
-//                            b.append(Itemn(nome: item.nome, quantidade: item.quantidade, preco: Double(item.preco), observacoes: item.observacoes))
-//                        }
-//                        let a = OrderJSON(name: pedido.nome, items: b, totalValue: Double(pedido.total))
-//                        converted.append(a)
-                    
-//                    DispatchQueue.main.async {
-                        completion()
-//                    }
-//                }
-//                catch {
-//                    print("Erro: \(error.localizedDescription)")
-//                }
-//            }
-            
-        }.resume()
+		request.httpMethod = "POST"
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+		let itemForPost: [String : Any] = [
+			"Nome": item.nome,
+			"Preco": item.preco
+		]
+
+
+		do {
+			let jsonData = try JSONSerialization.data(withJSONObject: ["Itens": [itemForPost]], options: [])
+			session.uploadTask(with: request, from: jsonData) { data, response, error in
+				if let data = data, let httpResponse = response {
+					print(data as Any)
+					print(httpResponse as Any)
+				}
+				DispatchQueue.main.async {
+					completion()
+				}
+			}.resume()
+		}
+		catch {
+			print("Erro: \(error.localizedDescription)")
+		}
     }
     
     // MARK: getRemoveItemMenu
@@ -386,8 +363,8 @@ class ApiRequest: ObservableObject {
     /// Faz chamada GET para LimparComanda/{nome}
     
     // MARK: Nunca é chamada
-    func getCancelOrder(for name: String, completion: @escaping () -> Void) {
-        guard let request = createRequest(endpoint: "LimparComanda/\(name)") else {
+    func getCancelOrder(for id: Int, completion: @escaping () -> Void) {
+        guard let request = createRequest(endpoint: "LimparComanda/\(id)") else {
             print("Erro ao criar request")
             return
         }
@@ -506,6 +483,43 @@ class ApiRequest: ObservableObject {
         }
         
     }
+	
+	// MARK: postEditItemOfOrder
+	// Retorna resposta HTTP
+	/// Faz chamada POST para EditaItem/{id}
+	func postEditItemOfOrder(for id: Int, item: ItemInfo, completion: @escaping () -> Void) {
+		guard var request = createRequest(endpoint: "EditaItem/\(id)") else {
+			print("Erro ao criar request")
+			return
+		}
+		request.httpMethod = "POST"
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+		let itemForPost: [String : Any] = [
+			"Nome": item.nome,
+			"Quantidade": item.quantidade,
+			"Preco": item.preco,
+			"Observacoes": item.observacoes == "Observações" || item.observacoes == "" || item.observacoes == " " ? "Nenhuma Observação" : item.observacoes
+		]
+
+
+		do {
+			let jsonData = try JSONSerialization.data(withJSONObject: ["Itens": [itemForPost]], options: [])
+			session.uploadTask(with: request, from: jsonData) { data, response, error in
+				if let data = data, let httpResponse = response {
+					print(data as Any)
+					print(httpResponse as Any)
+				}
+				DispatchQueue.main.async {
+					completion()
+				}
+			}.resume()
+		}
+		catch {
+			print("Erro: \(error.localizedDescription)")
+		}
+		
+	}
     
     // MARK: postAddItemToMenu
     // Retorna resposta HTTP
