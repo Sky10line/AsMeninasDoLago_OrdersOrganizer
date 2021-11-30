@@ -54,7 +54,6 @@ class ApiRequest: ObservableObject {
                 do {
                     let decodedResponse = try self.decoder.decode(OrdersFromJSON.self, from: data)
                     
-                    
                     var converted: [OrderJSON] = []
                     for pedido in decodedResponse {
                         var b: [ItemInfo] = []
@@ -67,6 +66,8 @@ class ApiRequest: ObservableObject {
                     }
                     if converted.isEmpty {
                     }
+                    
+                    
                     self.openOrders = converted
                     DispatchQueue.main.async {
                         completion()
@@ -489,7 +490,7 @@ class ApiRequest: ObservableObject {
     // MARK: postAddToOpenOrder
     // Retorna resposta HTTP
     /// Faz chamada POST para AddNaComanda/{id}
-    func postAddToOpenOrder(oldOrder: OrderJSON, newOrder: OrderJSON) {
+    func postAddToOpenOrder(oldOrder: OrderJSON, newOrder: OrderJSON, completion: @escaping (HTTPURLResponse) -> Void) {
         guard var request = createRequest(endpoint: "AddNaComanda/\(newOrder.id!)") else {
             print("Erro ao criar request")
             return
@@ -499,11 +500,11 @@ class ApiRequest: ObservableObject {
         
         let oldOrderItems = oldOrder.items.sorted(by: {$0.nome < $1.nome})
         let newOrderItems = newOrder.items.sorted(by: {$0.nome < $1.nome})
-        
     
-        var allItems: [String : Any] = [:]
+        var allItems: [String : Any] = [
+            "Nome": newOrder.name
+        ]
         
-        allItems["Nome"] = newOrder.name
         
         var itens: [[String: Any]] = []
         
@@ -511,26 +512,25 @@ class ApiRequest: ObservableObject {
             if !oldOrderItems.contains(item) {
                 let itemForPost: [String : Any] = [
                     "Nome": item.nome,
+                    "Nome Imagem": item.nomeImagem,
                     "Quantidade": item.quantidade,
                     "Preco": item.preco,
                     "Observacoes": item.observacoes == "Observações" || item.observacoes == "" || item.observacoes == " " ? "Nenhuma Observação" : item.observacoes
                 ]
                 
-                var alreadyAppended = itens
-                alreadyAppended.append(itemForPost)
-                itens = alreadyAppended
-
-                
+                itens.append(itemForPost)
             }
         }
         allItems["Itens"] = itens
+        print(allItems)
 
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: allItems, options: [])
             session.uploadTask(with: request, from: jsonData) { data, response, error in
-                if let data = data, let httpResponse = response {
+                if let data = data, let httpResponse = response as? HTTPURLResponse {
                     print(data as Any)
                     print(httpResponse as Any)
+                    completion(httpResponse)
                 }
             }.resume()
         }
@@ -539,9 +539,23 @@ class ApiRequest: ObservableObject {
         }
     }
     
-    // MARK: postAddItemToMenu
-    // Retorna resposta HTTP
-    /// Faz chamada POST para AddNoCardapio
+    /*
+    {
+        "Itens": [
+            {
+              "Nome": "Carne Louca",
+              "Nome Imagem": "CarneLouca",
+              "Observacoes": "b",
+              "Preco": 13.0,
+              "Quantidade": 4
+            }
+            ],
+        "Nome": "Caroline"
+    }
+    
+    ["Nome": "Caroline", "Itens": [["Nome Imagem": "CalabresaComQueijoEVinagrete", "Nome": "Calabresa com queijo e vinagrete", "Quantidade": 1, "Observacoes": "Nenhuma Observação", "Preco": 13.0]]]
+ 
+ */
     
     // MARK: Não foi criada
 //    func postAddItemToMenu(for name: ItemJSON) {

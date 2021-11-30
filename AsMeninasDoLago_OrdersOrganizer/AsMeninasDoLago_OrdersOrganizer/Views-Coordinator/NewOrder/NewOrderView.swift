@@ -35,6 +35,8 @@ struct NewOrderView: View {
     @State var isDisabled = false
     @State var oldOrder = emptyOrder
     
+    @State var attempt = 0
+    
   
   	#if os(iOS)
 		  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -231,14 +233,27 @@ struct NewOrderView: View {
             showAlert = true
         }
         else if isDisabled {
-            api.postAddToOpenOrder(oldOrder: oldOrder, newOrder: order)
-            isBeingPresented = false
+            asyncRepeat()
         }
         else {
             order.name = name
             api.postNewOrder(order: order)
             isBeingPresented = false
         }
+    }
+    
+    func asyncRepeat() {
+        api.postAddToOpenOrder(oldOrder: oldOrder, newOrder: order) { http in
+            if http.statusCode == 500 {
+                attempt += 1
+                if attempt >= 10 { print("Tentei demais") ; attempt = 0 ; return }
+                asyncRepeat()
+            }
+            else {
+                isBeingPresented = false
+            }
+        }
+        
     }
 	
 }

@@ -147,7 +147,7 @@ struct Sanduiches: Codable {
     let calabresaCOMQueijoEVinagre, carneLouca, pernil: Double
 
     enum CodingKeys: String, CodingKey {
-        case calabresaCOMQueijoEVinagre = "Calabresa com queijo e vinagre"
+        case calabresaCOMQueijoEVinagre = "Calabresa com queijo e vinagrete"
         case carneLouca = "Carne Louca"
         case pernil = "Pernil"
     }
